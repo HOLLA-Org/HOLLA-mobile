@@ -30,7 +30,10 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.verify,
-        builder: (context, state) => const VerifyScreen(),
+        builder: (context, state) {
+          final email = state.extra as String;
+          return VerifyScreen(email: email);
+        },
       ),
       GoRoute(
         path: AppRoutes.login,
