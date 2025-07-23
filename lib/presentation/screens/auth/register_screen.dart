@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:holla/bloc/auth/register/register_bloc.dart';
 import 'package:holla/bloc/auth/register/register_event.dart';
 import 'package:holla/bloc/auth/register/register_state.dart';
+import 'package:holla/models/auth_model.dart';
 import 'package:holla/presentation/widget/confirm_button.dart';
 import 'package:holla/presentation/widget/notification_dialog.dart';
 import 'package:holla/presentation/widget/textfield_custom.dart';
@@ -75,16 +76,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void showRegisterSuccess(BuildContext context, String username) {
+  void showRegisterSuccess(BuildContext context, AuthModel auth) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Chào mừng, $username. Vui lòng kích hoạt tài khoản của bạn!',
+          'Chào mừng, ${auth.username}. Vui lòng kích hoạt tài khoản của bạn!',
         ),
         backgroundColor: const Color(0xFF008080),
       ),
     );
-    context.go(AppRoutes.verify);
+    context.go(AppRoutes.verify, extra: auth.email);
   }
 
   void showRegisterFailure(BuildContext context, String error) {
@@ -105,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: BlocListener<RegisterBloc, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
-            showRegisterSuccess(context, state.auth.username);
+            showRegisterSuccess(context, state.auth);
           } else if (state is RegisterFailure) {
             showRegisterFailure(context, state.error);
           }
