@@ -2,6 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:holla/presentation/screens/auth/login_screen.dart';
 import 'package:holla/presentation/screens/auth/verify_screen.dart';
 import 'package:holla/presentation/screens/auth/register_screen.dart';
+import 'package:holla/presentation/screens/forgot_password/forgot_password_screen.dart';
+import 'package:holla/presentation/screens/home/home_screen.dart';
 import 'package:holla/presentation/screens/onboarding/loading_screen.dart';
 import 'package:holla/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:holla/presentation/screens/onboarding/splash_screen.dart';
@@ -38,6 +40,15 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.login,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.forgotpassword,
+        builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (context, state) => const HomeScreen(),
       ),
     ],
   );
