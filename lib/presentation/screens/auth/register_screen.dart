@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void showRegisterFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Thất bại',
+      title: 'Đăng kí thất bại',
       message: error,
       isError: true,
     );
@@ -213,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SizedBox(
                         width: double.infinity,
                         height: 50,
-                        // Hiển thị vòng quay khi đang tải.
+
                         child:
                             (state is RegisterLoading)
                                 ? const Center(
@@ -241,7 +241,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             // --- Footer ---
             Stack(
               children: [
-                // Background Image
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Image(
@@ -252,7 +251,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 120,
                   ),
                 ),
-                // Button Content
                 SizedBox(
                   width: double.infinity,
                   height: 120,
@@ -265,11 +263,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Image(
-                              image: AssetImage('assets/icons/arrow_left.png'),
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(width: 8),
                             Text(
                               'Đăng nhập',
                               style: TextStyle(
@@ -278,6 +271,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'CrimsonText',
                               ),
+                            ),
+                            SizedBox(width: 8),
+                            Image(
+                              image: AssetImage('assets/icons/arrow_left.png'),
+                              fit: BoxFit.cover,
                             ),
                           ],
                         ),

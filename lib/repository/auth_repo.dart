@@ -42,6 +42,33 @@ class AuthRepository {
     }
   }
 
+  Future<AuthModel> login({
+    required String emailOrUsername,
+    required String password,
+  }) async {
+    final Uri loginUrl = Uri.parse('$_baseUrl/auth/login');
+
+    try {
+      final response = await http.post(
+        loginUrl,
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode({'account': emailOrUsername, 'password': password}),
+      );
+
+      final responseBody = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final userData = responseBody['data'] as Map<String, dynamic>;
+        return AuthModel.fromJson(userData);
+      } else {
+        final errorMessage = responseBody['message'];
+        throw Exception(errorMessage);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
+
   Future<void> verifyCode({required String email, required String code}) async {
     final Uri verifyUrl = Uri.parse('$_baseUrl/auth/verify');
 

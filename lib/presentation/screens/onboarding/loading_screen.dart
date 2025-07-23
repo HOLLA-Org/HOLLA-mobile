@@ -60,7 +60,7 @@ class _LoadingScreenState extends State<LoadingScreen>
   void _navigateToLogin() async {
     await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
-    context.go(AppRoutes.register);
+    context.go(AppRoutes.login);
   }
 
   @override
