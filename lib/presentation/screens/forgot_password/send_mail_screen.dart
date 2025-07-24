@@ -52,12 +52,12 @@ class _SendMailScreenState extends State<SendMailScreen> {
   void _handleSendMailStateChanges(BuildContext context, SendMailState state) {
     if (state is SendMailSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Yêu cầu đã được gửi, vui lòng kiểm tra email!'),
-          backgroundColor: const Color(0xFF008080),
+          backgroundColor: Color(0xFF008080),
         ),
       );
-      context.go(AppRoutes.verifypassword);
+      context.go(AppRoutes.verifypassword, extra: state.email);
     } else if (state is SendMailFailure) {
       notificationDialog(
         context: context,

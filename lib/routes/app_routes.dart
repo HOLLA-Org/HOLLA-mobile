@@ -12,6 +12,7 @@ class AppRoutes {
   // Forgot password
   static const String sendmail = '/sendmail';
   static const String verifypassword = '/verifypassword';
+  static const String resetpassword = '/resetpassword';
 
   // Shell routes
   static const String home = '/home';
