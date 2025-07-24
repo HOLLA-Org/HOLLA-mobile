@@ -43,7 +43,7 @@ class SendMailLoading extends SendMailState {}
 class SendMailSuccess extends SendMailState {
   final String email;
 
-  const SendMailSuccess(this.email);
+  const SendMailSuccess({required this.email});
 
   @override
   List<Object> get props => [email];

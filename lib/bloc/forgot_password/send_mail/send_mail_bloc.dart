@@ -47,7 +47,7 @@ class SendMailBloc extends Bloc<SendMailEvent, SendMailState> {
       emit(SendMailLoading());
       try {
         await _forgotPasswordRepository.sendMail(email: event.email);
-        emit(SendMailSuccess(event.email));
+        emit(SendMailSuccess(email: event.email));
       } catch (e) {
         final translatedError = _translateError(e.toString());
         emit(SendMailFailure(translatedError));
