@@ -2,22 +2,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/bloc/auth/login/login_bloc.dart';
 import 'package:holla/bloc/auth/register/register_bloc.dart';
 import 'package:holla/bloc/auth/verify/verify_bloc.dart';
-import 'package:holla/repository/auth_repo.dart';
+import 'package:holla/bloc/forgot_password/send_mail/send_mail_bloc.dart';
+import 'package:holla/config/repository_provider.dart';
 
-final allBlocProviders = <BlocProvider>[
+final blocProviders = <BlocProvider>[
   BlocProvider<LoginBloc>(
-    create:
-        (context) => LoginBloc(authRepository: context.read<AuthRepository>()),
+    create: (_) => LoginBloc(authRepository: authRepository),
   ),
 
   BlocProvider<RegisterBloc>(
-    create:
-        (context) =>
-            RegisterBloc(authRepository: context.read<AuthRepository>()),
+    create: (_) => RegisterBloc(authRepository: authRepository),
   ),
 
   BlocProvider<VerifyBloc>(
+    create: (_) => VerifyBloc(authRepository: authRepository),
+  ),
+
+  BlocProvider<SendMailBloc>(
     create:
-        (context) => VerifyBloc(authRepository: context.read<AuthRepository>()),
+        (_) => SendMailBloc(forgotPasswordRepository: forgotPasswordRepository),
   ),
 ];
