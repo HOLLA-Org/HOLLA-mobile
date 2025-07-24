@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // Navigates to the forgot password screen
   void _handleForgotPassWord() {
-    context.go(AppRoutes.forgotpassword);
+    context.go(AppRoutes.sendmail);
   }
 
   // Navigates to the register screen

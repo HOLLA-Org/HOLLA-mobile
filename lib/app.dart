@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/config/app_providers.dart';
+import 'package:holla/config/repository_provider.dart';
 import 'package:holla/config/theme.dart';
-import 'package:holla/repository/auth_repo.dart';
 import 'package:holla/routes/app_router.dart';
 
 class MyApp extends StatelessWidget {
@@ -10,12 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthRepository authRepository = AuthRepository();
-
-    return RepositoryProvider.value(
-      value: authRepository,
+    return MultiRepositoryProvider(
+      providers: repositoryProviders,
       child: MultiBlocProvider(
-        providers: allBlocProviders,
+        providers: blocProviders,
         child: MaterialApp.router(
           title: 'HoLLa',
           theme: AppTheme.lightTheme,

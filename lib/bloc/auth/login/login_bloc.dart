@@ -55,7 +55,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   String _translateError(String errorMessage) {
-    // Loại bỏ tiền tố "Exception: " để lấy thông báo lỗi gốc
     final error = errorMessage.replaceFirst('Exception: ', '').trim();
 
     switch (error) {
