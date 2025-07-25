@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/bloc/auth/login/login_bloc.dart';
 import 'package:holla/bloc/auth/register/register_bloc.dart';
 import 'package:holla/bloc/auth/verify/verify_bloc.dart';
+import 'package:holla/bloc/forgot_password/reset_pass/reset_password_bloc.dart';
 import 'package:holla/bloc/forgot_password/send_mail/send_mail_bloc.dart';
 import 'package:holla/config/repository_provider.dart';
 
@@ -27,6 +28,12 @@ final blocProviders = <BlocProvider>[
   BlocProvider<VerifyPasswordBloc>(
     create:
         (_) => VerifyPasswordBloc(
+          forgotPasswordRepository: forgotPasswordRepository,
+        ),
+  ),
+  BlocProvider<ResetPasswordBloc>(
+    create:
+        (_) => ResetPasswordBloc(
           forgotPasswordRepository: forgotPasswordRepository,
         ),
   ),

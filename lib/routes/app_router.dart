@@ -56,8 +56,12 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.resetpassword,
-        builder: (context, state) => const ResetPasswordScreen(),
+        builder: (context, state) {
+          final token = state.extra as String;
+          return ResetPasswordScreen(token: token);
+        },
       ),
+
       GoRoute(
         path: AppRoutes.home,
         builder: (context, state) => const HomeScreen(),
