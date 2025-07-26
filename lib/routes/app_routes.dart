@@ -16,4 +16,8 @@ class AppRoutes {
 
   // Shell routes
   static const String home = '/home';
+  static const String profile = '/profile';
+  static const String favorite = '/favorite';
+  static const String booking = '/booking';
+  static const String setting = '/setting';
 }
