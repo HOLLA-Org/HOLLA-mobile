@@ -1,7 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holla/presentation/navigation/custom_bottom_navigation.dart';
 import 'package:holla/presentation/screens/auth/login_screen.dart';
 import 'package:holla/presentation/screens/auth/verify_screen.dart';
 import 'package:holla/presentation/screens/auth/register_screen.dart';
+import 'package:holla/presentation/screens/booking/booking_screen.dart';
+import 'package:holla/presentation/screens/favorite/favorite_screen.dart';
 import 'package:holla/presentation/screens/forgot_password/reset_password_screen.dart';
 import 'package:holla/presentation/screens/forgot_password/send_mail_screen.dart';
 import 'package:holla/presentation/screens/forgot_password/verify_password_screen.dart';
@@ -9,6 +13,8 @@ import 'package:holla/presentation/screens/home/home_screen.dart';
 import 'package:holla/presentation/screens/onboarding/loading_screen.dart';
 import 'package:holla/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:holla/presentation/screens/onboarding/splash_screen.dart';
+import 'package:holla/presentation/screens/profile/profile_screen.dart';
+import 'package:holla/presentation/screens/setting/setting_screen.dart';
 import 'package:holla/routes/app_routes.dart';
 
 class AppRouter {
@@ -62,10 +68,45 @@ class AppRouter {
         },
       ),
 
-      GoRoute(
-        path: AppRoutes.home,
-        builder: (context, state) => const HomeScreen(),
+      // ShellRoute have nav bar
+      ShellRoute(
+        builder: (context, state, child) {
+          int currentIndex = _getNavIndex(state.uri.path);
+          return Scaffold(
+            body: child,
+            bottomNavigationBar: CustomBottomNavBar(initialIndex: currentIndex),
+          );
+        },
+        routes: [
+          GoRoute(
+            path: AppRoutes.home,
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.favorite,
+            builder: (context, state) => FavoriteScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.booking,
+            builder: (context, state) => const BookingScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.profile,
+            builder: (context, state) => const ProfileScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.setting,
+            builder: (context, state) => const SettingScreen(),
+          ),
+        ],
       ),
     ],
   );
+  static int _getNavIndex(String path) {
+    if (path.startsWith(AppRoutes.favorite)) return 1;
+    if (path.startsWith(AppRoutes.booking)) return 2;
+    if (path.startsWith(AppRoutes.profile)) return 3;
+    if (path.startsWith(AppRoutes.setting)) return 4;
+    return 0;
+  }
 }
