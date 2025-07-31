@@ -1,5 +1,4 @@
-// lib/presentation/screens/auth/login_screen.dart
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -38,9 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  // --- Handler Functions ---
-
-  // Dispatches a form changed event to the BLoC on input change
   void _onFormChanged() {
     context.read<LoginBloc>().add(
       LoginFormChanged(
@@ -50,17 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Navigates to the forgot password screen
   void _handleForgotPassWord() {
     context.go(AppRoutes.sendmail);
   }
 
-  // Navigates to the register screen
   void _handleNavigateToRegister() {
     context.go(AppRoutes.register);
   }
 
-  // Dispatches a login submission event to the BLoC
   void _handleLogin() {
     context.read<LoginBloc>().add(
       LoginSubmitted(
@@ -73,24 +66,21 @@ class _LoginScreenState extends State<LoginScreen> {
   void showLoginSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Đang nhập thành công!'),
+        content: Text('Đăng nhập thành công!'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
     context.go(AppRoutes.home);
   }
 
-  // Shows an error dialog upon login failure
   void showLoginFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Đăng nhập thất bại',
+      title: 'Đăng nhập thất bại'.tr(),
       message: error,
       isError: true,
     );
   }
-
-  // --- Build Method ---
 
   @override
   Widget build(BuildContext context) {
@@ -109,33 +99,38 @@ class _LoginScreenState extends State<LoginScreen> {
             // --- Header ---
             Stack(
               children: [
-                Image(
-                  image: const AssetImage('assets/images/main_elip_big.png'),
+                const Image(
+                  image: AssetImage('assets/images/main_elip_big.png'),
                   width: double.infinity,
                   height: 380,
                   fit: BoxFit.cover,
                 ),
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
                   height: 250,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 110, left: 24.0, right: 24.0),
+                    padding: const EdgeInsets.only(
+                      top: 110,
+                      left: 24.0,
+                      right: 24.0,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Đăng nhập tài khoản',
-                          style: TextStyle(
+                          'Đăng nhập tài khoản'.tr(),
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 36,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'PlayfairDisplay',
                           ),
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         Text(
-                          'Chào mừng bạn trở lại! Vui lòng đăng nhập\nđể tiếp tục hành trình cùng HoLLa',
-                          style: TextStyle(
+                          'Chào mừng bạn trở lại! Vui lòng đăng nhập\nđể tiếp tục hành trình cùng HoLLa'
+                              .tr(),
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontFamily: 'CrimsonText',
@@ -169,14 +164,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       TextFieldCustom(
                         controller: _emailOrUsernameController,
-                        hintText: 'Tên đăng nhập hoặc email',
+                        hintText: 'Tên đăng nhập hoặc email'.tr(),
                         prefixIcon: Icons.person,
                         hasError: invalidFields.contains('emailOrUsername'),
                       ),
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _passwordController,
-                        hintText: 'Mật khẩu',
+                        hintText: 'Mật khẩu'.tr(),
                         prefixIcon: Icons.lock,
                         isPassword: true,
                         hasError: invalidFields.contains('password'),
@@ -185,9 +180,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.only(top: 24.0),
                         child: TextButton(
                           onPressed: _handleForgotPassWord,
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(
+                          child: Text(
+                            "Quên mật khẩu?".tr(),
+                            style: const TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'CrimsonText',
@@ -206,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: CircularProgressIndicator(),
                                 )
                                 : ConfirmButton(
-                                  text: "Đăng nhập",
+                                  text: "Đăng nhập".tr(),
                                   color:
                                       isFormValid
                                           ? const Color(0xFF008080)
@@ -225,12 +220,10 @@ class _LoginScreenState extends State<LoginScreen> {
             // --- Footer ---
             Stack(
               children: [
-                Align(
+                const Align(
                   alignment: Alignment.bottomRight,
                   child: Image(
-                    image: const AssetImage(
-                      'assets/images/main_elip_small.png',
-                    ),
+                    image: AssetImage('assets/images/main_elip_small.png'),
                     fit: BoxFit.cover,
                     height: 120,
                   ),
@@ -244,20 +237,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.only(bottom: 20.0, right: 16.0),
                       child: TextButton(
                         onPressed: _handleNavigateToRegister,
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Đăng kí',
-                              style: TextStyle(
+                              'Đăng ký'.tr(),
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'CrimsonText',
                               ),
                             ),
-                            SizedBox(width: 8),
-                            Image(
+                            const SizedBox(width: 8),
+                            const Image(
                               image: AssetImage('assets/icons/arrow_left.png'),
                               fit: BoxFit.cover,
                             ),

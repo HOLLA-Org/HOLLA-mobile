@@ -14,6 +14,7 @@ import 'package:holla/presentation/screens/onboarding/loading_screen.dart';
 import 'package:holla/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:holla/presentation/screens/onboarding/splash_screen.dart';
 import 'package:holla/presentation/screens/profile/profile_screen.dart';
+import 'package:holla/presentation/screens/setting/%20select_language_screen.dart';
 import 'package:holla/presentation/screens/setting/setting_screen.dart';
 import 'package:holla/routes/app_routes.dart';
 
@@ -66,6 +67,14 @@ class AppRouter {
           final token = state.extra as String;
           return ResetPasswordScreen(token: token);
         },
+      ),
+      GoRoute(
+        path: AppRoutes.notification,
+        builder: (context, state) => const SendMailScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.language,
+        builder: (context, state) => const SelectLanguageScreen(),
       ),
 
       // ShellRoute have nav bar

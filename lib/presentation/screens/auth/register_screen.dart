@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -80,7 +81,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Chào mừng, ${auth.username}. Vui lòng kích hoạt tài khoản của bạn!',
+          'Chào mừng, ${auth.username}. Vui lòng kích hoạt tài khoản của bạn!'
+              .tr(),
         ),
         backgroundColor: const Color(0xFF008080),
       ),
@@ -91,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void showRegisterFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Đăng kí thất bại',
+      title: 'Đăng kí thất bại'.tr(),
       message: error,
       isError: true,
     );
@@ -124,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   fit: BoxFit.cover,
                 ),
                 // Text Content
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
                   height: 250,
                   child: Padding(
@@ -133,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Tạo tài khoản',
+                          'Tạo tài khoản'.tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 40,
@@ -143,7 +145,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          'Tạo tài khoản để bắt đầu hành trình tìm phòng\nlý tưởng cùng HoLLa',
+                          'Tạo tài khoản để bắt đầu hành trình tìm phòng\nlý tưởng cùng HoLLa'
+                              .tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -159,10 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             // --- Form ---
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 20.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
 
               child: BlocBuilder<RegisterBloc, RegisterState>(
                 builder: (context, state) {
@@ -178,21 +178,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       TextFieldCustom(
                         controller: _usernameController,
-                        hintText: 'Tên đăng nhập',
+                        hintText: 'Tên đăng nhập'.tr(),
                         prefixIcon: Icons.person,
                         hasError: invalidFields.contains('username'),
                       ),
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _emailController,
-                        hintText: 'Email',
+                        hintText: 'Email'.tr(),
                         prefixIcon: Icons.email,
                         hasError: invalidFields.contains('email'),
                       ),
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _passwordController,
-                        hintText: 'Mật khẩu',
+                        hintText: 'Mật khẩu'.tr(),
                         prefixIcon: Icons.lock,
                         isPassword: true,
                         hasError:
@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _confirmPasswordController,
-                        hintText: 'Xác nhận mật khẩu',
+                        hintText: 'Xác nhận mật khẩu'.tr(),
                         prefixIcon: Icons.lock,
                         isPassword: true,
                         hasError:
@@ -220,7 +220,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   child: CircularProgressIndicator(),
                                 )
                                 : ConfirmButton(
-                                  text: "Đăng kí",
+                                  text: "Đăng kí".tr(),
                                   color:
                                       isFormValid
                                           ? const Color(0xFF008080)
@@ -260,11 +260,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       padding: const EdgeInsets.only(bottom: 20.0, right: 16.0),
                       child: TextButton(
                         onPressed: _handleNavigateToLogin,
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Đăng nhập',
+                              'Đăng nhập'.tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -99,15 +100,15 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
     } else if (state is VerifyPasswordFailure) {
       notificationDialog(
         context: context,
-        title: 'Thất bại',
+        title: 'Thất bại'.tr(),
         message: state.error,
         isError: true,
       );
     } else if (state is VerifyPasswordCodeResent) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'Mã xác thực mới đã được gửi.',
+            'Mã xác thực mới đã được gửi.'.tr(),
             style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
           ),
           backgroundColor: Color(0xFF008080),
@@ -158,8 +159,8 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                 alignment: Alignment.centerLeft,
                                 padding: const EdgeInsets.only(right: 16.0),
                               ),
-                              const Text(
-                                'Quên mật khẩu',
+                              Text(
+                                'Quên mật khẩu'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -168,8 +169,8 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              const Text(
-                                'Nhập mã của bạn để lấy lại mật khẩu',
+                              Text(
+                                'Nhập mã của bạn để lấy lại mật khẩu'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -228,7 +229,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                   onPressed:
                                       _start == 0 ? _handleResendCode : null,
                                   child: Text(
-                                    'Gửi lại mã',
+                                    'Gửi lại mã'.tr(),
                                     style: TextStyle(
                                       color:
                                           _start == 0
@@ -292,7 +293,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                         state is VerifyPasswordLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Xác nhận",
+                              text: "Xác nhận".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)

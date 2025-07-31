@@ -14,10 +14,14 @@ class AppRoutes {
   static const String verifypassword = '/verifypassword';
   static const String resetpassword = '/resetpassword';
 
+  // Notification
+  static const String notification = '/notification';
+
   // Shell routes
   static const String home = '/home';
   static const String profile = '/profile';
   static const String favorite = '/favorite';
   static const String booking = '/booking';
   static const String setting = '/setting';
+  static const String language = '/language';
 }

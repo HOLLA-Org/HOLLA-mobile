@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:holla/models/auth_model.dart';
 
 class AuthRepository {
   final String _baseUrl = 'http://10.0.2.2:8080/api/v1';
+  final _storage = const FlutterSecureStorage();
 
   Future<AuthModel> register({
     required String username,
@@ -99,6 +101,30 @@ class AuthRepository {
         body: jsonEncode({'email': email}),
       );
       if (response.statusCode != 200) {
+        final responseBody = jsonDecode(response.body);
+        final errorMessage = responseBody['message'];
+        throw Exception(errorMessage);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
+
+  Future<void> logout() async {
+    final Uri resendUrl = Uri.parse('$_baseUrl/auth/logout');
+    final accessToken = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.post(
+        resendUrl,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $accessToken',
+        },
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return;
+      } else {
         final responseBody = jsonDecode(response.body);
         final errorMessage = responseBody['message'];
         throw Exception(errorMessage);

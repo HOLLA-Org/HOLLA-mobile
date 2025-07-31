@@ -17,6 +17,10 @@ dependencies:
   http: ^1.2.1
   pinput: ^4.0.0
   lucide_icons: ^0.257.0
+  easy_localization: ^3.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_secure_storage: ^9.1.1
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +35,8 @@ flutter:
     - assets/logos/
     - assets/images/
     - assets/icons/
+    - assets/lang/
+
   # Uncomment the following lines to add custom fonts
   fonts:
     - family: CrimsonText

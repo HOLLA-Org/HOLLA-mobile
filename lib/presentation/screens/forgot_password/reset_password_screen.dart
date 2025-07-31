@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -61,8 +62,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   ) {
     if (state is ResetPasswordSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Mật khẩu của bạn đã được thay đổi!'),
+        SnackBar(
+          content: Text('Mật khẩu của bạn đã được thay đổi!'.tr()),
           backgroundColor: Color(0xFF008080),
         ),
       );
@@ -70,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     } else if (state is ResetPasswordFailure) {
       notificationDialog(
         context: context,
-        title: 'Cập nhật thất bại',
+        title: 'Cập nhật thất bại'.tr(),
         message: state.error,
         isError: true,
       );
@@ -118,8 +119,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                 padding: const EdgeInsets.only(right: 16.0),
                               ),
                               const SizedBox(height: 4),
-                              const Text(
-                                'Cập nhật mật khẩu',
+                              Text(
+                                'Cập nhật mật khẩu'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -128,8 +129,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              const Text(
-                                'Mật khẩu mới phải chứa ít nhất 6 ký tự \nbao gồm chữ hoa, chữ thường, số và kí tự đặc biệt',
+                              Text(
+                                'Mật khẩu mới phải chứa ít nhất 6 ký tự \nbao gồm chữ hoa, chữ thường, số và kí tự đặc biệt'
+                                    .tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -161,7 +163,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           children: [
                             TextFieldCustom(
                               controller: _passwordController,
-                              hintText: 'Mật khẩu',
+                              hintText: 'Mật khẩu'.tr(),
                               prefixIcon: Icons.lock,
                               isPassword: true,
                               hasError:
@@ -171,7 +173,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             const SizedBox(height: 10),
                             TextFieldCustom(
                               controller: _confirmPasswordController,
-                              hintText: 'Xác nhận mật khẩu',
+                              hintText: 'Xác nhận mật khẩu'.tr(),
                               prefixIcon: Icons.lock,
                               isPassword: true,
                               hasError:
@@ -209,7 +211,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         state is ResetPasswordLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Lưu",
+                              text: "Lưu thay đổi".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)

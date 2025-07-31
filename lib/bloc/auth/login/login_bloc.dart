@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:holla/bloc/auth/login/login_event.dart';
 import 'package:holla/bloc/auth/login/login_state.dart';
 import 'package:holla/repository/auth_repo.dart';
@@ -46,6 +47,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           emailOrUsername: event.emailOrUsername,
           password: event.password,
         );
+
+        const storage = FlutterSecureStorage();
+        await storage.write(key: 'accessToken', value: user.accessToken);
+        await storage.write(key: 'refreshToken', value: user.refreshToken);
+
         emit(LoginSuccess(user));
       } catch (e) {
         final translatedError = _translateError(e.toString());
