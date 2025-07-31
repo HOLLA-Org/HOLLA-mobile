@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/routes/app_routes.dart';
@@ -102,7 +103,7 @@ class _LoadingScreenState extends State<LoadingScreen>
               FadeTransition(
                 opacity: _animation,
                 child: Text(
-                  'Đang tải $dots',
+                  'Đang tải {{dots}}'.tr(namedArgs: {'dots': dots}),
                   style: TextStyle(
                     fontSize: 36,
                     fontFamily: 'CrimsonText',

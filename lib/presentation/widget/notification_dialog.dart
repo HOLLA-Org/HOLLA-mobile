@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 Future<void> notificationDialog({
@@ -32,8 +33,8 @@ Future<void> notificationDialog({
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text(
-              'Đồng ý',
+            child: Text(
+              'Đồng ý'.tr(),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

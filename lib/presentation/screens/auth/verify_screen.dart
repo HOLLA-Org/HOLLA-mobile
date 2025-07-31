@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -92,9 +93,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
   void _handleStateChanges(BuildContext context, VerifyState state) {
     if (state is VerifySuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'Tài khoản đã được kích hoạt thành công!',
+            'Tài khoản đã được kích hoạt thành công!'.tr(),
             style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
           ),
           backgroundColor: Color(0xFF008080),
@@ -104,15 +105,15 @@ class _VerifyScreenState extends State<VerifyScreen> {
     } else if (state is VerifyFailure) {
       notificationDialog(
         context: context,
-        title: 'Thất bại',
+        title: 'Thất bại'.tr(),
         message: state.error,
         isError: true,
       );
     } else if (state is VerifyCodeResent) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'Mã xác thực mới đã được gửi.',
+            'Mã xác thực mới đã được gửi.'.tr(),
             style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
           ),
           backgroundColor: Color(0xFF008080),
@@ -142,7 +143,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                         height: 300,
                         fit: BoxFit.cover,
                       ),
-                      const Positioned.fill(
+                      Positioned.fill(
                         top: -60,
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -151,7 +152,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Kích hoạt tài khoản',
+                                'Kích hoạt tài khoản'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -161,7 +162,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
                               ),
                               SizedBox(height: 16),
                               Text(
-                                'Mã kích đã gửi đến email của bạn. Nhập mã để \nkích hoạt tài khoản của bạn',
+                                'Mã kích đã gửi đến email của bạn. Nhập mã để \nkích hoạt tài khoản của bạn'
+                                    .tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -220,7 +222,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                                   onPressed:
                                       _start == 0 ? _handleResendCode : null,
                                   child: Text(
-                                    'Gửi lại mã',
+                                    'Gửi lại mã'.tr(),
                                     style: TextStyle(
                                       color:
                                           _start == 0
@@ -284,7 +286,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                         state is VerifyLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Xác nhận",
+                              text: "Xác nhận".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,12 +12,12 @@ class OnboardingScreen extends StatelessWidget {
 
   // Callback for when the privacy policy is tapped.
   void _onPrivacyPolicyTapped(BuildContext context) {
-    print('Đã nhấn vào Chính sách bảo mật');
+    // navigation privacy policy screen
   }
 
   // Callback for when the terms of service is tapped.
   void _onTermsOfServiceTapped(BuildContext context) {
-    print('Đã nhấn vào Điều khoản dịch vụ');
+    // navigation terms of service screen
   }
 
   // This will navigate to the loading screen.
@@ -57,9 +58,9 @@ class OnboardingScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
-                    const TextSpan(text: 'Đọc '),
+                    TextSpan(text: '${'Đọc'.tr()} '),
                     TextSpan(
-                      text: 'Chính sách bảo mật',
+                      text: 'Chính sách bảo mật'.tr(),
                       style: const TextStyle(
                         color: Color(0xFF008080),
                         fontWeight: FontWeight.bold,
@@ -69,9 +70,12 @@ class OnboardingScreen extends StatelessWidget {
                           TapGestureRecognizer()
                             ..onTap = () => _onPrivacyPolicyTapped,
                     ),
-                    const TextSpan(text: '. Nhấn\n“Đồng ý” để chấp nhận\n'),
                     TextSpan(
-                      text: 'Điều khoản dịch vụ',
+                      text:
+                          '${'. '.tr()}“${'Đồng ý'.tr()}” ${'để chấp nhận'.tr()}\n',
+                    ),
+                    TextSpan(
+                      text: 'Điều khoản dịch vụ'.tr(),
                       style: const TextStyle(
                         color: Color(0xFF008080),
                         fontWeight: FontWeight.bold,
@@ -88,7 +92,7 @@ class OnboardingScreen extends StatelessWidget {
 
               // Confirm button
               ConfirmButton(
-                text: 'Đồng ý',
+                text: 'Đồng ý'.tr(),
                 onPressed: () => _onAgreePressed(context),
               ),
               const SizedBox(height: 16),

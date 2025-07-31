@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -52,8 +53,8 @@ class _SendMailScreenState extends State<SendMailScreen> {
   void _handleSendMailStateChanges(BuildContext context, SendMailState state) {
     if (state is SendMailSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Yêu cầu đã được gửi, vui lòng kiểm tra email!'),
+        SnackBar(
+          content: Text('Yêu cầu đã được gửi, vui lòng kiểm tra email!'.tr()),
           backgroundColor: Color(0xFF008080),
         ),
       );
@@ -61,7 +62,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
     } else if (state is SendMailFailure) {
       notificationDialog(
         context: context,
-        title: 'Yêu cầu thất bại',
+        title: 'Yêu cầu thất bại'.tr(),
         message: state.error,
         isError: true,
       );
@@ -110,8 +111,8 @@ class _SendMailScreenState extends State<SendMailScreen> {
                                 padding: const EdgeInsets.only(right: 16.0),
                               ),
                               SizedBox(height: 4),
-                              const Text(
-                                'Quên mật khẩu',
+                              Text(
+                                'Quên mật khẩu'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -120,8 +121,9 @@ class _SendMailScreenState extends State<SendMailScreen> {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              const Text(
-                                'Nhập email liên kết với tài khoản để \nlấy lại mật khẩu',
+                              Text(
+                                'Nhập email liên kết với tài khoản để \nlấy lại mật khẩu'
+                                    .tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -182,7 +184,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                         state is SendMailLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Gửi mã",
+                              text: "Gửi mã".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)
