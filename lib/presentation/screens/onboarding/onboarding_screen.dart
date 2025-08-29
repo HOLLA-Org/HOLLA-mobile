@@ -22,7 +22,7 @@ class OnboardingScreen extends StatelessWidget {
 
   // This will navigate to the loading screen.
   void _onAgreePressed(BuildContext context) {
-    context.go(AppRoutes.loading);
+    context.go(AppRoutes.locationpermission);
   }
 
   @override
@@ -54,7 +54,7 @@ class OnboardingScreen extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'CrimsonText',
                     color: Colors.grey[500],
-                    fontSize: 24,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
