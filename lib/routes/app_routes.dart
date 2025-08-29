@@ -3,6 +3,8 @@ class AppRoutes {
   static const String splash = '/';
   static const String onboarding = '/onboarding';
   static const String loading = '/loading';
+  static const String locationpermission = '/locationpermission';
+  static const String selectlocation = '/selectlocation';
 
   // Auth
   static const String register = '/register';

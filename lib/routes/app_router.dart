@@ -11,7 +11,9 @@ import 'package:holla/presentation/screens/forgot_password/send_mail_screen.dart
 import 'package:holla/presentation/screens/forgot_password/verify_password_screen.dart';
 import 'package:holla/presentation/screens/home/home_screen.dart';
 import 'package:holla/presentation/screens/onboarding/loading_screen.dart';
+import 'package:holla/presentation/screens/onboarding/location_permission_screen.dart';
 import 'package:holla/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:holla/presentation/screens/onboarding/select_location_screen.dart';
 import 'package:holla/presentation/screens/onboarding/splash_screen.dart';
 import 'package:holla/presentation/screens/profile/profile_screen.dart';
 import 'package:holla/presentation/screens/setting/%20select_language_screen.dart';
@@ -30,6 +32,14 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.onboarding,
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.locationpermission,
+        builder: (context, state) => const LocationPermissionScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.selectlocation,
+        builder: (context, state) => const SelectLocationScreen(),
       ),
       GoRoute(
         path: AppRoutes.loading,
