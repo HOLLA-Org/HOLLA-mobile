@@ -6,7 +6,7 @@ class LocationPermissionScreen extends StatelessWidget {
   const LocationPermissionScreen({super.key});
 
   void _onContinuePressed(BuildContext context) {
-    context.go(AppRoutes.loading);
+    context.go(AppRoutes.googlemap);
   }
 
   void _onChooseLocationPressed(BuildContext context) {
@@ -39,7 +39,6 @@ class LocationPermissionScreen extends StatelessWidget {
               // Subtitle
               const Text(
                 "Chỉ khi bạn cho phép truy cập vị trí, HoLLa mới có thể cung cấp những khách sạn phù hợp nhất và ưu đãi hấp dẫn trong khu vực cho bạn.",
-
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black,

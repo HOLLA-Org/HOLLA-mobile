@@ -8,7 +8,7 @@ import 'package:holla/bloc/auth/verify/verify_event.dart';
 import 'package:holla/bloc/auth/verify/verify_state.dart';
 import 'package:holla/presentation/widget/confirm_button.dart';
 import 'package:holla/routes/app_routes.dart';
-import 'package:holla/utils/util.dart';
+import 'package:holla/core/utils/helpers.dart';
 import 'package:pinput/pinput.dart';
 import 'package:holla/presentation/widget/notification_dialog.dart';
 

@@ -9,7 +9,7 @@ import 'package:holla/presentation/widget/confirm_button.dart';
 import 'package:holla/presentation/widget/notification_dialog.dart';
 import 'package:holla/presentation/widget/textfield_custom.dart';
 import 'package:holla/routes/app_routes.dart';
-import 'package:holla/utils/util.dart';
+import 'package:holla/core/utils/helpers.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String token;

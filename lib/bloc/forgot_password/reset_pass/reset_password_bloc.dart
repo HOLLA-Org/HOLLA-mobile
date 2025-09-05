@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/repository/forgot_password_repo.dart';
-import 'package:holla/utils/validation_auth.dart';
+import 'package:holla/core/utils/validation_auth.dart';
 
 import 'reset_password_event.dart';
 import 'reset_password_state.dart';

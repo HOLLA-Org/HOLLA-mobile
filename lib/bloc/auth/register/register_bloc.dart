@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/bloc/auth/register/register_event.dart';
 import 'package:holla/bloc/auth/register/register_state.dart';
 import 'package:holla/repository/auth_repo.dart';
-import 'package:holla/utils/validation_auth.dart';
+import 'package:holla/core/utils/validation_auth.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final AuthRepository _authRepository;

@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/bloc/forgot_password/send_mail/send_mail_event.dart';
 import 'package:holla/bloc/forgot_password/send_mail/send_mail_state.dart';
 import 'package:holla/repository/forgot_password_repo.dart';
-import 'package:holla/utils/validation_auth.dart';
+import 'package:holla/core/utils/validation_auth.dart';
 
 class SendMailBloc extends Bloc<SendMailEvent, SendMailState> {
   final ForgotPasswordRepository _forgotPasswordRepository;
