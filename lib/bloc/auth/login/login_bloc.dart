@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:holla/bloc/auth/login/login_event.dart';
 import 'package:holla/bloc/auth/login/login_state.dart';
 import 'package:holla/repository/auth_repo.dart';
-import 'package:holla/utils/validation_auth.dart';
+import 'package:holla/core/utils/validation_auth.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository _authRepository;

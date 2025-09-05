@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:holla/config/app_providers.dart';
-import 'package:holla/config/repository_provider.dart';
-import 'package:holla/config/theme.dart';
+import 'package:holla/core/config/app_providers.dart';
+import 'package:holla/core/config/repository_provider.dart';
+import 'package:holla/core/config/theme.dart';
 import 'package:holla/routes/app_router.dart';
 
 class MyApp extends StatelessWidget {

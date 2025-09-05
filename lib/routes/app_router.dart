@@ -10,6 +10,7 @@ import 'package:holla/presentation/screens/forgot_password/reset_password_screen
 import 'package:holla/presentation/screens/forgot_password/send_mail_screen.dart';
 import 'package:holla/presentation/screens/forgot_password/verify_password_screen.dart';
 import 'package:holla/presentation/screens/home/home_screen.dart';
+import 'package:holla/presentation/screens/map/google_map_screen.dart';
 import 'package:holla/presentation/screens/onboarding/loading_screen.dart';
 import 'package:holla/presentation/screens/onboarding/location_permission_screen.dart';
 import 'package:holla/presentation/screens/onboarding/onboarding_screen.dart';
@@ -85,6 +86,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.language,
         builder: (context, state) => const SelectLanguageScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.googlemap,
+        builder: (context, state) => const GoogleMapScreen(),
       ),
 
       // ShellRoute have nav bar

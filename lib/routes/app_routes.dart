@@ -6,6 +6,9 @@ class AppRoutes {
   static const String locationpermission = '/locationpermission';
   static const String selectlocation = '/selectlocation';
 
+  // Map
+  static const String googlemap = '/googlemap';
+
   // Auth
   static const String register = '/register';
   static const String verify = '/verify';
