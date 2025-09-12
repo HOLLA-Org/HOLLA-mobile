@@ -1,3 +1,15 @@
+import java.util.Properties
+import java.io.FileInputStream
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("../.env")
+
+if (localPropertiesFile.exists()) {
+    FileInputStream(localPropertiesFile).reader().use { reader ->
+        localProperties.load(reader)
+    }
+}
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -24,6 +36,9 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+   manifestPlaceholders["googleApiKey"] =
+            localProperties.getProperty("GOOGLE_API_KEY") ?: ""
     }
 
     buildTypes {
