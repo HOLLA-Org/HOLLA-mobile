@@ -5,7 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/presentation/widget/confirm_button.dart';
-import 'package:holla/routes/app_routes.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -23,6 +23,7 @@ class OnboardingScreen extends StatelessWidget {
   // This will navigate to the loading screen.
   void _onAgreePressed(BuildContext context) {
     context.go(AppRoutes.locationpermission);
+    // context.go(AppRoutes.setting);
   }
 
   @override

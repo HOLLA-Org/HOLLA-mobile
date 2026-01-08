@@ -1,0 +1,35 @@
+class AppRoutes {
+  // Onboarding
+  static const String splash = '/';
+  static const String onboarding = '/onboarding';
+  static const String loading = '/loading';
+  static const String locationpermission = '/locationpermission';
+  static const String selectlocation = '/selectlocation';
+
+  // Map
+  static const String googlemap = '/googlemap';
+
+  // Auth
+  static const String register = '/register';
+  static const String verify = '/verify';
+  static const String login = '/login';
+
+  // Forgot password
+  static const String sendmail = '/sendmail';
+  static const String verifypassword = '/verifypassword';
+  static const String resetpassword = '/resetpassword';
+
+  // Notification
+  static const String notification = '/notification';
+
+  // Settings
+  static const String language = '/language';
+  static const String changepassword = '/changepassword';
+  static const String changeprofile = '/changeprofile';
+
+  // Shell routes
+  static const String home = '/home';
+  static const String favorite = '/favorite';
+  static const String booking = '/booking';
+  static const String setting = '/setting';
+}

@@ -1,5 +1,5 @@
 class ApiBase {
-  static const String baseUrl = "https://api.example.com";
+  static const String baseUrl = "http://10.0.3.2:8080/api/v1";
 }
 
 class ApiKey {

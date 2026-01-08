@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holla/routes/app_routes.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -13,27 +13,18 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen>
     with SingleTickerProviderStateMixin {
-  // Controls the fade animation.
   late AnimationController _animationController;
-  // Drives the opacity for the fade.
   late Animation<double> _animation;
 
-  // Timer for the dot animation.
   Timer? _timer;
-  // Tracks the number of dots.
   int _dotCount = 1;
 
   @override
   void initState() {
     super.initState();
 
-    // Set up the fade animation to pulse.
     _setupFadeAnimation();
-
-    // Set up the timer for the dot animation.
     _setupDotAnimation();
-
-    // Navigate to the login screen after a delay.
     _navigateToLogin();
   }
 
@@ -66,7 +57,6 @@ class _LoadingScreenState extends State<LoadingScreen>
 
   @override
   void dispose() {
-    // Clean up resources to prevent memory leaks.
     _timer?.cancel();
     _animationController.dispose();
     super.dispose();

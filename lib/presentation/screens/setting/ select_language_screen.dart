@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:holla/presentation/widget/header.dart';
-import 'package:holla/routes/app_routes.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
+import '../../widget/setting/select_option_item.dart';
 
 class SelectLanguageScreen extends StatelessWidget {
   const SelectLanguageScreen({super.key});
@@ -17,66 +19,53 @@ class SelectLanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentLocale = context.locale;
-
-    Widget buildLanguageTile(Locale locale) {
-      return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color:
-                locale == currentLocale
-                    ? Theme.of(context).colorScheme.primary
-                    : Colors.grey,
-            width: 1.5,
-          ),
-        ),
-        child: RadioListTile<Locale>(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-          title: Text(
-            languageNames[locale.languageCode] ?? locale.languageCode,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 24,
-              fontFamily: 'CrimsonText',
-              color: Color(0xFF8F8F8F),
-            ),
-          ),
-          value: locale,
-          groupValue: currentLocale,
-          activeColor: Color(0xFF008080),
-          onChanged: (newLocale) {
-            context.setLocale(newLocale!);
-            context.go(AppRoutes.setting);
-          },
-        ),
-      );
-    }
+    final String currentLangCode = context.locale.languageCode;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
           children: [
             const Header(),
+
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: Text(
                 'Chọn ngôn ngữ'.tr(),
                 style: TextStyle(
                   fontSize: 16,
                   fontFamily: 'CrimsonText',
-                  color: Color(0xFF8F8F8F),
+                  color: Colors.black87,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            ...supportedLocales.map(buildLanguageTile),
+
+            /// Language options
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children:
+                    supportedLocales.map((locale) {
+                      final code = locale.languageCode;
+
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 12),
+                        child: SelectOptionItem(
+                          label: languageNames[code] ?? code,
+                          value: code,
+                          groupValue: currentLangCode,
+                          onChanged: (selected) async {
+                            if (selected == currentLangCode) return;
+
+                            context.setLocale(Locale(selected));
+                            context.go(AppRoutes.setting);
+                          },
+                        ),
+                      );
+                    }).toList(),
+              ),
+            ),
           ],
         ),
       ),

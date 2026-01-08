@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:holla/bloc/location/location_bloc.dart';
-import 'package:holla/bloc/location/location_event.dart';
-import 'package:holla/bloc/location/location_state.dart';
-import 'package:holla/routes/app_routes.dart';
+import 'package:holla/presentation/bloc/location/location_bloc.dart';
+import 'package:holla/presentation/bloc/location/location_event.dart';
+import 'package:holla/presentation/bloc/location/location_state.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
 
 class GoogleMapScreen extends StatefulWidget {
   const GoogleMapScreen({super.key});

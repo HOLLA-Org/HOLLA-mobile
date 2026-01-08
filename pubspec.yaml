@@ -40,7 +40,6 @@ flutter:
     - assets/icons/
     - assets/lang/
 
-  # Uncomment the following lines to add custom fonts
   fonts:
     - family: CrimsonText
       fonts:

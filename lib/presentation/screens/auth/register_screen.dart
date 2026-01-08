@@ -2,14 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holla/bloc/auth/register/register_bloc.dart';
-import 'package:holla/bloc/auth/register/register_event.dart';
-import 'package:holla/bloc/auth/register/register_state.dart';
+import 'package:holla/presentation/bloc/auth/register/register_bloc.dart';
+import 'package:holla/presentation/bloc/auth/register/register_event.dart';
+import 'package:holla/presentation/bloc/auth/register/register_state.dart';
 import 'package:holla/models/auth_model.dart';
 import 'package:holla/presentation/widget/confirm_button.dart';
 import 'package:holla/presentation/widget/notification_dialog.dart';
 import 'package:holla/presentation/widget/textfield_custom.dart';
-import 'package:holla/routes/app_routes.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

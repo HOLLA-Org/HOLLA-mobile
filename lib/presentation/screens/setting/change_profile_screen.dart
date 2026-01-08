@@ -1,0 +1,421 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
+import 'package:holla/presentation/bloc/setting/setting_event.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import '../../../core/config/themes/app_colors.dart';
+import '../../bloc/setting/setting_bloc.dart';
+import '../../bloc/setting/setting_state.dart';
+import '../../widget/header_with_back.dart';
+import '../../widget/notification_dialog.dart';
+import '../../widget/setting/profile_info.dart';
+
+class ChangeProfileScreen extends StatefulWidget {
+  const ChangeProfileScreen({super.key});
+
+  @override
+  State<ChangeProfileScreen> createState() => _ChangeProfileScreenState();
+}
+
+class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
+  final _usernameController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _genderController = TextEditingController();
+  final _dobController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<SettingBloc>().add(GetUserProfile());
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _genderController.dispose();
+    _dobController.dispose();
+    super.dispose();
+  }
+
+  /// Handle back
+  void _onBack(BuildContext context) {
+    context.go(AppRoutes.setting);
+  }
+
+  /// Handle update profile
+  void _onUpdateProfile(BuildContext context) {
+    context.read<SettingBloc>().add(
+      UpdateProfileSubmitted(
+        username: _usernameController.text.trim(),
+        phone: _phoneController.text.trim(),
+        gender: _genderController.text.trim(),
+        dateOfBirth: _parseDob(_dobController.text),
+      ),
+    );
+  }
+
+  void _onEditAvatar(BuildContext context) {
+    context.read<SettingBloc>().add(UpdateAvatarSubmitted(avatarUrl: ''));
+  }
+
+  DateTime? _parseDob(String text) {
+    if (text.isEmpty) return null;
+    try {
+      final parts = text.split('/');
+      if (parts.length != 3) return null;
+
+      return DateTime(
+        int.parse(parts[2]),
+        int.parse(parts[1]),
+        int.parse(parts[0]),
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day.toString().padLeft(2, '0')}/'
+        '${date.month.toString().padLeft(2, '0')}/'
+        '${date.year}';
+  }
+
+  Future<void> _pickDateOfBirth() async {
+    DateTime initialDate = DateTime.now();
+
+    if (_dobController.text.isNotEmpty) {
+      try {
+        final parts = _dobController.text.split('/');
+        if (parts.length == 3) {
+          initialDate = DateTime(
+            int.parse(parts[2]),
+            int.parse(parts[1]),
+            int.parse(parts[0]),
+          );
+        }
+      } catch (_) {}
+    }
+
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(primary: AppColors.primary),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      _dobController.text =
+          '${picked.day.toString().padLeft(2, '0')}/'
+          '${picked.month.toString().padLeft(2, '0')}/'
+          '${picked.year}';
+    }
+  }
+
+  Future<void> _pickGender() async {
+    final genders = ['Nam', 'Nữ', 'Khác'];
+
+    final selected = await showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 12),
+
+              /// HEADER
+              const Text(
+                'Chọn giới tính',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'CrimsonText',
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              ...genders.map(
+                (gender) => ListTile(
+                  title: Text(
+                    gender,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'CrimsonText',
+                    ),
+                  ),
+                  trailing:
+                      _genderController.text == gender
+                          ? const Icon(Icons.check, color: AppColors.primary)
+                          : null,
+                  onTap: () {
+                    context.pop(gender);
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 8),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (selected != null) {
+      setState(() {
+        _genderController.text = selected;
+      });
+    }
+  }
+
+  void showUpdateProfileSuccess(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Cập nhật thông tin thành công!'),
+        backgroundColor: AppColors.primary,
+      ),
+    );
+    context.go(AppRoutes.setting);
+  }
+
+  void showUpdateProfileFailure(BuildContext context, String error) {
+    notificationDialog(
+      context: context,
+      title: 'Cập nhật thông tin thất bại',
+      message: error,
+      isError: true,
+    );
+  }
+
+  void showUpdateAvatarSuccess(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Cập nhật ảnh đại diện thành công!'),
+        backgroundColor: AppColors.primary,
+      ),
+    );
+    context.go(AppRoutes.setting);
+  }
+
+  void showUpdateAvatarFailure(BuildContext context, String error) {
+    notificationDialog(
+      context: context,
+      title: 'Cập nhật ảnh đại diện thất bại',
+      message: error,
+      isError: true,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<SettingBloc, SettingState>(
+      listener: (context, state) {
+        if (state is GetUserProfileSuccess) {
+          _usernameController.text = state.user.username!;
+          _phoneController.text = state.user.phone!;
+          _emailController.text = state.user.email!;
+          _genderController.text = state.user.gender!;
+          final dob = state.user.dateOfBirth;
+          _dobController.text = dob == null ? '' : _formatDate(dob);
+        }
+
+        if (state is UpdateProfileFailure) {
+          showUpdateProfileFailure(context, state.error);
+        }
+
+        if (state is UpdateAvatarFailure) {
+          showUpdateAvatarFailure(context, state.error);
+        }
+
+        if (state is UpdateProfileSuccess) {
+          showUpdateProfileSuccess(context);
+        }
+
+        if (state is UpdateAvatarSuccess) {
+          showUpdateAvatarSuccess(context);
+        }
+      },
+      child: BlocBuilder<SettingBloc, SettingState>(
+        buildWhen: (previous, current) {
+          return current is GetUserProfileSuccess ||
+              current is UpdateProfileSuccess;
+        },
+
+        builder: (context, state) {
+          if (state is SettingLoading || state is SettingInitial) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          }
+
+          final user =
+              (state is GetUserProfileSuccess)
+                  ? state.user
+                  : (state as UpdateProfileSuccess).user;
+
+          return Scaffold(
+            backgroundColor: AppColors.white,
+            appBar: HeaderWithBack(
+              title: 'Hồ sơ',
+              onBack: () => _onBack(context),
+              showMore: false,
+            ),
+            body: SafeArea(
+              child: Column(
+                children: [
+                  const SizedBox(height: 16),
+
+                  /// AVATAR
+                  Center(
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        /// AVATAR
+                        CircleAvatar(
+                          radius: 42,
+                          backgroundColor: Colors.teal.shade200,
+                          backgroundImage:
+                              user.avatarUrl!.isNotEmpty
+                                  ? NetworkImage(user.avatarUrl!)
+                                  : null,
+                          child:
+                              user.avatarUrl!.isEmpty
+                                  ? const Icon(
+                                    Icons.pets,
+                                    size: 36,
+                                    color: Colors.white,
+                                  )
+                                  : null,
+                        ),
+
+                        /// EDIT ICON (BOTTOM RIGHT)
+                        Positioned(
+                          right: -2,
+                          bottom: -2,
+                          child: GestureDetector(
+                            onTap: () => _onEditAvatar(context),
+                            child: Container(
+                              width: 28,
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: AppColors.primary,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                              ),
+                              child: const Icon(
+                                Icons.edit,
+                                size: 14,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  /// BASIC INFO
+                  ProfileInfoRow(label: 'Tên', controller: _usernameController),
+                  ProfileInfoRow(
+                    label: 'Số điện thoại',
+                    controller: _phoneController,
+                  ),
+                  ProfileInfoRow(
+                    label: 'Email',
+                    controller: _emailController,
+                    readOnly: true,
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  /// SECTION TITLE
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Thông tin cá nhân',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'CrimsonText',
+                          color: AppColors.blackTypo,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  ProfileInfoRow(
+                    label: 'Giới tính',
+                    controller: _genderController,
+                    readOnly: true,
+                    suffixIcon: LucideIcons.chevronDown,
+                    onSuffixTap: () => _pickGender(),
+                  ),
+                  ProfileInfoRow(
+                    label: 'Ngày sinh',
+                    controller: _dobController,
+                    readOnly: true,
+                    suffixIcon: Icons.calendar_today,
+                    onSuffixTap: () => _pickDateOfBirth(),
+                  ),
+
+                  const Spacer(),
+
+                  /// UPDATE BUTTON
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 46,
+                      child: ElevatedButton(
+                        onPressed: () => _onUpdateProfile(context),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          'Cập nhật',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'CrimsonText',
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
