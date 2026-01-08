@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:holla/presentation/bloc/setting/setting_event.dart';
+import 'package:holla/presentation/widget/confirm_button.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/config/themes/app_colors.dart';
@@ -59,10 +60,12 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     );
   }
 
+  /// Handle update avatar
   void _onEditAvatar(BuildContext context) {
     context.read<SettingBloc>().add(UpdateAvatarSubmitted(avatarUrl: ''));
   }
 
+  /// Parse date
   DateTime? _parseDob(String text) {
     if (text.isEmpty) return null;
     try {
@@ -79,12 +82,14 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     }
   }
 
+  /// Format date
   String _formatDate(DateTime date) {
     return '${date.day.toString().padLeft(2, '0')}/'
         '${date.month.toString().padLeft(2, '0')}/'
         '${date.year}';
   }
 
+  /// Pick date of birth
   Future<void> _pickDateOfBirth() async {
     DateTime initialDate = DateTime.now();
 
@@ -124,6 +129,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     }
   }
 
+  /// Pick gender
   Future<void> _pickGender() async {
     final genders = ['Nam', 'Nữ', 'Khác'];
 
@@ -185,6 +191,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     }
   }
 
+  /// Show update profile success
   void showUpdateProfileSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -195,6 +202,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     context.go(AppRoutes.setting);
   }
 
+  /// Show update profile failure
   void showUpdateProfileFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
@@ -204,6 +212,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     );
   }
 
+  /// Show update avatar success
   void showUpdateAvatarSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -214,6 +223,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     context.go(AppRoutes.setting);
   }
 
+  /// Show update avatar failure
   void showUpdateAvatarFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
@@ -282,12 +292,11 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                 children: [
                   const SizedBox(height: 16),
 
-                  /// AVATAR
                   Center(
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        /// AVATAR
+                        // Avatar
                         CircleAvatar(
                           radius: 42,
                           backgroundColor: Colors.teal.shade200,
@@ -305,7 +314,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                                   : null,
                         ),
 
-                        /// EDIT ICON (BOTTOM RIGHT)
+                        // Edit icon (bottom right)
                         Positioned(
                           right: -2,
                           bottom: -2,
@@ -336,12 +345,16 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                   const SizedBox(height: 24),
 
-                  /// BASIC INFO
+                  // Name
                   ProfileInfoRow(label: 'Tên', controller: _usernameController),
+
+                  // Phone
                   ProfileInfoRow(
                     label: 'Số điện thoại',
                     controller: _phoneController,
                   ),
+
+                  // Email
                   ProfileInfoRow(
                     label: 'Email',
                     controller: _emailController,
@@ -350,7 +363,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                   const SizedBox(height: 12),
 
-                  /// SECTION TITLE
+                  // Section title
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Align(
@@ -367,6 +380,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                     ),
                   ),
 
+                  // Gender
                   ProfileInfoRow(
                     label: 'Giới tính',
                     controller: _genderController,
@@ -374,6 +388,8 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                     suffixIcon: LucideIcons.chevronDown,
                     onSuffixTap: () => _pickGender(),
                   ),
+
+                  // Date of birth
                   ProfileInfoRow(
                     label: 'Ngày sinh',
                     controller: _dobController,
@@ -384,29 +400,15 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                   const Spacer(),
 
-                  /// UPDATE BUTTON
+                  // Update button
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
                     child: SizedBox(
                       width: double.infinity,
-                      height: 46,
-                      child: ElevatedButton(
+                      height: 50,
+                      child: ConfirmButton(
+                        text: 'Cập nhật',
                         onPressed: () => _onUpdateProfile(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: const Text(
-                          'Cập nhật',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'CrimsonText',
-                            color: Colors.white,
-                          ),
-                        ),
                       ),
                     ),
                   ),

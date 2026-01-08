@@ -19,7 +19,7 @@ class ValidationAuth {
   }
 
   static final RegExp _passwordRegExp = RegExp(
-    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$',
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$',
   );
   static bool isStrongPassword(String password) {
     return _passwordRegExp.hasMatch(password);

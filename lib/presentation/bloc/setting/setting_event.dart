@@ -35,4 +35,17 @@ class UpdateAvatarSubmitted extends SettingEvent {
   List<Object?> get props => [avatarUrl];
 }
 
+class ChangePasswordSubmitted extends SettingEvent {
+  final String currentPassword;
+  final String newPassword;
+
+  const ChangePasswordSubmitted({
+    required this.currentPassword,
+    required this.newPassword,
+  });
+
+  @override
+  List<Object?> get props => [currentPassword, newPassword];
+}
+
 class LogoutRequested extends SettingEvent {}

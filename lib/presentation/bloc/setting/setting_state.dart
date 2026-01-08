@@ -72,3 +72,13 @@ class LogoutFailure extends SettingState {
   @override
   List<Object?> get props => [error];
 }
+
+class ChangePasswordSuccess extends SettingState {}
+
+class ChangePasswordFailure extends SettingState {
+  final String error;
+  const ChangePasswordFailure(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
