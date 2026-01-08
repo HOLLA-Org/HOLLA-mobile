@@ -27,12 +27,12 @@ class UpdateProfileSubmitted extends SettingEvent {
 }
 
 class UpdateAvatarSubmitted extends SettingEvent {
-  final String avatarUrl;
+  final String filePath;
 
-  const UpdateAvatarSubmitted({required this.avatarUrl});
+  const UpdateAvatarSubmitted({required this.filePath});
 
   @override
-  List<Object?> get props => [avatarUrl];
+  List<Object?> get props => [filePath];
 }
 
 class ChangePasswordSubmitted extends SettingEvent {

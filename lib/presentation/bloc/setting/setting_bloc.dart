@@ -59,9 +59,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     Emitter<SettingState> emit,
   ) async {
     try {
-      final updatedUser = await _settingRepository.updateAvatar(
-        event.avatarUrl,
-      );
+      final updatedUser = await _settingRepository.updateAvatar(event.filePath);
       emit(UpdateAvatarSuccess(updatedUser));
     } catch (e) {
       final error = _translateError(e.toString());

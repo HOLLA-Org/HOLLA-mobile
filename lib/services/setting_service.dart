@@ -87,27 +87,26 @@ class SettingService implements SettingRepository {
   }
 
   @override
-  Future<UserModel> updateAvatar(String avatarUrl) async {
+  Future<UserModel> updateAvatar(String filePath) async {
     final uri = Uri.parse(ApiConstant.updateAvatar);
     final token = await _storage.read(key: 'accessToken');
 
     try {
-      final response = await http.patch(
-        uri,
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode({'avatarUrl': avatarUrl}),
-      );
+      final request = http.MultipartRequest('PATCH', uri);
 
-      final body = jsonDecode(response.body);
+      request.headers.addAll({'Authorization': 'Bearer $token'});
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      request.files.add(await http.MultipartFile.fromPath('file', filePath));
+
+      final streamedResponse = await request.send();
+      final responseBody = await streamedResponse.stream.bytesToString();
+      final body = jsonDecode(responseBody);
+
+      if (streamedResponse.statusCode == 200 ||
+          streamedResponse.statusCode == 201) {
         return UserModel.fromJson(body['data']);
       } else {
-        final errorMessage = body['message'];
-        throw Exception(errorMessage);
+        throw Exception(body['message']);
       }
     } on SocketException {
       throw Exception('Failed to connect to the server.');
