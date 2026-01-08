@@ -113,4 +113,32 @@ class SettingService implements SettingRepository {
       throw Exception('Failed to connect to the server.');
     }
   }
+
+  @override
+  Future<void> changepassword(String password, String newPassword) async {
+    final uri = Uri.parse(ApiConstant.changepassword);
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.patch(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({'password': password, 'new_password': newPassword}),
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return;
+      } else {
+        final errorMessage = body['message'];
+        throw Exception(errorMessage);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
 }

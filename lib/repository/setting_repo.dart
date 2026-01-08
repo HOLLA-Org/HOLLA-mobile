@@ -12,4 +12,5 @@ abstract class SettingRepository {
   });
 
   Future<UserModel> updateAvatar(String avatarUrl);
+  Future<void> changepassword(String password, String newPassword);
 }

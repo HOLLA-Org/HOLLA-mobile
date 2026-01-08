@@ -20,4 +20,6 @@ class ApiConstant {
   static const String updateProfile =
       "${ApiBase.baseUrl}/profile/update-profile";
   static const String updateAvatar = "${ApiBase.baseUrl}/profile/update-avatar";
+  static const String changepassword =
+      "${ApiBase.baseUrl}/profile/change-password";
 }

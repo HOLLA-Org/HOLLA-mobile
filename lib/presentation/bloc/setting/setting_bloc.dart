@@ -17,6 +17,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     on<GetUserProfile>(_onGetUserProfile);
     on<UpdateProfileSubmitted>(_onUpdateProfileSubmitted);
     on<UpdateAvatarSubmitted>(_onUpdateAvatarSubmitted);
+    on<ChangePasswordSubmitted>(_onChangePasswordSubmitted);
     on<LogoutRequested>(_onLogoutRequested);
   }
 
@@ -65,6 +66,23 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     } catch (e) {
       final error = _translateError(e.toString());
       emit(UpdateAvatarFailure(error));
+    }
+  }
+
+  Future<void> _onChangePasswordSubmitted(
+    ChangePasswordSubmitted event,
+    Emitter<SettingState> emit,
+  ) async {
+    emit(SettingLoading());
+    try {
+      await _settingRepository.changepassword(
+        event.currentPassword,
+        event.newPassword,
+      );
+      emit(ChangePasswordSuccess());
+    } catch (e) {
+      final error = _translateError(e.toString());
+      emit(ChangePasswordFailure(error));
     }
   }
 

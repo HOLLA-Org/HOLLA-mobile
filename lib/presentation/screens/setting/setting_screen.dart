@@ -28,6 +28,7 @@ class _SettingScreenState extends State<SettingScreen> {
     context.read<SettingBloc>().add(GetUserProfile());
   }
 
+  /// Handle language
   void _onLanguageTap(BuildContext context) {
     context.go(AppRoutes.language);
   }
@@ -44,18 +45,22 @@ class _SettingScreenState extends State<SettingScreen> {
   //   // navigation terms screen
   // }
 
+  /// Handle change password
   void _onChangePasswordTap(BuildContext context) {
     context.go(AppRoutes.changepassword);
   }
 
+  /// Handle notification
   void _onNotificationTap(BuildContext context) {
     context.go(AppRoutes.notification);
   }
 
+  /// Handle edit profile
   void _onProfileTap(BuildContext context) {
     context.go(AppRoutes.changeprofile);
   }
 
+  /// Handle logout
   void _onLogoutTap(BuildContext context) {
     showConfirmDialog(
       context: context,
@@ -69,6 +74,7 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
+  /// Get language name
   String getLanguageName(BuildContext context) {
     final locale = context.locale.languageCode;
     switch (locale) {
@@ -81,6 +87,7 @@ class _SettingScreenState extends State<SettingScreen> {
     }
   }
 
+  /// Show logout success
   void showLogoutSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -93,6 +100,7 @@ class _SettingScreenState extends State<SettingScreen> {
     }
   }
 
+  /// Show logout failure
   void showLogoutFailure(BuildContext context, String error) {
     if (context.mounted) {
       notificationDialog(
@@ -104,6 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
     }
   }
 
+  /// Show update profile success
   void showUpdateProfileSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -113,6 +122,7 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
+  /// Show update profile failure
   void showUpdateProfileFailure(BuildContext context, String error) {
     if (context.mounted) {
       notificationDialog(
