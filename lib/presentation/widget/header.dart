@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:holla/routes/app_routes.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:go_router/go_router.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {

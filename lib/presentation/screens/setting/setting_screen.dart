@@ -2,32 +2,58 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holla/bloc/setting/setting_bloc.dart';
-import 'package:holla/bloc/setting/setting_event.dart';
-import 'package:holla/bloc/setting/setting_state.dart';
+import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
+import 'package:holla/presentation/bloc/setting/setting_event.dart';
+import 'package:holla/presentation/bloc/setting/setting_state.dart';
 import 'package:holla/presentation/widget/confirm_dialog.dart';
-import 'package:holla/presentation/widget/header.dart';
 import 'package:holla/presentation/widget/notification_dialog.dart';
-import 'package:holla/presentation/widget/setting_title.dart';
-import 'package:holla/routes/app_routes.dart';
+import 'package:holla/presentation/widget/setting/setting_title.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import '../../widget/setting/setting_profile_header.dart';
+import '../../widget/setting/setting_section_title.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<SettingBloc>().add(GetUserProfile());
+  }
+
   void _onLanguageTap(BuildContext context) {
     context.go(AppRoutes.language);
   }
 
-  void _onPolicyTap() {
-    // navigation policy screen
+  // void _onPolicyTap() {
+  //   // navigation policy screen
+  // }
+
+  // void _onSupportTap() {
+  //   // navigation support screen
+  // }
+
+  // void _onTermsTap() {
+  //   // navigation terms screen
+  // }
+
+  void _onChangePasswordTap(BuildContext context) {
+    context.go(AppRoutes.changepassword);
   }
 
-  void _onSupportTap() {
-    // navigation support screen
+  void _onNotificationTap(BuildContext context) {
+    context.go(AppRoutes.notification);
   }
 
-  void _onTermsTap() {
-    // navigation terms screen
+  void _onProfileTap(BuildContext context) {
+    context.go(AppRoutes.changeprofile);
   }
 
   void _onLogoutTap(BuildContext context) {
@@ -78,6 +104,26 @@ class SettingScreen extends StatelessWidget {
     }
   }
 
+  void showUpdateProfileSuccess(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Cập nhật thông tin thành công!'.tr()),
+        backgroundColor: const Color(0xFF008080),
+      ),
+    );
+  }
+
+  void showUpdateProfileFailure(BuildContext context, String error) {
+    if (context.mounted) {
+      notificationDialog(
+        context: context,
+        title: 'Cập nhật thông tin thất bại'.tr(),
+        message: error,
+        isError: true,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SettingBloc, SettingState>(
@@ -86,6 +132,10 @@ class SettingScreen extends StatelessWidget {
           showLogoutSuccess(context);
         } else if (state is LogoutFailure) {
           showLogoutFailure(context, state.error);
+        } else if (state is UpdateProfileSuccess) {
+          showUpdateProfileSuccess(context);
+        } else if (state is UpdateProfileFailure) {
+          showUpdateProfileFailure(context, state.error);
         }
       },
       child: Scaffold(
@@ -93,7 +143,23 @@ class SettingScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Header(),
+              BlocBuilder<SettingBloc, SettingState>(
+                builder: (context, state) {
+                  if (state is GetUserProfileSuccess) {
+                    final user = state.user;
+
+                    return SettingProfileHeader(
+                      name: user.username,
+                      email: user.email,
+                      avatarUrl: user.avatarUrl,
+                      onEditTap: () => _onProfileTap(context),
+                    );
+                  }
+
+                  return const SettingProfileHeader(name: '---', email: '---');
+                },
+              ),
+
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -102,96 +168,62 @@ class SettingScreen extends StatelessWidget {
                   ),
                   child: ListView(
                     children: [
-                      Text(
-                        'Tổng quan'.tr(),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'CrimsonText'.tr(),
-                          color: Color(0xFF8F8F8F),
-                        ),
+                      SettingSectionTitle('Cài đặt'.tr()),
+
+                      SettingTile(
+                        icon: LucideIcons.settings,
+                        title: 'Thiết lập tài khoản'.tr(),
+                        onTap: () => _onChangePasswordTap(context),
                       ),
-                      const SizedBox(height: 8),
+
+                      SettingTile(
+                        icon: LucideIcons.bell,
+                        title: 'Thông báo'.tr(),
+                        onTap: () => _onNotificationTap(context),
+                      ),
+
                       SettingTile(
                         icon: LucideIcons.languages,
                         title: 'Ngôn ngữ'.tr(),
-                        trailing: Text(
-                          getLanguageName(context),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF8F8F8F),
-                            fontFamily: 'CrimsonText',
-                            fontSize: 16,
-                          ),
-                        ),
+                        trailing: Text(getLanguageName(context)),
                         onTap: () => _onLanguageTap(context),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Khác'.tr(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF8F8F8F),
-                          fontFamily: 'CrimsonText',
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
+
                       SettingTile(
-                        icon: LucideIcons.lock,
-                        title: 'Chính sách bảo mật'.tr(),
-                        onTap: _onPolicyTap,
+                        icon: LucideIcons.mapPin,
+                        title: 'Khu vực'.tr(),
+                        trailing: const Text('Hà Nội'),
                       ),
+
+                      /// ===== THÔNG TIN =====
+                      SettingSectionTitle('Thông tin'.tr()),
+
                       SettingTile(
                         icon: LucideIcons.helpCircle,
-                        title: 'Hỗ trợ khách hàng'.tr(),
-                        onTap: _onSupportTap,
+                        title: 'Hỏi đáp'.tr(),
                       ),
+
                       SettingTile(
                         icon: LucideIcons.shieldCheck,
-                        title: 'Điều khoản dịch vụ'.tr(),
-                        onTap: _onTermsTap,
+                        title: 'Điều khoản & chính sách bảo mật'.tr(),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Hành động'.tr(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF8F8F8F),
-                          fontFamily: 'CrimsonText',
-                          fontSize: 16,
-                        ),
+
+                      SettingTile(
+                        icon: LucideIcons.info,
+                        title: 'Phiên bản'.tr(),
+                        trailing: const Text('1.0'),
                       ),
-                      const SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          width: 200,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: ListTile(
-                            title: Center(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'Đăng xuất'.tr(),
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  const Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 16,
-                                    color: Colors.grey,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            onTap: () => _onLogoutTap(context),
-                          ),
-                        ),
+
+                      SettingTile(
+                        icon: LucideIcons.phone,
+                        title: 'Liên hệ'.tr(),
+                      ),
+
+                      SettingTile(
+                        icon: LucideIcons.logOut,
+                        title: 'Đăng xuất'.tr(),
+                        showDivider: false,
+                        onTap: () => _onLogoutTap(context),
                       ),
                     ],
                   ),
