@@ -1,10 +1,15 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:holla/presentation/bloc/setting/setting_event.dart';
 import 'package:holla/presentation/widget/confirm_button.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/config/themes/app_colors.dart';
 import '../../bloc/setting/setting_bloc.dart';
@@ -27,6 +32,8 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
   final _genderController = TextEditingController();
   final _dobController = TextEditingController();
 
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +50,69 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     super.dispose();
   }
 
+  Future<bool> _checkPermission() async {
+    final camera = await Permission.camera.request();
+    final storage = await Permission.storage.request();
+
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      if (androidInfo.version.sdkInt >= 33) {
+        final photos = await Permission.photos.request();
+        return camera.isGranted && photos.isGranted;
+      }
+    }
+
+    return storage.isGranted && camera.isGranted;
+  }
+
+  void _showAvatarPicker() {
+    showModalBottomSheet(
+      context: context,
+      builder:
+          (_) => SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Chọn từ thư viện'),
+                  onTap: () {
+                    context.pop();
+                    _pickFromGallery();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.camera_alt),
+                  title: const Text('Chụp ảnh'),
+                  onTap: () {
+                    context.pop();
+                    _pickFromCamera();
+                  },
+                ),
+              ],
+            ),
+          ),
+    );
+  }
+
+  Future<void> _pickFromGallery() async {
+    final granted = await _checkPermission();
+    if (!granted) return;
+
+    final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+    if (file == null) return;
+
+    _uploadAvatar(file);
+  }
+
+  Future<void> _pickFromCamera() async {
+    context.go(AppRoutes.takecamera);
+  }
+
+  void _uploadAvatar(XFile file) {
+    context.read<SettingBloc>().add(UpdateAvatarSubmitted(filePath: file.path));
+  }
+
   /// Handle back
   void _onBack(BuildContext context) {
     context.go(AppRoutes.setting);
@@ -54,7 +124,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
       UpdateProfileSubmitted(
         username: _usernameController.text.trim(),
         phone: _phoneController.text.trim(),
-        gender: _genderController.text.trim(),
+        gender: mapGenderToApi(_genderController.text),
         dateOfBirth: _parseDob(_dobController.text),
       ),
     );
@@ -62,7 +132,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
   /// Handle update avatar
   void _onEditAvatar(BuildContext context) {
-    context.read<SettingBloc>().add(UpdateAvatarSubmitted(avatarUrl: ''));
+    _showAvatarPicker();
   }
 
   /// Parse date
@@ -126,6 +196,32 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
           '${picked.day.toString().padLeft(2, '0')}/'
           '${picked.month.toString().padLeft(2, '0')}/'
           '${picked.year}';
+    }
+  }
+
+  String mapGenderToApi(String value) {
+    switch (value) {
+      case 'Nam':
+        return 'male';
+      case 'Nữ':
+        return 'female';
+      case 'Khác':
+        return 'other';
+      default:
+        return '';
+    }
+  }
+
+  String mapGenderToUI(String value) {
+    switch (value) {
+      case 'male':
+        return 'Nam';
+      case 'female':
+        return 'Nữ';
+      case 'other':
+        return 'Khác';
+      default:
+        return '';
     }
   }
 
@@ -241,7 +337,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
           _usernameController.text = state.user.username!;
           _phoneController.text = state.user.phone!;
           _emailController.text = state.user.email!;
-          _genderController.text = state.user.gender!;
+          _genderController.text = mapGenderToUI(state.user.gender ?? '');
           final dob = state.user.dateOfBirth;
           _dobController.text = dob == null ? '' : _formatDate(dob);
         }
@@ -265,7 +361,8 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
       child: BlocBuilder<SettingBloc, SettingState>(
         buildWhen: (previous, current) {
           return current is GetUserProfileSuccess ||
-              current is UpdateProfileSuccess;
+              current is UpdateProfileSuccess ||
+              current is UpdateAvatarSuccess;
         },
 
         builder: (context, state) {
@@ -275,10 +372,18 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
             );
           }
 
-          final user =
-              (state is GetUserProfileSuccess)
-                  ? state.user
-                  : (state as UpdateProfileSuccess).user;
+          final user = () {
+            if (state is GetUserProfileSuccess) {
+              return state.user;
+            }
+            if (state is UpdateProfileSuccess) {
+              return state.user;
+            }
+            if (state is UpdateAvatarSuccess) {
+              return state.user;
+            }
+            return null;
+          }();
 
           return Scaffold(
             backgroundColor: AppColors.white,
@@ -301,11 +406,15 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                           radius: 42,
                           backgroundColor: Colors.teal.shade200,
                           backgroundImage:
-                              user.avatarUrl!.isNotEmpty
+                              (user != null &&
+                                      user.avatarUrl != null &&
+                                      user.avatarUrl!.isNotEmpty)
                                   ? NetworkImage(user.avatarUrl!)
                                   : null,
                           child:
-                              user.avatarUrl!.isEmpty
+                              (user == null ||
+                                      user.avatarUrl == null ||
+                                      user.avatarUrl!.isEmpty)
                                   ? const Icon(
                                     Icons.pets,
                                     size: 36,

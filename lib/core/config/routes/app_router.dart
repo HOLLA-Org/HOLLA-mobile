@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holla/presentation/screens/setting/take_camera_page.dart';
 import 'package:holla/presentation/widget/navigation/custom_bottom_navigation.dart';
 import 'package:holla/presentation/screens/auth/login_screen.dart';
 import 'package:holla/presentation/screens/auth/verify_screen.dart';
@@ -101,6 +102,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.changeprofile,
         builder: (context, state) => const ChangeProfileScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.takecamera,
+        builder: (context, state) => const TakeCameraPage(),
       ),
 
       // ShellRoute have nav bar

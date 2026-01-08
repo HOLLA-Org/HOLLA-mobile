@@ -26,6 +26,7 @@ class AppRoutes {
   static const String language = '/language';
   static const String changepassword = '/changepassword';
   static const String changeprofile = '/changeprofile';
+  static const String takecamera = '/takecamera';
 
   // Shell routes
   static const String home = '/home';
