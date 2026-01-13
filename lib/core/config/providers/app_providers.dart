@@ -9,7 +9,9 @@ import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
 import 'package:holla/repository/auth_repo.dart';
 import 'package:holla/repository/forgot_password_repo.dart';
 import 'package:holla/repository/location_repo.dart';
+import 'package:holla/repository/notification_repo.dart';
 import '../../../presentation/bloc/forgot_password/verify_pass/verify_password_bloc.dart';
+import '../../../presentation/bloc/notification/notification_bloc.dart';
 import '../../../repository/setting_repo.dart';
 
 final blocProviders = <BlocProvider>[
@@ -61,6 +63,13 @@ final blocProviders = <BlocProvider>[
         (context) => SettingBloc(
           authRepository: context.read<AuthRepository>(),
           settingRepository: context.read<SettingRepository>(),
+        ),
+  ),
+
+  BlocProvider<NotificationBloc>(
+    create:
+        (context) => NotificationBloc(
+          notificationRepository: context.read<NotificationRepository>(),
         ),
   ),
 ];

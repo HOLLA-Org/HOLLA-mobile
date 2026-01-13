@@ -14,7 +14,7 @@ class HeaderWithBack extends StatelessWidget implements PreferredSizeWidget {
     this.onBack,
     this.onMore,
     this.showBack = true,
-    this.showMore = true,
+    this.showMore = false,
   });
 
   @override
@@ -52,24 +52,24 @@ class HeaderWithBack extends StatelessWidget implements PreferredSizeWidget {
               )
               : null,
 
-      //   // More icon
-      //   actions:
-      //       showMore
-      //           ? [
-      //             InkWell(
-      //               borderRadius: BorderRadius.circular(50),
-      //               onTap: onMore,
-      //               child: Padding(
-      //                 padding: EdgeInsets.all(10),
-      //                 child: const Icon(
-      //                   Icons.more_vert,
-      //                   color: AppColors.disableTypo,
-      //                   size: 22,
-      //                 ),
-      //               ),
-      //             ),
-      //           ]
-      //           : null,
+      // More icon
+      actions:
+          showMore
+              ? [
+                InkWell(
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: onMore,
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: const Icon(
+                      Icons.more_vert,
+                      color: AppColors.disableTypo,
+                      size: 22,
+                    ),
+                  ),
+                ),
+              ]
+              : null,
     );
   }
 
