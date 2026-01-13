@@ -52,7 +52,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   /// Handle notification
   void _onNotificationTap(BuildContext context) {
-    context.go(AppRoutes.notification);
+    context.push(AppRoutes.notification);
   }
 
   /// Handle edit profile

@@ -22,4 +22,13 @@ class ApiConstant {
   static const String updateAvatar = "${ApiBase.baseUrl}/profile/update-avatar";
   static const String changepassword =
       "${ApiBase.baseUrl}/profile/change-password";
+
+  // Notification
+  static const String getNotification = "${ApiBase.baseUrl}/notification";
+  static const String markReadNotification = "${ApiBase.baseUrl}/notification";
+  static const String markAllRead =
+      "${ApiBase.baseUrl}/notification/mark-all-read";
+  static const String deleteNotification = "${ApiBase.baseUrl}/notification";
+  static const String deleteAllNotification =
+      "${ApiBase.baseUrl}/notification/remove-all";
 }

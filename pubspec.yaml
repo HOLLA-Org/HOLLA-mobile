@@ -38,7 +38,10 @@ flutter:
 
   assets:
     - assets/logos/
+    
     - assets/images/
+    - assets/images/search/
+
     - assets/icons/
     - assets/lang/
 
