@@ -5,4 +5,5 @@ abstract class HomeRepository {
   Future<List<HomeModel>> getPopularHotels();
   Future<List<HomeModel>> getRecommendedHotels();
   Future<List<HomeModel>> getTopRatedHotels();
+  Future<List<HomeModel>> getHotelByName(String name);
 }

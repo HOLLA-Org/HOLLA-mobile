@@ -30,6 +30,7 @@ class AppRoutes {
 
   // Home
   static const String viewall = '/viewall';
+  static const String search = '/search';
 
   // Shell routes
   static const String home = '/home';

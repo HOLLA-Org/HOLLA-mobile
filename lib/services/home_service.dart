@@ -126,4 +126,33 @@ class HomeService implements HomeRepository {
       throw Exception('Failed to connect to the server.');
     }
   }
+
+  @override
+  Future<List<HomeModel>> getHotelByName(String name) async {
+    final uri = Uri.parse("${ApiConstant.getHotelByName}?name=$name");
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final List list = body['data'] as List;
+        return list
+            .map((e) => HomeModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw Exception(body['message']);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
 }
