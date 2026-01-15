@@ -28,6 +28,9 @@ class AppRoutes {
   static const String changeprofile = '/changeprofile';
   static const String takecamera = '/takecamera';
 
+  // Home
+  static const String viewall = '/viewall';
+
   // Shell routes
   static const String home = '/home';
   static const String favorite = '/favorite';

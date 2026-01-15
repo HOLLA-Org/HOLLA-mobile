@@ -41,13 +41,10 @@ class HeaderWithBack extends StatelessWidget implements PreferredSizeWidget {
               ? InkWell(
                 borderRadius: BorderRadius.circular(50),
                 onTap: onBack,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: const Icon(
-                    Icons.arrow_back,
-                    color: AppColors.disableTypo,
-                    size: 22,
-                  ),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.disableTypo,
+                  size: 22,
                 ),
               )
               : null,

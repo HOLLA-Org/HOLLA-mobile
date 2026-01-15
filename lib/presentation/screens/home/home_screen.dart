@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:holla/models/home_model.dart';
+import 'package:holla/presentation/screens/home/view_all_args.dart';
 import 'package:holla/presentation/widget/home/hotel_card_large.dart';
 import 'package:holla/presentation/widget/home/hotel_card_row.dart';
 import 'package:holla/presentation/widget/home/hotel_card_small.dart';
@@ -24,8 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<HomeModel> _popularHotels = [];
   List<HomeModel> _recommendedHotels = [];
   List<HomeModel> _topRatedHotels = [];
+  bool _showClear = false;
 
   static const int _loopMultiplier = 1000;
+
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -36,11 +42,26 @@ class _HomeScreenState extends State<HomeScreen> {
     bloc.add(GetTopRatedHotels());
   }
 
-  void _handlePopularViewAll(BuildContext context) {}
+  void _handlePopularViewAll(BuildContext context) {
+    context.go(
+      AppRoutes.viewall,
+      extra: ViewAllArgs(title: 'Nổi tiếng', hotels: _popularHotels),
+    );
+  }
 
-  void _handleRecommendedViewAll(BuildContext context) {}
+  void _handleRecommendedViewAll(BuildContext context) {
+    context.go(
+      AppRoutes.viewall,
+      extra: ViewAllArgs(title: 'Gợi ý gần bạn', hotels: _recommendedHotels),
+    );
+  }
 
-  void _handleTopRatedViewAll(BuildContext context) {}
+  void _handleTopRatedViewAll(BuildContext context) {
+    context.go(
+      AppRoutes.viewall,
+      extra: ViewAllArgs(title: 'Top bình chọn', hotels: _topRatedHotels),
+    );
+  }
 
   void _showError(BuildContext context, String message) {
     notificationDialog(
@@ -111,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 16),
 
                       // Search
+                      // Search
                       Container(
                         height: 48,
                         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -120,13 +142,52 @@ class _HomeScreenState extends State<HomeScreen> {
                           border: Border.all(color: AppColors.primary),
                         ),
                         child: Row(
-                          children: const [
+                          children: [
                             Icon(Icons.search, color: AppColors.primary),
-                            SizedBox(width: 8),
-                            Text(
-                              'Tên khách sạn',
-                              style: TextStyle(color: Colors.grey),
+                            const SizedBox(width: 8),
+
+                            Expanded(
+                              child: TextField(
+                                controller: _searchController,
+                                textInputAction: TextInputAction.search,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Tên khách sạn',
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _showClear = value.isNotEmpty;
+                                  });
+                                },
+                                onSubmitted: (value) {
+                                  debugPrint(value);
+                                },
+                              ),
                             ),
+
+                            if (_showClear)
+                              GestureDetector(
+                                onTap: () {
+                                  _searchController.clear();
+                                  setState(() => _showClear = false);
+                                },
+                                child: Container(
+                                  width: 16,
+                                  height: 16,
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.close,
+                                    size: 14,
+                                    color: AppColors.error.withOpacity(0.8),
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
                       ),

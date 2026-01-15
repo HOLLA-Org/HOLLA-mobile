@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holla/presentation/screens/home/view_all_screen.dart';
 import 'package:holla/presentation/screens/setting/take_camera_page.dart';
 import 'package:holla/presentation/widget/navigation/custom_bottom_navigation.dart';
 import 'package:holla/presentation/screens/auth/login_screen.dart';
@@ -23,6 +24,7 @@ import 'package:holla/presentation/screens/setting/change_profile_screen.dart';
 import 'package:holla/presentation/screens/setting/setting_screen.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 
+import '../../../presentation/screens/home/view_all_args.dart';
 import '../../../presentation/screens/notification/notification.dart';
 
 class AppRouter {
@@ -108,6 +110,14 @@ class AppRouter {
         builder: (context, state) => const TakeCameraPage(),
       ),
 
+      // Home
+      GoRoute(
+        path: AppRoutes.viewall,
+        builder: (context, state) {
+          final args = state.extra as ViewAllArgs;
+          return ViewAllScreen(title: args.title, hotels: args.hotels);
+        },
+      ),
       // ShellRoute have nav bar
       ShellRoute(
         builder: (context, state, child) {
