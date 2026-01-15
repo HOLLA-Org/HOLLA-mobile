@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
+import 'package:holla/core/config/themes/app_colors.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -59,13 +60,13 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                   isSelected
                       ? BoxDecoration(
                         // ignore: deprecated_member_use
-                        color: Color(0xFF238C98).withOpacity(0.2),
+                        color: AppColors.primary,
                         borderRadius: BorderRadius.circular(12),
                       )
                       : null,
               child: Icon(
                 icons[index],
-                color: isSelected ? Color(0xFF238C98) : Colors.grey[900],
+                color: isSelected ? AppColors.white : Colors.grey[900],
                 size: 28,
               ),
             ),
