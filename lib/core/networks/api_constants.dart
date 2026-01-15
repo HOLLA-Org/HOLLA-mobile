@@ -31,4 +31,14 @@ class ApiConstant {
   static const String deleteNotification = "${ApiBase.baseUrl}/notification";
   static const String deleteAllNotification =
       "${ApiBase.baseUrl}/notification/remove-all";
+
+  // Home
+  static const String getAllHotels = "${ApiBase.baseUrl}/hotel";
+
+  static const String getPopularHotels = "${ApiBase.baseUrl}/hotel/popular";
+
+  static const String getRecommendedHotels =
+      "${ApiBase.baseUrl}/hotel/recommended";
+
+  static const String getTopRatedHotels = "${ApiBase.baseUrl}/hotel/top-rated";
 }

@@ -26,7 +26,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.notifications, size: 32, color: Colors.grey),
+          icon: const Icon(Icons.notifications, size: 28, color: Colors.grey),
           onPressed: () {
             context.push(AppRoutes.notification);
           },
