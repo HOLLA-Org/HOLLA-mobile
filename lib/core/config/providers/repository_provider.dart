@@ -7,7 +7,7 @@ import 'package:holla/repository/notification_repo.dart';
 import 'package:holla/repository/setting_repo.dart';
 import 'package:holla/services/auth_service.dart';
 import 'package:holla/services/forgot_password_service.dart';
-import 'package:holla/services/home_repo.dart';
+import 'package:holla/services/home_service.dart';
 import 'package:holla/services/location_service.dart';
 import 'package:holla/services/notification_service.dart';
 import 'package:holla/services/setting_service.dart';

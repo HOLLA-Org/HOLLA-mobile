@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holla/presentation/screens/home/search_screen.dart';
 import 'package:holla/presentation/screens/home/view_all_screen.dart';
 import 'package:holla/presentation/screens/setting/take_camera_page.dart';
 import 'package:holla/presentation/widget/navigation/custom_bottom_navigation.dart';
@@ -116,6 +117,13 @@ class AppRouter {
         builder: (context, state) {
           final args = state.extra as ViewAllArgs;
           return ViewAllScreen(title: args.title, hotels: args.hotels);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.search,
+        builder: (context, state) {
+          final name = state.extra as String;
+          return SearchScreen(name: name);
         },
       ),
       // ShellRoute have nav bar

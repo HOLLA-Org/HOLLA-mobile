@@ -41,4 +41,6 @@ class ApiConstant {
       "${ApiBase.baseUrl}/hotel/recommended";
 
   static const String getTopRatedHotels = "${ApiBase.baseUrl}/hotel/top-rated";
+
+  static const String getHotelByName = "${ApiBase.baseUrl}/hotel/search";
 }

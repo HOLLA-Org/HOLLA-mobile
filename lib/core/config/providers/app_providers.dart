@@ -6,6 +6,7 @@ import 'package:holla/presentation/bloc/forgot_password/reset_pass/reset_passwor
 import 'package:holla/presentation/bloc/forgot_password/send_mail/send_mail_bloc.dart';
 import 'package:holla/presentation/bloc/home/home_bloc.dart';
 import 'package:holla/presentation/bloc/location/location_bloc.dart';
+import 'package:holla/presentation/bloc/search/search_bloc.dart';
 import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
 import 'package:holla/repository/auth_repo.dart';
 import 'package:holla/repository/forgot_password_repo.dart';
@@ -78,5 +79,10 @@ final blocProviders = <BlocProvider>[
   BlocProvider<HomeBloc>(
     create:
         (context) => HomeBloc(homeRepository: context.read<HomeRepository>()),
+  ),
+
+  BlocProvider<SearchBloc>(
+    create:
+        (context) => SearchBloc(homeRepository: context.read<HomeRepository>()),
   ),
 ];

@@ -44,6 +44,14 @@ class GetTopRatedHotelsSuccess extends HomeState {
   List<Object?> get props => [hotels];
 }
 
+class GetHotelByNameSuccess extends HomeState {
+  final List<HomeModel> hotels;
+  const GetHotelByNameSuccess(this.hotels);
+
+  @override
+  List<Object?> get props => [hotels];
+}
+
 class HomeFailure extends HomeState {
   final String error;
 

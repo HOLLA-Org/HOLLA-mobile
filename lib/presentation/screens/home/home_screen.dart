@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<HomeModel> _recommendedHotels = [];
   List<HomeModel> _topRatedHotels = [];
   bool _showClear = false;
+  Timer? _searchDebounce;
 
   static const int _loopMultiplier = 1000;
 
@@ -42,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     bloc.add(GetTopRatedHotels());
   }
 
+  /// Go to view all screen
   void _handlePopularViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
@@ -49,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Go to view all screen
   void _handleRecommendedViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
@@ -56,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Go to view all screen
   void _handleTopRatedViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
@@ -63,6 +69,21 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Handle search changed
+  void _onSearchChanged(BuildContext context, String value) {
+    setState(() {
+      _showClear = value.isNotEmpty;
+    });
+
+    _searchDebounce?.cancel();
+    _searchDebounce = Timer(const Duration(milliseconds: 600), () {
+      if (value.trim().isEmpty) return;
+
+      context.go(AppRoutes.search, extra: value.trim());
+    });
+  }
+
+  /// Show error dialog
   void _showError(BuildContext context, String message) {
     notificationDialog(
       context: context,
@@ -70,6 +91,13 @@ class _HomeScreenState extends State<HomeScreen> {
       message: message,
       isError: true,
     );
+  }
+
+  @override
+  void dispose() {
+    _searchDebounce?.cancel();
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -132,7 +160,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 16),
 
                       // Search
-                      // Search
                       Container(
                         height: 48,
                         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -158,12 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   contentPadding: EdgeInsets.zero,
                                 ),
                                 onChanged: (value) {
-                                  setState(() {
-                                    _showClear = value.isNotEmpty;
-                                  });
-                                },
-                                onSubmitted: (value) {
-                                  debugPrint(value);
+                                  _onSearchChanged(context, value);
                                 },
                               ),
                             ),
