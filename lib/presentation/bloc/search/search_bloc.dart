@@ -11,6 +11,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       super(SearchInitial()) {
     on<SearchHotels>(_onSearchHotels);
     on<ClearSearch>(_onClearSearch);
+    on<ToggleSearchFavorite>(_onToggleSearchFavorite);
   }
 
   Future<void> _onSearchHotels(
@@ -28,6 +29,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   void _onClearSearch(ClearSearch event, Emitter<SearchState> emit) {
     emit(SearchInitial());
+  }
+
+  void _onToggleSearchFavorite(
+    ToggleSearchFavorite event,
+    Emitter<SearchState> emit,
+  ) {
+    if (state is! SearchSuccess) return;
+
+    final current = state as SearchSuccess;
+
+    final updatedHotels =
+        current.hotels.map((hotel) {
+          if (hotel.id == event.hotelId) {
+            return hotel.copyWith(isFavorite: !hotel.isFavorite);
+          }
+          return hotel;
+        }).toList();
+
+    emit(SearchSuccess(updatedHotels));
   }
 
   String _translateError(String errorMessage) {

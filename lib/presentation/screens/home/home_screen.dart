@@ -5,11 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:holla/models/home_model.dart';
+import 'package:holla/presentation/bloc/search/search_bloc.dart';
+import 'package:holla/presentation/bloc/search/search_event.dart';
 import 'package:holla/presentation/screens/home/view_all_args.dart';
 import 'package:holla/presentation/widget/home/hotel_card_large.dart';
 import 'package:holla/presentation/widget/home/hotel_card_row.dart';
 import 'package:holla/presentation/widget/home/hotel_card_small.dart';
 import 'package:holla/presentation/widget/home/section_title.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/config/themes/app_colors.dart';
 import '../../bloc/home/home_bloc.dart';
@@ -29,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<HomeModel> _popularHotels = [];
   List<HomeModel> _recommendedHotels = [];
   List<HomeModel> _topRatedHotels = [];
+
   bool _showClear = false;
   Timer? _searchDebounce;
 
@@ -81,6 +85,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
       context.go(AppRoutes.search, extra: value.trim());
     });
+  }
+
+  /// Handle clear
+  void _onClear(BuildContext context) {
+    _searchController.clear();
+    setState(() => _showClear = false);
+    context.read<SearchBloc>().add(ClearSearch());
+  }
+
+  /// Handle favorite tap
+  void _handleFavoriteTap(HomeModel hotel) {
+    final bool wasFavorite = hotel.isFavorite;
+
+    void toggle(List<HomeModel> list) {
+      final index = list.indexWhere((h) => h.id == hotel.id);
+      if (index == -1) return;
+
+      list[index] = list[index].copyWith(isFavorite: !list[index].isFavorite);
+    }
+
+    setState(() {
+      toggle(_popularHotels);
+      toggle(_recommendedHotels);
+      toggle(_topRatedHotels);
+    });
+
+    if (wasFavorite) {
+      context.read<HomeBloc>().add(RemoveFavorite(hotel.id));
+    } else {
+      context.read<HomeBloc>().add(AddFavorite(hotel.id));
+    }
   }
 
   /// Show error dialog
@@ -193,21 +228,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             if (_showClear)
                               GestureDetector(
                                 onTap: () {
-                                  _searchController.clear();
-                                  setState(() => _showClear = false);
+                                  _onClear(context);
                                 },
-                                child: Container(
-                                  width: 16,
-                                  height: 16,
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.white,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Icon(
-                                    Icons.close,
-                                    size: 14,
-                                    color: AppColors.error.withOpacity(0.8),
-                                  ),
+                                child: Icon(
+                                  LucideIcons.xCircle,
+                                  size: 18,
+                                  color: AppColors.error.withOpacity(0.7),
                                 ),
                               ),
                           ],
@@ -232,6 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (_, i) {
                               final hotel =
                                   _popularHotels[i % _popularHotels.length];
+
                               return HotelCardLarge(
                                 name: hotel.name,
                                 imageUrl:
@@ -242,7 +269,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ratingCount: hotel.ratingCount,
                                 priceHour: hotel.priceHour,
                                 address: hotel.address,
-                                onTap: () {},
+                                isFavorite: hotel.isFavorite,
+                                onFavoriteTap: () => _handleFavoriteTap(hotel),
                               );
                             },
                           ),
@@ -270,6 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (_, i) {
                                 final hotel =
                                     _topRatedHotels[i % _topRatedHotels.length];
+
                                 return HotelCardSmall(
                                   name: hotel.name,
                                   imageUrl:
@@ -280,7 +309,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ratingCount: hotel.ratingCount,
                                   priceHour: hotel.priceHour,
                                   address: hotel.address,
-                                  onTap: () {},
+                                  isFavorite: hotel.isFavorite,
+                                  onFavoriteTap:
+                                      () => _handleFavoriteTap(hotel),
                                 );
                               },
                             ),
@@ -309,6 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               final hotel =
                                   _recommendedHotels[i %
                                       _recommendedHotels.length];
+
                               return HotelCardRow(
                                 name: hotel.name,
                                 imageUrl:
@@ -319,7 +351,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ratingCount: hotel.ratingCount,
                                 priceHour: hotel.priceHour,
                                 address: hotel.address,
-                                onTap: () {},
+                                isFavorite: hotel.isFavorite,
+                                onFavoriteTap: () => _handleFavoriteTap(hotel),
                               );
                             },
                           ),

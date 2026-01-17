@@ -23,3 +23,21 @@ class GetHotelByName extends HomeEvent {
   @override
   List<Object?> get props => [name];
 }
+
+class AddFavorite extends HomeEvent {
+  final String hotelId;
+  const AddFavorite(this.hotelId);
+}
+
+class RemoveFavorite extends HomeEvent {
+  final String hotelId;
+  const RemoveFavorite(this.hotelId);
+}
+
+class ToggleFavoriteLocal extends HomeEvent {
+  final String hotelId;
+  const ToggleFavoriteLocal(this.hotelId);
+
+  @override
+  List<Object?> get props => [hotelId];
+}

@@ -5,6 +5,9 @@ import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/config/themes/app_colors.dart';
+import '../../../models/home_model.dart';
+import '../../bloc/home/home_bloc.dart';
+import '../../bloc/home/home_event.dart';
 import '../../bloc/search/search_bloc.dart';
 import '../../bloc/search/search_event.dart';
 import '../../bloc/search/search_state.dart';
@@ -39,21 +42,32 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  // Refresh
+  /// Handle refresh
   void _onRefresh(BuildContext context) {
     context.read<SearchBloc>().add(SearchHotels(widget.name));
   }
 
-  // Clear
+  /// Handle clear
   void _onClear(BuildContext context) {
     _searchController.clear();
     setState(() => _showClear = false);
     context.read<SearchBloc>().add(ClearSearch());
   }
 
-  // Go to home screen
+  /// Go to home screen
   void _onBack(BuildContext context) {
     context.go(AppRoutes.home);
+  }
+
+  /// Handle favorite tap
+  void _handleFavoriteTap(HomeModel hotel) {
+    if (hotel.isFavorite) {
+      context.read<HomeBloc>().add(RemoveFavorite(hotel.id));
+    } else {
+      context.read<HomeBloc>().add(AddFavorite(hotel.id));
+    }
+
+    context.read<SearchBloc>().add(ToggleSearchFavorite(hotel.id));
   }
 
   @override
@@ -192,6 +206,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           ratingCount: hotel.ratingCount,
                           priceHour: hotel.priceHour,
                           address: hotel.address,
+                          isFavorite: hotel.isFavorite,
+                          onFavoriteTap: () => _handleFavoriteTap(hotel),
                         );
                       },
                     ),

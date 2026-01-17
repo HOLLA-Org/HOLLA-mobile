@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holla/models/home_model.dart';
 
 import 'home_event.dart';
 import 'home_state.dart';
@@ -14,6 +15,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<GetPopularHotels>(_onGetPopularHotels);
     on<GetRecommendedHotels>(_onGetRecommendedHotels);
     on<GetTopRatedHotels>(_onGetTopRatedHotels);
+    on<ToggleFavoriteLocal>(_onToggleFavoriteLocal);
+    on<AddFavorite>(_onAddFavorite);
+    on<RemoveFavorite>(_onRemoveFavorite);
   }
 
   Future<void> _onGetAllHotels(
@@ -66,6 +70,49 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } catch (e) {
       emit(HomeFailure(_translateError(e.toString())));
     }
+  }
+
+  void _onToggleFavoriteLocal(
+    ToggleFavoriteLocal event,
+    Emitter<HomeState> emit,
+  ) {
+    List<HomeModel> toggle(List<HomeModel> list) {
+      return list.map((h) {
+        if (h.id == event.hotelId) {
+          return h.copyWith(isFavorite: !h.isFavorite);
+        }
+        return h;
+      }).toList();
+    }
+
+    if (state is GetPopularHotelsSuccess) {
+      final current = state as GetPopularHotelsSuccess;
+      emit(GetPopularHotelsSuccess(toggle(current.hotels)));
+    }
+
+    if (state is GetRecommendedHotelsSuccess) {
+      final current = state as GetRecommendedHotelsSuccess;
+      emit(GetRecommendedHotelsSuccess(toggle(current.hotels)));
+    }
+
+    if (state is GetTopRatedHotelsSuccess) {
+      final current = state as GetTopRatedHotelsSuccess;
+      emit(GetTopRatedHotelsSuccess(toggle(current.hotels)));
+    }
+  }
+
+  Future<void> _onAddFavorite(
+    AddFavorite event,
+    Emitter<HomeState> emit,
+  ) async {
+    await _homeRepository.addFavorite(event.hotelId);
+  }
+
+  Future<void> _onRemoveFavorite(
+    RemoveFavorite event,
+    Emitter<HomeState> emit,
+  ) async {
+    await _homeRepository.removeFavorite(event.hotelId);
   }
 
   String _translateError(String errorMessage) {
