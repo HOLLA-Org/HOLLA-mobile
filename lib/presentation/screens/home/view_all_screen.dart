@@ -5,14 +5,14 @@ import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:holla/presentation/bloc/home/home_bloc.dart';
 import 'package:holla/presentation/bloc/home/home_event.dart';
 
-import '../../../../models/home_model.dart';
+import '../../../models/hotel_model.dart';
 import '../../../../core/config/themes/app_colors.dart';
 import '../../../../presentation/widget/header_with_back.dart';
 import '../../widget/home/hotel_card_list.dart';
 
 class ViewAllScreen extends StatefulWidget {
   final String title;
-  final List<HomeModel> hotels;
+  final List<HotelModel> hotels;
 
   const ViewAllScreen({super.key, required this.title, required this.hotels});
 
@@ -21,16 +21,16 @@ class ViewAllScreen extends StatefulWidget {
 }
 
 class _ViewAllScreenState extends State<ViewAllScreen> {
-  late List<HomeModel> _hotels;
+  late List<HotelModel> _hotels;
 
   @override
   void initState() {
     super.initState();
-    _hotels = List<HomeModel>.from(widget.hotels);
+    _hotels = List<HotelModel>.from(widget.hotels);
   }
 
   /// Handle favorite tap
-  void _handleFavoriteTap(HomeModel hotel) {
+  void _handleFavoriteTap(HotelModel hotel) {
     final index = _hotels.indexWhere((h) => h.id == hotel.id);
     if (index == -1) return;
 

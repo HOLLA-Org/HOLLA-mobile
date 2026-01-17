@@ -5,14 +5,14 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/networks/api_constants.dart';
-import '../models/home_model.dart';
+import '../models/hotel_model.dart';
 import '../repository/home_repo.dart';
 
 class HomeService implements HomeRepository {
   final _storage = const FlutterSecureStorage();
 
   @override
-  Future<List<HomeModel>> getAllHotels() async {
+  Future<List<HotelModel>> getAllHotels() async {
     final uri = Uri.parse(ApiConstant.getAllHotels);
     final token = await _storage.read(key: 'accessToken');
 
@@ -30,7 +30,7 @@ class HomeService implements HomeRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final List list = body['data'] as List;
         return list
-            .map((e) => HomeModel.fromJson(e as Map<String, dynamic>))
+            .map((e) => HotelModel.fromJson(e as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception(body['message']);
@@ -41,7 +41,7 @@ class HomeService implements HomeRepository {
   }
 
   @override
-  Future<List<HomeModel>> getPopularHotels() async {
+  Future<List<HotelModel>> getPopularHotels() async {
     final uri = Uri.parse(ApiConstant.getPopularHotels);
     final token = await _storage.read(key: 'accessToken');
 
@@ -59,7 +59,7 @@ class HomeService implements HomeRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final List list = body['data'] as List;
         return list
-            .map((e) => HomeModel.fromJson(e as Map<String, dynamic>))
+            .map((e) => HotelModel.fromJson(e as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception(body['message']);
@@ -70,7 +70,7 @@ class HomeService implements HomeRepository {
   }
 
   @override
-  Future<List<HomeModel>> getRecommendedHotels() async {
+  Future<List<HotelModel>> getRecommendedHotels() async {
     final uri = Uri.parse(ApiConstant.getRecommendedHotels);
     final token = await _storage.read(key: 'accessToken');
 
@@ -88,7 +88,7 @@ class HomeService implements HomeRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final List list = body['data'] as List;
         return list
-            .map((e) => HomeModel.fromJson(e as Map<String, dynamic>))
+            .map((e) => HotelModel.fromJson(e as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception(body['message']);
@@ -99,7 +99,7 @@ class HomeService implements HomeRepository {
   }
 
   @override
-  Future<List<HomeModel>> getTopRatedHotels() async {
+  Future<List<HotelModel>> getTopRatedHotels() async {
     final uri = Uri.parse(ApiConstant.getTopRatedHotels);
     final token = await _storage.read(key: 'accessToken');
 
@@ -117,7 +117,7 @@ class HomeService implements HomeRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final List list = body['data'] as List;
         return list
-            .map((e) => HomeModel.fromJson(e as Map<String, dynamic>))
+            .map((e) => HotelModel.fromJson(e as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception(body['message']);
@@ -128,7 +128,7 @@ class HomeService implements HomeRepository {
   }
 
   @override
-  Future<List<HomeModel>> getHotelByName(String name) async {
+  Future<List<HotelModel>> getHotelByName(String name) async {
     final uri = Uri.parse("${ApiConstant.getHotelByName}?name=$name");
     final token = await _storage.read(key: 'accessToken');
 
@@ -146,35 +146,8 @@ class HomeService implements HomeRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final List list = body['data'] as List;
         return list
-            .map((e) => HomeModel.fromJson(e as Map<String, dynamic>))
+            .map((e) => HotelModel.fromJson(e as Map<String, dynamic>))
             .toList();
-      } else {
-        throw Exception(body['message']);
-      }
-    } on SocketException {
-      throw Exception('Failed to connect to the server.');
-    }
-  }
-
-  @override
-  Future<Set<String>> getFavoriteIds() async {
-    final uri = Uri.parse(ApiConstant.getFavoriteIds);
-    final token = await _storage.read(key: 'accessToken');
-
-    try {
-      final response = await http.get(
-        uri,
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
-        },
-      );
-
-      final body = jsonDecode(response.body);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final List list = body['data'] as List;
-        return list.map((e) => e.toString()).toSet();
       } else {
         throw Exception(body['message']);
       }

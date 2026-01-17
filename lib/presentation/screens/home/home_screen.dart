@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
-import 'package:holla/models/home_model.dart';
+import 'package:holla/models/hotel_model.dart';
 import 'package:holla/presentation/bloc/search/search_bloc.dart';
 import 'package:holla/presentation/bloc/search/search_event.dart';
 import 'package:holla/presentation/screens/home/view_all_args.dart';
@@ -29,9 +29,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<HomeModel> _popularHotels = [];
-  List<HomeModel> _recommendedHotels = [];
-  List<HomeModel> _topRatedHotels = [];
+  List<HotelModel> _popularHotels = [];
+  List<HotelModel> _recommendedHotels = [];
+  List<HotelModel> _topRatedHotels = [];
 
   bool _showClear = false;
   Timer? _searchDebounce;
@@ -95,10 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   /// Handle favorite tap
-  void _handleFavoriteTap(HomeModel hotel) {
+  void _handleFavoriteTap(HotelModel hotel) {
     final bool wasFavorite = hotel.isFavorite;
 
-    void toggle(List<HomeModel> list) {
+    void toggle(List<HotelModel> list) {
       final index = list.indexWhere((h) => h.id == hotel.id);
       if (index == -1) return;
 
