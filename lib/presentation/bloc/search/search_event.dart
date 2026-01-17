@@ -16,4 +16,12 @@ class SearchHotels extends SearchEvent {
   List<Object?> get props => [name];
 }
 
+class ToggleSearchFavorite extends SearchEvent {
+  final String hotelId;
+  const ToggleSearchFavorite(this.hotelId);
+
+  @override
+  List<Object?> get props => [hotelId];
+}
+
 class ClearSearch extends SearchEvent {}

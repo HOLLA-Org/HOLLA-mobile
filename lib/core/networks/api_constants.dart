@@ -34,13 +34,14 @@ class ApiConstant {
 
   // Home
   static const String getAllHotels = "${ApiBase.baseUrl}/hotel";
-
   static const String getPopularHotels = "${ApiBase.baseUrl}/hotel/popular";
-
   static const String getRecommendedHotels =
       "${ApiBase.baseUrl}/hotel/recommended";
-
   static const String getTopRatedHotels = "${ApiBase.baseUrl}/hotel/top-rated";
-
   static const String getHotelByName = "${ApiBase.baseUrl}/hotel/search";
+
+  // Favorite
+  static const String getFavoriteIds = '${ApiBase.baseUrl}/favorites/ids';
+  static const String addFavorite = '${ApiBase.baseUrl}/favorites';
+  static const String removeFavorite = '${ApiBase.baseUrl}/favorites';
 }

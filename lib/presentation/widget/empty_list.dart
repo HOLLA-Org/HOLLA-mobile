@@ -35,7 +35,7 @@ class EmptyList extends StatelessWidget {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
-              color: AppColors.headingTypo,
+              color: AppColors.primary,
             ),
           ),
           SizedBox(height: 8),

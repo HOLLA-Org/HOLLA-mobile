@@ -155,4 +155,79 @@ class HomeService implements HomeRepository {
       throw Exception('Failed to connect to the server.');
     }
   }
+
+  @override
+  Future<Set<String>> getFavoriteIds() async {
+    final uri = Uri.parse(ApiConstant.getFavoriteIds);
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final List list = body['data'] as List;
+        return list.map((e) => e.toString()).toSet();
+      } else {
+        throw Exception(body['message']);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
+
+  @override
+  Future<void> addFavorite(String hotelId) async {
+    final uri = Uri.parse('${ApiConstant.addFavorite}/$hotelId');
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception(body['message']);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
+
+  @override
+  Future<void> removeFavorite(String hotelId) async {
+    final uri = Uri.parse('${ApiConstant.removeFavorite}/$hotelId');
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.delete(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception(body['message']);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
 }
