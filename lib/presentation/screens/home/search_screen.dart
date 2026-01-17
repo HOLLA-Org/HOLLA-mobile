@@ -5,7 +5,7 @@ import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../core/config/themes/app_colors.dart';
-import '../../../models/home_model.dart';
+import '../../../models/hotel_model.dart';
 import '../../bloc/home/home_bloc.dart';
 import '../../bloc/home/home_event.dart';
 import '../../bloc/search/search_bloc.dart';
@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   /// Handle favorite tap
-  void _handleFavoriteTap(HomeModel hotel) {
+  void _handleFavoriteTap(HotelModel hotel) {
     if (hotel.isFavorite) {
       context.read<HomeBloc>().add(RemoveFavorite(hotel.id));
     } else {

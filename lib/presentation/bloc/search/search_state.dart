@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../../models/home_model.dart';
+import '../../../models/hotel_model.dart';
 
 abstract class SearchState extends Equatable {
   const SearchState();
@@ -13,7 +13,7 @@ class SearchInitial extends SearchState {}
 class SearchLoading extends SearchState {}
 
 class SearchSuccess extends SearchState {
-  final List<HomeModel> hotels;
+  final List<HotelModel> hotels;
 
   const SearchSuccess(this.hotels);
 

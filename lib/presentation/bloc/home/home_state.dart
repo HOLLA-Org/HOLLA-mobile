@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../../models/home_model.dart';
+import '../../../models/hotel_model.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -13,7 +13,7 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class GetAllHotelsSuccess extends HomeState {
-  final List<HomeModel> hotels;
+  final List<HotelModel> hotels;
   const GetAllHotelsSuccess(this.hotels);
 
   @override
@@ -21,7 +21,7 @@ class GetAllHotelsSuccess extends HomeState {
 }
 
 class GetPopularHotelsSuccess extends HomeState {
-  final List<HomeModel> hotels;
+  final List<HotelModel> hotels;
   const GetPopularHotelsSuccess(this.hotels);
 
   @override
@@ -29,7 +29,7 @@ class GetPopularHotelsSuccess extends HomeState {
 }
 
 class GetRecommendedHotelsSuccess extends HomeState {
-  final List<HomeModel> hotels;
+  final List<HotelModel> hotels;
   const GetRecommendedHotelsSuccess(this.hotels);
 
   @override
@@ -37,7 +37,7 @@ class GetRecommendedHotelsSuccess extends HomeState {
 }
 
 class GetTopRatedHotelsSuccess extends HomeState {
-  final List<HomeModel> hotels;
+  final List<HotelModel> hotels;
   const GetTopRatedHotelsSuccess(this.hotels);
 
   @override
@@ -45,7 +45,7 @@ class GetTopRatedHotelsSuccess extends HomeState {
 }
 
 class GetHotelByNameSuccess extends HomeState {
-  final List<HomeModel> hotels;
+  final List<HotelModel> hotels;
   const GetHotelByNameSuccess(this.hotels);
 
   @override

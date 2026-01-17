@@ -1,12 +1,11 @@
-import '../models/home_model.dart';
+import '../models/hotel_model.dart';
 
 abstract class HomeRepository {
-  Future<List<HomeModel>> getAllHotels();
-  Future<List<HomeModel>> getPopularHotels();
-  Future<List<HomeModel>> getRecommendedHotels();
-  Future<List<HomeModel>> getTopRatedHotels();
-  Future<List<HomeModel>> getHotelByName(String name);
-  Future<Set<String>> getFavoriteIds();
+  Future<List<HotelModel>> getAllHotels();
+  Future<List<HotelModel>> getPopularHotels();
+  Future<List<HotelModel>> getRecommendedHotels();
+  Future<List<HotelModel>> getTopRatedHotels();
+  Future<List<HotelModel>> getHotelByName(String name);
   Future<void> addFavorite(String hotelId);
   Future<void> removeFavorite(String hotelId);
 }

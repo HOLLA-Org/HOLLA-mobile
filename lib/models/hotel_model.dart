@@ -1,4 +1,4 @@
-class HomeModel {
+class HotelModel {
   final String id;
   final String name;
   final String address;
@@ -14,7 +14,7 @@ class HomeModel {
   final bool isPopular;
   final bool isFavorite;
 
-  HomeModel({
+  HotelModel({
     required this.id,
     required this.name,
     required this.address,
@@ -31,8 +31,8 @@ class HomeModel {
     required this.isFavorite,
   });
 
-  factory HomeModel.fromJson(Map<String, dynamic> json) {
-    return HomeModel(
+  factory HotelModel.fromJson(Map<String, dynamic> json) {
+    return HotelModel(
       id: json['_id'],
       name: json['name'],
       address: json['address'],
@@ -50,7 +50,7 @@ class HomeModel {
     );
   }
 
-  HomeModel copyWith({
+  HotelModel copyWith({
     String? id,
     String? name,
     String? address,
@@ -66,7 +66,7 @@ class HomeModel {
     bool? isPopular,
     bool? isFavorite,
   }) {
-    return HomeModel(
+    return HotelModel(
       id: id ?? this.id,
       name: name ?? this.name,
       address: address ?? this.address,
