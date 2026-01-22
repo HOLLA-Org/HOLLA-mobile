@@ -32,6 +32,9 @@ class AppRoutes {
   static const String viewall = '/viewall';
   static const String search = '/search';
 
+  // Booking
+  static const String bookingdetail = '/bookingdetail';
+
   // Shell routes
   static const String home = '/home';
   static const String favorite = '/favorite';

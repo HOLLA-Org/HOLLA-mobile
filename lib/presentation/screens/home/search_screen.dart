@@ -70,6 +70,11 @@ class _SearchScreenState extends State<SearchScreen> {
     context.read<SearchBloc>().add(ToggleSearchFavorite(hotel.id));
   }
 
+  /// Handle hotel tap
+  void _handleHotelTap(HotelModel hotel) {
+    context.push(AppRoutes.bookingdetail, extra: hotel.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -208,6 +213,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           address: hotel.address,
                           isFavorite: hotel.isFavorite,
                           onFavoriteTap: () => _handleFavoriteTap(hotel),
+                          onTap: () => _handleHotelTap(hotel),
                         );
                       },
                     ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:holla/core/config/routes/app_routes.dart';
+import 'package:holla/models/hotel_model.dart';
 import 'package:holla/presentation/bloc/favorite/favorite_bloc.dart';
 import 'package:holla/presentation/bloc/favorite/favorite_event.dart';
 import 'package:holla/presentation/bloc/favorite/favorite_state.dart';
@@ -21,6 +24,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   void initState() {
     super.initState();
     context.read<FavoriteBloc>().add(GetAllFavorite());
+  }
+
+  /// Handle hotel tap
+  void _handleHotelTap(HotelModel hotel) {
+    context.push(AppRoutes.bookingdetail, extra: hotel.id);
   }
 
   @override
@@ -77,8 +85,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         RemoveFavorite(hotel.id),
                       );
                     },
-
-                    onTap: () {},
+                    onTap: () => _handleHotelTap(hotel),
                   );
                 },
               ),

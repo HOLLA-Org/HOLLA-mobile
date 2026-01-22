@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/presentation/bloc/auth/login/login_bloc.dart';
 import 'package:holla/presentation/bloc/auth/register/register_bloc.dart';
 import 'package:holla/presentation/bloc/auth/verify/verify_bloc.dart';
+import 'package:holla/presentation/bloc/booking/booking_bloc.dart';
 import 'package:holla/presentation/bloc/favorite/favorite_bloc.dart';
 import 'package:holla/presentation/bloc/forgot_password/reset_pass/reset_password_bloc.dart';
 import 'package:holla/presentation/bloc/forgot_password/send_mail/send_mail_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:holla/presentation/bloc/location/location_bloc.dart';
 import 'package:holla/presentation/bloc/search/search_bloc.dart';
 import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
 import 'package:holla/repository/auth_repo.dart';
+import 'package:holla/repository/booking_repo.dart';
 import 'package:holla/repository/favorite_repo.dart';
 import 'package:holla/repository/forgot_password_repo.dart';
 import 'package:holla/repository/home_repo.dart';
@@ -92,5 +94,11 @@ final blocProviders = <BlocProvider>[
         (context) => FavoriteBloc(
           favoriteRepository: context.read<FavoriteRepository>(),
         ),
+  ),
+
+  BlocProvider<BookingBloc>(
+    create:
+        (context) =>
+            BookingBloc(bookingRepository: context.read<BookingRepository>()),
   ),
 ];

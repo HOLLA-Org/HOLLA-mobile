@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holla/repository/auth_repo.dart';
+import 'package:holla/repository/booking_repo.dart';
 import 'package:holla/repository/favorite_repo.dart';
 import 'package:holla/repository/forgot_password_repo.dart';
 import 'package:holla/repository/home_repo.dart';
@@ -7,6 +8,7 @@ import 'package:holla/repository/location_repo.dart';
 import 'package:holla/repository/notification_repo.dart';
 import 'package:holla/repository/setting_repo.dart';
 import 'package:holla/services/auth_service.dart';
+import 'package:holla/services/booking_service.dart';
 import 'package:holla/services/favorite_service.dart';
 import 'package:holla/services/forgot_password_service.dart';
 import 'package:holla/services/home_service.dart';
@@ -26,4 +28,5 @@ final repositoryProviders = <RepositoryProvider>[
   ),
   RepositoryProvider<HomeRepository>(create: (_) => HomeService()),
   RepositoryProvider<FavoriteRepository>(create: (_) => FavoriteService()),
+  RepositoryProvider<BookingRepository>(create: (_) => BookingService()),
 ];

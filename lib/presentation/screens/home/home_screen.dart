@@ -118,6 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  /// Handle hotel tap
+  void _handleHotelTap(HotelModel hotel) {
+    context.push(AppRoutes.bookingdetail, extra: hotel.id);
+  }
+
   /// Show error dialog
   void _showError(BuildContext context, String message) {
     notificationDialog(
@@ -271,6 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 address: hotel.address,
                                 isFavorite: hotel.isFavorite,
                                 onFavoriteTap: () => _handleFavoriteTap(hotel),
+                                onTap: () => _handleHotelTap(hotel),
                               );
                             },
                           ),
@@ -312,6 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   isFavorite: hotel.isFavorite,
                                   onFavoriteTap:
                                       () => _handleFavoriteTap(hotel),
+                                  onTap: () => _handleHotelTap(hotel),
                                 );
                               },
                             ),
@@ -353,6 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 address: hotel.address,
                                 isFavorite: hotel.isFavorite,
                                 onFavoriteTap: () => _handleFavoriteTap(hotel),
+                                onTap: () => _handleHotelTap(hotel),
                               );
                             },
                           ),

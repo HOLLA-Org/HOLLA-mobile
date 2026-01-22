@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holla/presentation/screens/booking/booking_detail_screen.dart';
 import 'package:holla/presentation/screens/home/search_screen.dart';
 import 'package:holla/presentation/screens/home/view_all_screen.dart';
 import 'package:holla/presentation/screens/setting/take_camera_page.dart';
@@ -7,7 +8,7 @@ import 'package:holla/presentation/widget/navigation/custom_bottom_navigation.da
 import 'package:holla/presentation/screens/auth/login_screen.dart';
 import 'package:holla/presentation/screens/auth/verify_screen.dart';
 import 'package:holla/presentation/screens/auth/register_screen.dart';
-import 'package:holla/presentation/screens/booking/booking_screen.dart';
+import 'package:holla/presentation/screens/booking_history/booking_history_screen.dart';
 import 'package:holla/presentation/screens/favorite/favorite_screen.dart';
 import 'package:holla/presentation/screens/forgot_password/reset_password_screen.dart';
 import 'package:holla/presentation/screens/forgot_password/send_mail_screen.dart';
@@ -126,6 +127,22 @@ class AppRouter {
           return SearchScreen(name: name);
         },
       ),
+
+      // Booking Detail
+      GoRoute(
+        path: AppRoutes.bookingdetail,
+        builder: (context, state) {
+          final hotelId = state.extra as String;
+          return BookingDetailScreen(hotelId: hotelId);
+        },
+      ),
+
+      // Booking
+      GoRoute(
+        path: AppRoutes.booking,
+        builder: (context, state) => const BookingHistoryScreen(),
+      ),
+
       // ShellRoute have nav bar
       ShellRoute(
         builder: (context, state, child) {
@@ -146,7 +163,7 @@ class AppRouter {
           ),
           GoRoute(
             path: AppRoutes.booking,
-            builder: (context, state) => const BookingScreen(),
+            builder: (context, state) => const BookingHistoryScreen(),
           ),
           GoRoute(
             path: AppRoutes.setting,
