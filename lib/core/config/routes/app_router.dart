@@ -26,6 +26,7 @@ import 'package:holla/presentation/screens/setting/change_profile_screen.dart';
 import 'package:holla/presentation/screens/setting/setting_screen.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 
+import 'package:holla/presentation/screens/booking/booking_time_screen.dart';
 import '../../../presentation/screens/home/view_all_args.dart';
 import '../../../presentation/screens/notification/notification.dart';
 
@@ -141,6 +142,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.booking,
         builder: (context, state) => const BookingHistoryScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.bookingtime,
+        builder: (context, state) => const BookingTimeScreen(),
       ),
 
       // ShellRoute have nav bar
