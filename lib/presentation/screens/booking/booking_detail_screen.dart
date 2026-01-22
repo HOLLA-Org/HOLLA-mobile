@@ -10,6 +10,7 @@ import '../../bloc/booking/booking_event.dart';
 import '../../bloc/booking/booking_state.dart';
 import '../../../models/hotel_detail_model.dart';
 import '../../../models/review_model.dart';
+import '../../widget/review/review_card.dart';
 
 class BookingDetailScreen extends StatefulWidget {
   final String hotelId;
@@ -38,7 +39,14 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
 
   /// Navigate to all reviews screen
   void _handleNavigateToAllReviews() {
-    // Navigate to all reviews screen
+    context.push(
+      AppRoutes.review,
+      extra: {
+        'reviews': _reviews,
+        'rating': _hotel!.rating,
+        'ratingCount': _hotel!.ratingCount,
+      },
+    );
   }
 
   /// Handle booking action
@@ -449,103 +457,16 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
         else
           SizedBox(
             height: 100,
-            child: ListView.builder(
+            child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: _reviews.length > 3 ? 3 : _reviews.length,
+              separatorBuilder: (context, index) => const SizedBox(width: 16),
+              itemCount: _reviews.length > 5 ? 5 : _reviews.length,
               itemBuilder: (context, index) {
-                return _buildReviewItem(_reviews[index]);
+                return ReviewCard(review: _reviews[index], width: 240);
               },
             ),
           ),
       ],
-    );
-  }
-
-  Widget _buildReviewItem(ReviewModel review) {
-    return Container(
-      width: 220,
-      margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundImage:
-                    review.user.avatarUrl != null
-                        ? NetworkImage(review.user.avatarUrl!)
-                        : null,
-                backgroundColor: Colors.blue[100],
-                child:
-                    review.user.avatarUrl == null
-                        ? Icon(Icons.person, color: Colors.blue[700], size: 20)
-                        : null,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            review.user.username,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: List.generate(
-                            review.rating.round(),
-                            (index) => const Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 13,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      review.comment.isNotEmpty
-                          ? review.comment
-                          : 'Đẹp tuyệt vời luôn',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 11),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              DateFormat('dd / MM / yyyy').format(review.reviewDate),
-              style: TextStyle(color: Colors.grey[500], fontSize: 10),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
