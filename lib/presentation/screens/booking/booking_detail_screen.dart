@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import '../../../core/config/routes/app_routes.dart';
 import '../../../core/config/themes/app_colors.dart';
+import '../../widget/booking/action_button.dart';
 import '../../bloc/booking/booking_bloc.dart';
 import '../../bloc/booking/booking_event.dart';
 import '../../bloc/booking/booking_state.dart';
@@ -41,7 +43,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
 
   /// Handle booking action
   void _handleBooking() {
-    // Handle booking logic
+    context.push(AppRoutes.bookingtime);
   }
 
   void _showAllImages() {
@@ -88,7 +90,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                             ),
                             IconButton(
                               icon: const Icon(Icons.close),
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () => context.pop(),
                             ),
                           ],
                         ),
@@ -152,7 +154,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
             }
 
             if (_hotel == null) {
-              return const Center(child: Text('No hotel data available'));
+              return const SizedBox();
             }
 
             return CustomScrollView(
@@ -587,25 +589,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
               ),
             ],
           ),
-          InkWell(
-            onTap: _handleBooking,
-            borderRadius: BorderRadius.circular(12),
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 32),
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Text(
-                'Đặt phòng',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
+          ActionButton(text: 'Đặt phòng', onTap: _handleBooking),
         ],
       ),
     );
