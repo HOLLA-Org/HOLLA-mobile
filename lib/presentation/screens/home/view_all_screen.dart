@@ -47,6 +47,11 @@ class _ViewAllScreenState extends State<ViewAllScreen> {
     }
   }
 
+  /// Handle hotel tap
+  void _handleHotelTap(HotelModel hotel) {
+    context.push(AppRoutes.bookingdetail, extra: hotel.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +86,7 @@ class _ViewAllScreenState extends State<ViewAllScreen> {
               address: hotel.address,
               isFavorite: hotel.isFavorite,
               onFavoriteTap: () => _handleFavoriteTap(hotel),
-              onTap: () {},
+              onTap: () => _handleHotelTap(hotel),
             );
           },
         ),

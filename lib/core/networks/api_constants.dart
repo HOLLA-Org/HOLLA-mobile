@@ -44,4 +44,8 @@ class ApiConstant {
   static const String getAllFavorite = '${ApiBase.baseUrl}/favorites';
   static const String addFavorite = '${ApiBase.baseUrl}/favorites';
   static const String removeFavorite = '${ApiBase.baseUrl}/favorites';
+
+  // Booking
+  static const String getHotelDetail = '${ApiBase.baseUrl}/hotel/detail';
+  static const String getHotelReviews = '${ApiBase.baseUrl}/review';
 }
