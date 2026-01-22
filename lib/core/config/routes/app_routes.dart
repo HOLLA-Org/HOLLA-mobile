@@ -35,6 +35,7 @@ class AppRoutes {
   // Booking
   static const String bookingdetail = '/bookingdetail';
   static const String bookingtime = '/bookingtime';
+  static const String review = '/review';
 
   // Shell routes
   static const String home = '/home';

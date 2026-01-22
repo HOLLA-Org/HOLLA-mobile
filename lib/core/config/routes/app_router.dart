@@ -27,6 +27,8 @@ import 'package:holla/presentation/screens/setting/setting_screen.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 
 import 'package:holla/presentation/screens/booking/booking_time_screen.dart';
+import 'package:holla/presentation/screens/review/review_screen.dart';
+import 'package:holla/models/review_model.dart';
 import '../../../presentation/screens/home/view_all_args.dart';
 import '../../../presentation/screens/notification/notification.dart';
 
@@ -146,6 +148,19 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.bookingtime,
         builder: (context, state) => const BookingTimeScreen(),
+      ),
+
+      // Review
+      GoRoute(
+        path: AppRoutes.review,
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>;
+          return ReviewScreen(
+            reviews: args['reviews'] as List<ReviewModel>,
+            rating: args['rating'] as double,
+            ratingCount: args['ratingCount'] as int,
+          );
+        },
       ),
 
       // ShellRoute have nav bar
