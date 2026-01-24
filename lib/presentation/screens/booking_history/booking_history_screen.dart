@@ -5,6 +5,6 @@ class BookingHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Booking history screen')));
+    return const Scaffold(body: Center(child: Text('Booking history screen')));
   }
 }

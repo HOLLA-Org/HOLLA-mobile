@@ -50,8 +50,8 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
   }
 
   /// Handle booking action
-  void _handleBooking() {
-    context.push(AppRoutes.bookingtime);
+  void _handleBooking() async {
+    context.push(AppRoutes.bookingtime, extra: _hotel!);
   }
 
   void _showAllImages() {

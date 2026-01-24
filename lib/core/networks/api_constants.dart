@@ -48,4 +48,9 @@ class ApiConstant {
   // Booking
   static const String getHotelDetail = '${ApiBase.baseUrl}/hotel/detail';
   static const String getHotelReviews = '${ApiBase.baseUrl}/review';
+  static const String createBooking = '${ApiBase.baseUrl}/bookings';
+
+  // Payment
+  static const String createPayment = '${ApiBase.baseUrl}/payment';
+  static const String getAllDiscounts = '${ApiBase.baseUrl}/discount';
 }

@@ -66,4 +66,41 @@ class BookingService implements BookingRepository {
       throw Exception('Failed to connect to the server.');
     }
   }
+
+  @override
+  Future<String> createBooking({
+    required String hotelId,
+    required String bookingType,
+    DateTime? checkIn,
+    DateTime? checkOut,
+  }) async {
+    final uri = Uri.parse(ApiConstant.createBooking);
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'hotel_id': hotelId,
+          'booking_type': bookingType,
+          if (checkIn != null) 'check_in': checkIn.toUtc().toIso8601String(),
+          if (checkOut != null) 'check_out': checkOut.toUtc().toIso8601String(),
+        }),
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return body['data']['_id'];
+      } else {
+        throw Exception(body['message'] ?? 'Đặt phòng thất bại');
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
 }

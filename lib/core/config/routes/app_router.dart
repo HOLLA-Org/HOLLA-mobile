@@ -25,8 +25,11 @@ import 'package:holla/presentation/screens/setting/change_password_screen.dart';
 import 'package:holla/presentation/screens/setting/change_profile_screen.dart';
 import 'package:holla/presentation/screens/setting/setting_screen.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
+import 'package:holla/models/hotel_detail_model.dart';
 
 import 'package:holla/presentation/screens/booking/booking_time_screen.dart';
+import 'package:holla/presentation/screens/payment/payment_screen.dart';
+import 'package:holla/presentation/screens/payment/payment_args.dart';
 import 'package:holla/presentation/screens/review/review_screen.dart';
 import 'package:holla/models/review_model.dart';
 import '../../../presentation/screens/home/view_all_args.dart';
@@ -147,7 +150,17 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.bookingtime,
-        builder: (context, state) => const BookingTimeScreen(),
+        builder: (context, state) {
+          final hotel = state.extra as HotelDetailModel;
+          return BookingTimeScreen(hotel: hotel);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.payment,
+        builder: (context, state) {
+          final args = state.extra as PaymentArgs;
+          return PaymentScreen(args: args);
+        },
       ),
 
       // Review

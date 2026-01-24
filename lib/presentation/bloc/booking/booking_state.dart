@@ -31,6 +31,15 @@ class GetHotelReviewsSuccess extends BookingState {
   List<Object?> get props => [reviews];
 }
 
+class CreateBookingSuccess extends BookingState {
+  final String bookingId;
+
+  const CreateBookingSuccess(this.bookingId);
+
+  @override
+  List<Object?> get props => [bookingId];
+}
+
 class BookingFailure extends BookingState {
   final String error;
 
