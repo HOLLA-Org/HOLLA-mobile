@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../models/booking_model.dart';
 
 abstract class BookingEvent extends Equatable {
   const BookingEvent();
@@ -40,4 +41,13 @@ class CreateBooking extends BookingEvent {
 
   @override
   List<Object?> get props => [hotelId, checkIn, checkOut, bookingType];
+}
+
+class GetBookingHistory extends BookingEvent {
+  final BookingStatus status;
+
+  const GetBookingHistory(this.status);
+
+  @override
+  List<Object?> get props => [status];
 }

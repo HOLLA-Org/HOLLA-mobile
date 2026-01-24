@@ -5,12 +5,45 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/networks/api_constants.dart';
+import '../models/booking_model.dart';
 import '../models/hotel_detail_model.dart';
 import '../models/review_model.dart';
 import '../repository/booking_repo.dart';
 
 class BookingService implements BookingRepository {
   final _storage = const FlutterSecureStorage();
+
+  @override
+  Future<List<BookingModel>> getBookingHistory(BookingStatus status) async {
+    final statusStr = status.name.toLowerCase();
+    final uri = Uri.parse(
+      ApiConstant.getBookingHistory,
+    ).replace(queryParameters: {'tab': statusStr});
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final List list = body['data'] as List;
+        return list
+            .map((e) => BookingModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw Exception(body['message'] ?? 'Lấy lịch sử đặt phòng thất bại');
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
 
   @override
   Future<HotelDetailModel> getHotelDetail(String hotelId) async {

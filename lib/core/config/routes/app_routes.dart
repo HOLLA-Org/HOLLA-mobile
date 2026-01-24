@@ -35,12 +35,15 @@ class AppRoutes {
   // Booking
   static const String bookingdetail = '/bookingdetail';
   static const String bookingtime = '/bookingtime';
-  static const String review = '/review';
   static const String payment = '/payment';
+
+  // Review
+  static const String review = '/review';
+  static const String writereview = '/writereview';
 
   // Shell routes
   static const String home = '/home';
   static const String favorite = '/favorite';
-  static const String booking = '/booking';
+  static const String bookinghistory = '/bookinghistory';
   static const String setting = '/setting';
 }

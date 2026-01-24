@@ -34,6 +34,7 @@ import 'package:holla/presentation/screens/review/review_screen.dart';
 import 'package:holla/models/review_model.dart';
 import '../../../presentation/screens/home/view_all_args.dart';
 import '../../../presentation/screens/notification/notification.dart';
+import '../../../presentation/screens/write_review/write_review_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -145,10 +146,6 @@ class AppRouter {
 
       // Booking
       GoRoute(
-        path: AppRoutes.booking,
-        builder: (context, state) => const BookingHistoryScreen(),
-      ),
-      GoRoute(
         path: AppRoutes.bookingtime,
         builder: (context, state) {
           final hotel = state.extra as HotelDetailModel;
@@ -176,6 +173,11 @@ class AppRouter {
         },
       ),
 
+      GoRoute(
+        path: AppRoutes.writereview,
+        builder: (context, state) => const WriteReviewScreen(),
+      ),
+
       // ShellRoute have nav bar
       ShellRoute(
         builder: (context, state, child) {
@@ -195,7 +197,7 @@ class AppRouter {
             builder: (context, state) => FavoriteScreen(),
           ),
           GoRoute(
-            path: AppRoutes.booking,
+            path: AppRoutes.bookinghistory,
             builder: (context, state) => const BookingHistoryScreen(),
           ),
           GoRoute(
@@ -209,7 +211,7 @@ class AppRouter {
   static int _getNavIndex(String path) {
     if (path.startsWith(AppRoutes.home)) return 0;
     if (path.startsWith(AppRoutes.favorite)) return 1;
-    if (path.startsWith(AppRoutes.booking)) return 2;
+    if (path.startsWith(AppRoutes.bookinghistory)) return 2;
     if (path.startsWith(AppRoutes.setting)) return 3;
     return 0;
   }
