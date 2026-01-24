@@ -27,7 +27,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   final List<String> routes = [
     AppRoutes.home,
     AppRoutes.favorite,
-    AppRoutes.booking,
+    AppRoutes.bookinghistory,
     AppRoutes.setting,
   ];
 

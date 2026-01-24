@@ -1,3 +1,4 @@
+import '../models/booking_model.dart';
 import '../models/hotel_detail_model.dart';
 import '../models/review_model.dart';
 
@@ -10,4 +11,5 @@ abstract class BookingRepository {
     DateTime? checkIn,
     DateTime? checkOut,
   });
+  Future<List<BookingModel>> getBookingHistory(BookingStatus status);
 }

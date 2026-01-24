@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import '../../../models/booking_model.dart';
 import '../../../models/hotel_detail_model.dart';
 import '../../../models/review_model.dart';
 
@@ -38,6 +39,15 @@ class CreateBookingSuccess extends BookingState {
 
   @override
   List<Object?> get props => [bookingId];
+}
+
+class GetBookingHistorySuccess extends BookingState {
+  final List<BookingModel> bookings;
+
+  const GetBookingHistorySuccess(this.bookings);
+
+  @override
+  List<Object?> get props => [bookings];
 }
 
 class BookingFailure extends BookingState {
