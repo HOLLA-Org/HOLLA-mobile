@@ -12,6 +12,25 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
       super(BookingInitial()) {
     on<GetHotelDetail>(_onGetHotelDetail);
     on<GetHotelReviews>(_onGetHotelReviews);
+    on<CreateBooking>(_onCreateBooking);
+  }
+
+  Future<void> _onCreateBooking(
+    CreateBooking event,
+    Emitter<BookingState> emit,
+  ) async {
+    emit(BookingLoading());
+    try {
+      final bookingId = await _bookingRepository.createBooking(
+        hotelId: event.hotelId,
+        checkIn: event.checkIn,
+        checkOut: event.checkOut,
+        bookingType: event.bookingType,
+      );
+      emit(CreateBookingSuccess(bookingId));
+    } catch (e) {
+      emit(BookingFailure(_translateError(e.toString())));
+    }
   }
 
   Future<void> _onGetHotelDetail(

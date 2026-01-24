@@ -6,6 +6,8 @@ import 'package:holla/repository/forgot_password_repo.dart';
 import 'package:holla/repository/home_repo.dart';
 import 'package:holla/repository/location_repo.dart';
 import 'package:holla/repository/notification_repo.dart';
+import 'package:holla/repository/payment_repo.dart';
+import 'package:holla/services/payment_service.dart';
 import 'package:holla/repository/setting_repo.dart';
 import 'package:holla/services/auth_service.dart';
 import 'package:holla/services/booking_service.dart';
@@ -29,4 +31,5 @@ final repositoryProviders = <RepositoryProvider>[
   RepositoryProvider<HomeRepository>(create: (_) => HomeService()),
   RepositoryProvider<FavoriteRepository>(create: (_) => FavoriteService()),
   RepositoryProvider<BookingRepository>(create: (_) => BookingService()),
+  RepositoryProvider<PaymentRepository>(create: (_) => PaymentService()),
 ];

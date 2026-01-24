@@ -1,3 +1,11 @@
+import '../../widget/notification_dialog.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../models/hotel_detail_model.dart';
+import '../../bloc/booking/booking_bloc.dart';
+import '../../bloc/booking/booking_event.dart';
+import '../../bloc/booking/booking_state.dart';
+import '../../../core/config/routes/app_routes.dart';
+import '../payment/payment_args.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +16,8 @@ import '../../widget/booking/booking_selection_list.dart';
 import '../../widget/booking/booking_summary_bottom_bar.dart';
 
 class BookingTimeScreen extends StatefulWidget {
-  const BookingTimeScreen({super.key});
+  final HotelDetailModel hotel;
+  const BookingTimeScreen({super.key, required this.hotel});
 
   @override
   State<BookingTimeScreen> createState() => _BookingTimeScreenState();
@@ -124,13 +133,80 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
 
   /// Handle "Apply" button press
   void _onApply() {
-    context.pop({
-      'isHourly': isHourly,
-      'selectedDay': _selectedDay,
-      'selectedRange': _selectedRange,
-      'time': _selectedTime,
-      'duration': _selectedDuration,
-    });
+    final dates = _getBookingDates();
+    if (dates == null) return;
+
+    context.read<BookingBloc>().add(
+      CreateBooking(
+        hotelId: widget.hotel.id,
+        checkIn: dates['checkIn'],
+        checkOut: dates['checkOut'],
+        bookingType: isHourly ? 'per_hour' : 'per_day',
+      ),
+    );
+  }
+
+  /// Logic helper to calculate check-in and check-out dates
+  Map<String, DateTime>? _getBookingDates() {
+    DateTime? checkIn;
+    DateTime? checkOut;
+
+    if (isHourly) {
+      if (_selectedDay == null) return null;
+      final timeParts = _selectedTime.split(":");
+      checkIn = DateTime.utc(
+        _selectedDay!.year,
+        _selectedDay!.month,
+        _selectedDay!.day,
+        int.parse(timeParts[0]),
+        int.parse(timeParts[1]),
+      );
+      checkOut = checkIn.add(Duration(hours: _selectedDuration));
+    } else {
+      if (_selectedRange == null) return null;
+      // Use DateTime.utc to keep it exactly at midnight UTC
+      checkIn = DateTime.utc(
+        _selectedRange!.start.year,
+        _selectedRange!.start.month,
+        _selectedRange!.start.day,
+        0,
+        0,
+      );
+      checkOut = DateTime.utc(
+        _selectedRange!.end.year,
+        _selectedRange!.end.month,
+        _selectedRange!.end.day,
+        0,
+        0,
+      );
+    }
+
+    return {'checkIn': checkIn, 'checkOut': checkOut};
+  }
+
+  void _navigateToPayment(String bookingId) {
+    context.push(
+      AppRoutes.payment,
+      extra: PaymentArgs(
+        bookingId: bookingId,
+        hotel: widget.hotel,
+        isHourly: isHourly,
+        selectedDay: _selectedDay,
+        selectedRange: _selectedRange,
+        time: _selectedTime,
+        duration: _selectedDuration,
+      ),
+    );
+  }
+
+  /// Show error dialog
+  void _showError(BuildContext context, String message) {
+    notificationDialog(
+      context: context,
+      title: 'Có lỗi xảy ra',
+      message: message,
+      isError: true,
+    );
   }
 
   /// Get formatted check-in date/time string for display
@@ -166,119 +242,131 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: HeaderWithBack(title: "Đặt lịch", onBack: _handleBack),
-      body: Column(
-        children: [
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () => _onSwitchType(true),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Theo giờ",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: isHourly ? AppColors.primary : Colors.grey,
+    return BlocListener<BookingBloc, BookingState>(
+      listener: (context, state) {
+        if (state is CreateBookingSuccess) {
+          _navigateToPayment(state.bookingId);
+        } else if (state is BookingFailure) {
+          _showError(context, state.error);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.white,
+        appBar: HeaderWithBack(title: "Đặt lịch", onBack: _handleBack),
+        body: Column(
+          children: [
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => _onSwitchType(true),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Theo giờ",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: isHourly ? AppColors.primary : Colors.grey,
+                        ),
                       ),
-                    ),
-                    if (isHourly)
-                      Container(
-                        margin: const EdgeInsets.only(top: 4),
-                        height: 2,
-                        width: 60,
-                        color: AppColors.primary,
-                      ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 60),
-              GestureDetector(
-                onTap: () => _onSwitchType(false),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Theo ngày",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: !isHourly ? AppColors.primary : Colors.grey,
-                      ),
-                    ),
-                    if (!isHourly)
-                      Container(
-                        margin: const EdgeInsets.only(top: 4),
-                        height: 2,
-                        width: 70,
-                        color: AppColors.primary,
-                      ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BookingCalendar(
-                    month: _focusedDay,
-                    isHourly: isHourly,
-                    selectedDay: _selectedDay,
-                    selectedRange: _selectedRange,
-                    showChevron: isHourly,
-                    onDaySelected: _onDaySelected,
-                    onPreviousMonth: _onPreviousMonth,
-                    onNextMonth: _onNextMonth,
+                      if (isHourly)
+                        Container(
+                          margin: const EdgeInsets.only(top: 4),
+                          height: 2,
+                          width: 60,
+                          color: AppColors.primary,
+                        ),
+                    ],
                   ),
-                  if (isHourly) ...[
-                    BookingSelectionList<String>(
-                      title: "Giờ nhận phòng",
-                      items: _times,
-                      selectedItem: _selectedTime,
-                      onSelected: _onTimeSelected,
-                      labelBuilder: (item) => item,
-                    ),
-                    BookingSelectionList<int>(
-                      title: "Số giờ sử dụng",
-                      items: _durations,
-                      selectedItem: _selectedDuration,
-                      onSelected: _onDurationSelected,
-                      labelBuilder: (item) => "$item giờ",
-                    ),
-                  ],
-                  if (!isHourly) ...[
+                ),
+                const SizedBox(width: 60),
+                GestureDetector(
+                  onTap: () => _onSwitchType(false),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Theo ngày",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: !isHourly ? AppColors.primary : Colors.grey,
+                        ),
+                      ),
+                      if (!isHourly)
+                        Container(
+                          margin: const EdgeInsets.only(top: 4),
+                          height: 2,
+                          width: 70,
+                          color: AppColors.primary,
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     BookingCalendar(
-                      month: DateTime(_focusedDay.year, _focusedDay.month + 1),
+                      month: _focusedDay,
                       isHourly: isHourly,
                       selectedDay: _selectedDay,
                       selectedRange: _selectedRange,
-                      showChevron: false,
+                      showChevron: isHourly,
                       onDaySelected: _onDaySelected,
+                      onPreviousMonth: _onPreviousMonth,
+                      onNextMonth: _onNextMonth,
                     ),
+                    if (isHourly) ...[
+                      BookingSelectionList<String>(
+                        title: "Giờ nhận phòng",
+                        items: _times,
+                        selectedItem: _selectedTime,
+                        onSelected: _onTimeSelected,
+                        labelBuilder: (item) => item,
+                      ),
+                      BookingSelectionList<int>(
+                        title: "Số giờ sử dụng",
+                        items: _durations,
+                        selectedItem: _selectedDuration,
+                        onSelected: _onDurationSelected,
+                        labelBuilder: (item) => "$item giờ",
+                      ),
+                    ],
+                    if (!isHourly) ...[
+                      BookingCalendar(
+                        month: DateTime(
+                          _focusedDay.year,
+                          _focusedDay.month + 1,
+                        ),
+                        isHourly: isHourly,
+                        selectedDay: _selectedDay,
+                        selectedRange: _selectedRange,
+                        showChevron: false,
+                        onDaySelected: _onDaySelected,
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
             ),
-          ),
-          BookingSummaryBottomBar(
-            checkInLabel: "Nhận phòng",
-            checkInValue: _checkInStr,
-            checkOutLabel: "Trả phòng",
-            checkOutValue: _checkOutStr,
-            buttonText: "Áp dụng",
-            onButtonPressed: _onApply,
-          ),
-        ],
+            BookingSummaryBottomBar(
+              checkInLabel: "Nhận phòng",
+              checkInValue: _checkInStr,
+              checkOutLabel: "Trả phòng",
+              checkOutValue: _checkOutStr,
+              buttonText: "Áp dụng",
+              onButtonPressed: _onApply,
+            ),
+          ],
+        ),
       ),
     );
   }
