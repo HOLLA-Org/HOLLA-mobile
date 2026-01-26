@@ -30,7 +30,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   /// Handle language
   void _onLanguageTap(BuildContext context) {
-    context.go(AppRoutes.language);
+    context.push(AppRoutes.language);
   }
 
   // void _onPolicyTap() {
@@ -64,10 +64,10 @@ class _SettingScreenState extends State<SettingScreen> {
   void _onLogoutTap(BuildContext context) {
     showConfirmDialog(
       context: context,
-      title: 'Xác nhận',
-      content: 'Bạn có chắc chắn muốn đăng xuất?',
-      confirmText: 'Có',
-      cancelText: 'Không',
+      title: 'setting.logout_confirm_title'.tr(),
+      content: 'setting.logout_confirm_content'.tr(),
+      confirmText: 'setting.logout_confirm_yes'.tr(),
+      cancelText: 'setting.logout_confirm_no'.tr(),
       onConfirm: () {
         context.read<SettingBloc>().add(LogoutRequested());
       },
@@ -79,9 +79,9 @@ class _SettingScreenState extends State<SettingScreen> {
     final locale = context.locale.languageCode;
     switch (locale) {
       case 'en':
-        return 'English';
+        return 'setting.english'.tr();
       case 'vi':
-        return 'Tiếng Việt';
+        return 'setting.vietnamese'.tr();
       default:
         return locale;
     }
@@ -91,7 +91,7 @@ class _SettingScreenState extends State<SettingScreen> {
   void showLogoutSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Đăng xuất thành công!'.tr()),
+        content: Text('login.success'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
@@ -105,7 +105,7 @@ class _SettingScreenState extends State<SettingScreen> {
     if (context.mounted) {
       notificationDialog(
         context: context,
-        title: 'Đăng xuất thất bại'.tr(),
+        title: 'login.failure'.tr(),
         message: error,
         isError: true,
       );
@@ -116,7 +116,7 @@ class _SettingScreenState extends State<SettingScreen> {
   void showUpdateProfileSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Cập nhật thông tin thành công!'.tr()),
+        content: Text('edit_profile.update_success'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
@@ -127,7 +127,7 @@ class _SettingScreenState extends State<SettingScreen> {
     if (context.mounted) {
       notificationDialog(
         context: context,
-        title: 'Cập nhật thông tin thất bại'.tr(),
+        title: 'edit_profile.update_failure'.tr(),
         message: error,
         isError: true,
       );
@@ -178,60 +178,60 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   child: ListView(
                     children: [
-                      SettingSectionTitle('Cài đặt'.tr()),
+                      SettingSectionTitle('setting.settings_section'.tr()),
 
                       SettingTile(
                         icon: LucideIcons.settings,
-                        title: 'Thiết lập tài khoản'.tr(),
+                        title: 'setting.account_setup'.tr(),
                         onTap: () => _onChangePasswordTap(context),
                       ),
 
                       SettingTile(
                         icon: LucideIcons.bell,
-                        title: 'Thông báo'.tr(),
+                        title: 'setting.notification'.tr(),
                         onTap: () => _onNotificationTap(context),
                       ),
 
                       SettingTile(
                         icon: LucideIcons.languages,
-                        title: 'Ngôn ngữ'.tr(),
+                        title: 'setting.language'.tr(),
                         trailing: Text(getLanguageName(context)),
                         onTap: () => _onLanguageTap(context),
                       ),
 
                       SettingTile(
                         icon: LucideIcons.mapPin,
-                        title: 'Khu vực'.tr(),
+                        title: 'setting.location'.tr(),
                         trailing: const Text('Hà Nội'),
                       ),
 
                       /// ===== THÔNG TIN =====
-                      SettingSectionTitle('Thông tin'.tr()),
+                      SettingSectionTitle('setting.info_section'.tr()),
 
                       SettingTile(
                         icon: LucideIcons.helpCircle,
-                        title: 'Hỏi đáp'.tr(),
+                        title: 'setting.faqs'.tr(),
                       ),
 
                       SettingTile(
                         icon: LucideIcons.shieldCheck,
-                        title: 'Điều khoản & chính sách bảo mật'.tr(),
+                        title: 'setting.terms_policies'.tr(),
                       ),
 
                       SettingTile(
                         icon: LucideIcons.info,
-                        title: 'Phiên bản'.tr(),
+                        title: 'setting.app_version'.tr(),
                         trailing: const Text('1.0'),
                       ),
 
                       SettingTile(
                         icon: LucideIcons.phone,
-                        title: 'Liên hệ'.tr(),
+                        title: 'setting.contact'.tr(),
                       ),
 
                       SettingTile(
                         icon: LucideIcons.logOut,
-                        title: 'Đăng xuất'.tr(),
+                        title: 'setting.logout'.tr(),
                         showDivider: false,
                         onTap: () => _onLogoutTap(context),
                       ),

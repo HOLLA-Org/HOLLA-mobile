@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +41,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         Marker(
           markerId: MarkerId(position.toString()),
           position: position,
-          infoWindow: const InfoWindow(title: 'Vị trí đã chọn'),
+          infoWindow: InfoWindow(title: 'location.selected_location'.tr()),
         ),
       );
     });
@@ -78,7 +79,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chọn vị trí'),
+        title: Text('location.select_title'.tr()),
         actions: [
           IconButton(
             icon: const Icon(Icons.check),
@@ -127,7 +128,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                         TextField(
                           controller: _searchController,
                           decoration: InputDecoration(
-                            hintText: 'Tìm kiếm địa điểm...',
+                            hintText: 'location.search_hint'.tr(),
                             prefixIcon: const Icon(Icons.search),
                             suffixIcon:
                                 state.loading

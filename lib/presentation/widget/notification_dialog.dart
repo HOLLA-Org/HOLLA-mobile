@@ -34,7 +34,7 @@ Future<void> notificationDialog({
         actions: <Widget>[
           TextButton(
             child: Text(
-              'Đồng ý'.tr(),
+              'common.agree'.tr(),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

@@ -18,7 +18,8 @@ class BookingTabItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
           color: isSelected ? AppColors.primary : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10),
@@ -28,6 +29,7 @@ class BookingTabItem extends StatelessWidget {
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.grey.shade600,
             fontWeight: FontWeight.bold,
+            fontFamily: 'CrimsonText',
           ),
         ),
       ),

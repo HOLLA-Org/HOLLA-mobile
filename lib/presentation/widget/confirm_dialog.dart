@@ -5,8 +5,8 @@ Future<bool?> showConfirmDialog({
   required BuildContext context,
   String? title,
   String? content,
-  String cancelText = 'Không',
-  String confirmText = 'Có',
+  String cancelText = 'common.no',
+  String confirmText = 'common.yes',
   VoidCallback? onConfirm,
   VoidCallback? onCancel,
 }) {

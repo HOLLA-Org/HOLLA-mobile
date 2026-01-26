@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -72,7 +73,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void showNotificationDeleteSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Xóa thông báo thành công'),
+        content: Text('notification.delete_success'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
@@ -82,7 +83,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void showNotificationDeleteAllSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Xóa tất cả thông báo thành công'),
+        content: Text('notification.delete_all_success'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
@@ -93,7 +94,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     if (context.mounted) {
       notificationDialog(
         context: context,
-        title: 'Có lỗi xảy ra',
+        title: 'notification.failure'.tr(),
         message: error,
         isError: true,
       );
@@ -117,7 +118,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       child: Scaffold(
         backgroundColor: AppColors.hover.withOpacity(0.9),
         appBar: HeaderWithBack(
-          title: 'Thông báo',
+          title: 'notification.title'.tr(),
           onBack: () => _onBack(context),
           showMore: true,
           onMore: () => _onMore(context),
@@ -132,10 +133,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
             /// SUCCESS
             if (state is GetNotificationsSuccess) {
               if (state.notifications.isEmpty) {
-                return const EmptyList(
-                  title: 'Chưa có thông báo',
-                  subtitle: 'Mọi thông báo mới sẽ hiển thị tại đây',
-                  imagePath: 'assets/images/search/not_found_nurse.png',
+                return EmptyList(
+                  title: 'notification.empty_title'.tr(),
+                  subtitle: 'notification.empty_subtitle'.tr(),
+                  imagePath: 'assets/images/search/not_found_hotel.png',
                 );
               }
 

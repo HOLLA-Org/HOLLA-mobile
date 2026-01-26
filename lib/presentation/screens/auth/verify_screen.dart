@@ -95,7 +95,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Tài khoản đã được kích hoạt thành công!'.tr(),
+            'verify.success'.tr(),
             style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
           ),
           backgroundColor: Color(0xFF008080),
@@ -105,7 +105,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
     } else if (state is VerifyFailure) {
       notificationDialog(
         context: context,
-        title: 'Thất bại'.tr(),
+        title: 'verify.failure'.tr(),
         message: state.error,
         isError: true,
       );
@@ -113,7 +113,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Mã xác thực mới đã được gửi.'.tr(),
+            'verify.resend_success'.tr(),
             style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
           ),
           backgroundColor: Color(0xFF008080),
@@ -152,7 +152,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Kích hoạt tài khoản'.tr(),
+                                'verify.title'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -162,8 +162,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                               ),
                               SizedBox(height: 16),
                               Text(
-                                'Mã kích đã gửi đến email của bạn. Nhập mã để \nkích hoạt tài khoản của bạn'
-                                    .tr(),
+                                'verify.subtitle'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -222,7 +221,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                                   onPressed:
                                       _start == 0 ? _handleResendCode : null,
                                   child: Text(
-                                    'Gửi lại mã'.tr(),
+                                    'verify.resend'.tr(),
                                     style: TextStyle(
                                       color:
                                           _start == 0
@@ -286,7 +285,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                         state is VerifyLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Xác nhận".tr(),
+                              text: "verify.submit".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)

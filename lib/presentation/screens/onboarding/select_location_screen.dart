@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
+import 'package:holla/presentation/widget/header_with_back.dart';
 
 String removeDiacritics(String str) {
   const vietnameseMap = {
@@ -108,6 +110,11 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: HeaderWithBack(
+        title: 'location_selection.location'.tr(),
+        onBack: () => _handleBackPressed(context),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -116,26 +123,17 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 36),
-                IconButton(
-                  onPressed: () => _handleBackPressed(context),
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    size: 36,
-                    color: Colors.black,
-                  ),
-                ),
                 const SizedBox(height: 8),
-                const Text(
-                  "Hãy chọn địa điểm của bạn",
+                Text(
+                  "location_selection.title".tr(),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'PlayfairDisplay',
                   ),
                 ),
-                const Text(
-                  "HoLLa sẽ gợi ý những khách sạn phù hợp gần nhất và ưu đãi hấp dẫn nhất dựa theo khu vực bạn chọn.",
+                Text(
+                  "location_selection.subtitle".tr(),
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
@@ -147,7 +145,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                   controller: _searchController,
                   onChanged: _onSearchChanged,
                   decoration: InputDecoration(
-                    hintText: "Tìm khu vực của bạn",
+                    hintText: "location_selection.search_hint".tr(),
                     prefixIcon: const Icon(
                       Icons.search,
                       color: Color(0xFF238C98),
@@ -183,10 +181,13 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     child: Text(
-                      "Phổ biến",
+                      "location_selection.popular".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -200,10 +201,13 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                       onTap: () => setState(() => selectedLocation = loc),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     child: Text(
-                      "Địa điểm khác",
+                      "location_selection.others".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -259,8 +263,8 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                 ? Colors.grey
                                 : const Color(0xFF238C98),
                       ),
-                      child: const Text(
-                        "Tiếp tục",
+                      child: Text(
+                        "location_selection.confirm_button".tr(),
                         style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'CrimsonText',

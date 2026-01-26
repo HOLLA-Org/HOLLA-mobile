@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../core/config/themes/app_colors.dart';
 
@@ -20,8 +21,8 @@ class PaymentMethodPicker extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'Chọn phương thức thanh toán',
+          Text(
+            'checkout.payment_method_title'.tr(),
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),

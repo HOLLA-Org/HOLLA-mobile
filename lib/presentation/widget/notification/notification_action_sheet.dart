@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:holla/core/config/themes/app_colors.dart';
 
@@ -39,7 +40,7 @@ class NotificationActionSheet extends StatelessWidget {
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 24),
                 title: Text(
-                  'Đánh dấu tất cả đã xem',
+                  'notification.mark_all_read'.tr(),
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
@@ -55,7 +56,7 @@ class NotificationActionSheet extends StatelessWidget {
                 contentPadding: EdgeInsets.symmetric(horizontal: 24),
 
                 title: Text(
-                  'Xóa tất cả',
+                  'notification.delete_all'.tr(),
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,

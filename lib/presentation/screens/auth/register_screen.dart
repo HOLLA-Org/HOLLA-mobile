@@ -81,8 +81,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Chào mừng, ${auth.username}. Vui lòng kích hoạt tài khoản của bạn!'
-              .tr(),
+          'register.welcome_activate'.tr(
+            namedArgs: {'username': auth.username},
+          ),
         ),
         backgroundColor: const Color(0xFF008080),
       ),
@@ -93,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void showRegisterFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Đăng kí thất bại'.tr(),
+      title: 'register.failure'.tr(),
       message: error,
       isError: true,
     );
@@ -135,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Tạo tài khoản'.tr(),
+                          'register.title'.tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 40,
@@ -145,8 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          'Tạo tài khoản để bắt đầu hành trình tìm phòng\nlý tưởng cùng HoLLa'
-                              .tr(),
+                          'register.subtitle'.tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -178,21 +178,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       TextFieldCustom(
                         controller: _usernameController,
-                        hintText: 'Tên đăng nhập'.tr(),
+                        hintText: 'register.username_label'.tr(),
                         prefixIcon: Icons.person,
                         hasError: invalidFields.contains('username'),
                       ),
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _emailController,
-                        hintText: 'Email'.tr(),
+                        hintText: 'register.email_label'.tr(),
                         prefixIcon: Icons.email,
                         hasError: invalidFields.contains('email'),
                       ),
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _passwordController,
-                        hintText: 'Mật khẩu'.tr(),
+                        hintText: 'register.password_label'.tr(),
                         prefixIcon: Icons.lock,
                         isPassword: true,
                         hasError:
@@ -202,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _confirmPasswordController,
-                        hintText: 'Xác nhận mật khẩu'.tr(),
+                        hintText: 'register.confirm_password_label'.tr(),
                         prefixIcon: Icons.lock,
                         isPassword: true,
                         hasError:
@@ -220,7 +220,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   child: CircularProgressIndicator(),
                                 )
                                 : ConfirmButton(
-                                  text: "Đăng kí".tr(),
+                                  text: "register.submit".tr(),
                                   color:
                                       isFormValid
                                           ? const Color(0xFF008080)
@@ -264,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Đăng nhập'.tr(),
+                              'register.footer_action'.tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,

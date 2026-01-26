@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/discount_model.dart';
@@ -29,10 +30,10 @@ class DiscountPicker extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                'Mã giảm giá khả dụng',
+                'checkout.available_discounts'.tr(),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
@@ -43,8 +44,8 @@ class DiscountPicker extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is GetDiscountsSuccess) {
                     if (state.discounts.isEmpty) {
-                      return const Center(
-                        child: Text('Không có mã giảm giá nào'),
+                      return Center(
+                        child: Text('checkout.no_discounts'.tr()),
                       );
                     }
                     return ListView.separated(

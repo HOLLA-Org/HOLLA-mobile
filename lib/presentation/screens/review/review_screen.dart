@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import '../../../core/config/themes/app_colors.dart';
 import '../../widget/header_with_back.dart';
 import '../../../models/review_model.dart';
@@ -35,7 +35,7 @@ class ReviewScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: HeaderWithBack(
-        title: "Đánh giá",
+        title: "hotel_detail.reviews".tr(),
         onBack: () => _handleBack(context),
       ),
       body: Column(
@@ -70,7 +70,11 @@ class ReviewScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${NumberFormat('#,###').format(ratingCount)} đánh giá',
+                      'hotel_detail.reviews_count'.tr(
+                        namedArgs: {
+                          'count': NumberFormat('#,###').format(ratingCount),
+                        },
+                      ),
                       style: TextStyle(color: Colors.grey[600], fontSize: 14),
                     ),
                   ],

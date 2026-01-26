@@ -63,7 +63,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     if (state is ResetPasswordSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Mật khẩu của bạn đã được thay đổi!'.tr()),
+          content: Text('reset_password.success'.tr()),
           backgroundColor: Color(0xFF008080),
         ),
       );
@@ -71,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     } else if (state is ResetPasswordFailure) {
       notificationDialog(
         context: context,
-        title: 'Cập nhật thất bại'.tr(),
+        title: 'reset_password.failure'.tr(),
         message: state.error,
         isError: true,
       );
@@ -120,7 +120,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'Cập nhật mật khẩu'.tr(),
+                                'reset_password.title'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -130,8 +130,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                'Mật khẩu mới phải chứa ít nhất 6 ký tự \nbao gồm chữ hoa, chữ thường, số và kí tự đặc biệt'
-                                    .tr(),
+                                'reset_password.subtitle'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -163,7 +162,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           children: [
                             TextFieldCustom(
                               controller: _passwordController,
-                              hintText: 'Mật khẩu'.tr(),
+                              hintText:
+                                  'reset_password.new_password_label'.tr(),
                               prefixIcon: Icons.lock,
                               isPassword: true,
                               hasError:
@@ -173,7 +173,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             const SizedBox(height: 10),
                             TextFieldCustom(
                               controller: _confirmPasswordController,
-                              hintText: 'Xác nhận mật khẩu'.tr(),
+                              hintText:
+                                  'reset_password.confirm_new_password_label'
+                                      .tr(),
                               prefixIcon: Icons.lock,
                               isPassword: true,
                               hasError:
@@ -211,7 +213,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         state is ResetPasswordLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Lưu thay đổi".tr(),
+                              text: "reset_password.submit".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)

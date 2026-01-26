@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -53,7 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void _handlePopularViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
-      extra: ViewAllArgs(title: 'Nổi tiếng', hotels: _popularHotels),
+      extra: ViewAllArgs(
+        title: 'home.popular'.tr(),
+        hotels: _popularHotels,
+      ),
     );
   }
 
@@ -61,7 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void _handleRecommendedViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
-      extra: ViewAllArgs(title: 'Gợi ý gần bạn', hotels: _recommendedHotels),
+      extra: ViewAllArgs(
+        title: 'home.recommended'.tr(),
+        hotels: _recommendedHotels,
+      ),
     );
   }
 
@@ -69,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void _handleTopRatedViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
-      extra: ViewAllArgs(title: 'Top bình chọn', hotels: _topRatedHotels),
+      extra: ViewAllArgs(
+        title: 'home.top_rated'.tr(),
+        hotels: _topRatedHotels,
+      ),
     );
   }
 
@@ -127,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _showError(BuildContext context, String message) {
     notificationDialog(
       context: context,
-      title: 'Có lỗi xảy ra',
+      title: 'home.failure'.tr(),
       message: message,
       isError: true,
     );
@@ -177,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Subtitle
                       Text(
-                        'Tìm kiếm nơi tuyệt vời',
+                        'home.find_great_place'.tr(),
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -189,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Title
                       Text(
-                        'Khách sạn cho bạn',
+                        'home.hotels_for_you'.tr(),
                         style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.w700,
@@ -217,9 +226,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: TextField(
                                 controller: _searchController,
                                 textInputAction: TextInputAction.search,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: 'Tên khách sạn',
+                                  hintText: 'home.search_hint'.tr(),
                                   hintStyle: TextStyle(color: Colors.grey),
                                   isDense: true,
                                   contentPadding: EdgeInsets.zero,
@@ -249,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (_popularHotels.isNotEmpty) ...[
                         const SizedBox(height: 20),
                         SectionTitle(
-                          title: 'Nổi tiếng',
+                          title: 'home.popular'.tr(),
                           onViewAll: () => _handlePopularViewAll(context),
                         ),
                         const SizedBox(height: 2),
@@ -287,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (_topRatedHotels.isNotEmpty) ...[
                         const SizedBox(height: 20),
                         SectionTitle(
-                          title: 'Top bình chọn',
+                          title: 'home.top_rated'.tr(),
                           onViewAll: () => _handleTopRatedViewAll(context),
                         ),
                         const SizedBox(height: 2),
@@ -330,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (_recommendedHotels.isNotEmpty) ...[
                         const SizedBox(height: 20),
                         SectionTitle(
-                          title: 'Gợi ý gần bạn',
+                          title: 'home.recommended'.tr(),
                           onViewAll: () => _handleRecommendedViewAll(context),
                         ),
                         const SizedBox(height: 2),

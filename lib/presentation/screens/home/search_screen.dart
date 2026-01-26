@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -80,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: HeaderWithBack(
-        title: 'Tìm kiếm khách sạn',
+        title: 'search.title'.tr(),
         onBack: () => _onBack(context),
       ),
       body: Column(
@@ -109,9 +110,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: TextField(
                             controller: _searchController,
                             textInputAction: TextInputAction.search,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'Tên khách sạn',
+                              hintText: 'search.hint'.tr(),
                               hintStyle: TextStyle(color: Colors.grey),
                               isDense: true,
                               contentPadding: EdgeInsets.zero,
@@ -180,10 +181,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   final hotels = state.hotels;
 
                   if (hotels.isEmpty) {
-                    return const EmptyList(
-                      title: 'Không tìm thấy khách sạn',
-                      subtitle: 'Vui lòng thử từ khóa khác',
-                      imagePath: 'assets/images/search/not_found_nurse.png',
+                    return EmptyList(
+                      title: 'search.empty_title'.tr(),
+                      subtitle: 'search.empty_subtitle'.tr(),
+                      imagePath: 'assets/images/search/not_found_hotel.png',
                     );
                   }
 

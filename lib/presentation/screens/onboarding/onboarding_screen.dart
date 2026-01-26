@@ -55,13 +55,13 @@ class OnboardingScreen extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'CrimsonText',
                     color: Colors.grey[500],
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
-                    TextSpan(text: '${'Đọc'.tr()} '),
+                    TextSpan(text: '${'onboarding.read'.tr()} '),
                     TextSpan(
-                      text: 'Chính sách bảo mật'.tr(),
+                      text: 'onboarding.privacy_policy'.tr(),
                       style: const TextStyle(
                         color: Color(0xFF008080),
                         fontWeight: FontWeight.bold,
@@ -73,10 +73,10 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                     TextSpan(
                       text:
-                          '${'. '.tr()}“${'Đồng ý'.tr()}” ${'để chấp nhận'.tr()}\n',
+                          '${'. '.tr()}“${'onboarding.agree'.tr()}” ${'onboarding.to_accept'.tr()}\n',
                     ),
                     TextSpan(
-                      text: 'Điều khoản dịch vụ'.tr(),
+                      text: 'onboarding.terms_of_service'.tr(),
                       style: const TextStyle(
                         color: Color(0xFF008080),
                         fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class OnboardingScreen extends StatelessWidget {
 
               // Confirm button
               ConfirmButton(
-                text: 'Đồng ý'.tr(),
+                text: 'onboarding.agree'.tr(),
                 onPressed: () => _onAgreePressed(context),
               ),
               const SizedBox(height: 16),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -47,7 +48,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
   void _showSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Đánh giá thành công'),
+        content: Text('review.success_message'.tr()),
         backgroundColor: AppColors.primary,
       ),
     );
@@ -58,7 +59,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
   void _showError(String message) {
     notificationDialog(
       context: context,
-      title: 'Lỗi',
+      title: 'review.failure_message'.tr(),
       message: message,
       isError: true,
     );
@@ -77,7 +78,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: HeaderWithBack(
-          title: 'Viết đánh giá',
+          title: 'review.title'.tr(),
           onBack: () => _handleBack(context),
         ),
         body: SafeArea(
@@ -88,16 +89,19 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
               children: [
                 const SizedBox(height: 20),
                 // Text title review
-                const Text(
-                  'Dịch vụ của chúng tôi như thế nào?',
+                Text(
+                  'review.question'.tr(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 12),
-                const Text(
-                  'Vui lòng đánh giá dịch vụ của chúng tôi để chúng tôi có thể cải thiện tốt hơn.',
+                Text(
+                  'review.subtitle'.tr(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 const SizedBox(height: 24),
                 // Row rating
@@ -131,11 +135,14 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                 const SizedBox(height: 36),
 
                 // Text title comment
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Nhận xét của bạn',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    'review.comment_title'.tr(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -149,7 +156,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                     color: AppColors.blackTypo,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Chia sẻ trải nghiệm của bạn tại đây...',
+                    hintText: 'review.comment_hint'.tr(),
                     hintStyle: TextStyle(
                       color: AppColors.bodyTypo.withOpacity(0.5),
                     ),
@@ -170,7 +177,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                   padding: const EdgeInsets.only(bottom: 60),
                   child: Center(
                     child: ConfirmButton(
-                      text: 'Gửi đánh giá',
+                      text: 'review.submit_button'.tr(),
                       onPressed: _submitReview,
                     ),
                   ),

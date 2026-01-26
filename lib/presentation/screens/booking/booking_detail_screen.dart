@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import '../../../core/config/routes/app_routes.dart';
 import '../../../core/config/themes/app_colors.dart';
 import '../../widget/booking/action_button.dart';
@@ -90,7 +90,9 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Tất cả ảnh (${images.length})',
+                              'hotel_detail.all_images'.tr(
+                                args: [images.length.toString()],
+                              ),
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -336,15 +338,15 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
           children: [
             const Icon(Icons.hotel, size: 20, color: AppColors.primary),
             const SizedBox(width: 8),
-            const Text(
-              'Tiện ích khách sạn',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              'hotel_detail.services'.tr(),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ],
         ),
         const SizedBox(height: 12),
         if (_hotel!.amenities.isEmpty)
-          const Text('Không có thông tin tiện ích')
+          Text('hotel_detail.no_amenities'.tr())
         else
           Wrap(
             spacing: 12,
@@ -371,7 +373,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                         const SizedBox(width: 6),
                         Text(
                           amenity.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.primary,
                             fontSize: 14,
                           ),
@@ -393,16 +395,16 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
           children: [
             const Icon(Icons.info_outline, size: 20, color: AppColors.primary),
             const SizedBox(width: 8),
-            const Text(
-              'Chính sách khách sạn',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              'hotel_detail.policy_title'.tr(),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ],
         ),
         const SizedBox(height: 12),
-        const Text(
-          'Vui lòng đọc kỹ chính sách trước khi đặt phòng, các chính sách này được quy định bởi khách sạn.',
-          style: TextStyle(color: Colors.grey, fontSize: 14),
+        Text(
+          'hotel_detail.policy_description'.tr(),
+          style: const TextStyle(color: Colors.grey, fontSize: 14),
         ),
       ],
     );
@@ -417,9 +419,12 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
           children: [
             Row(
               children: [
-                const Text(
-                  'Đánh giá',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Text(
+                  'hotel_detail.reviews'.tr(),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 const Icon(Icons.star, color: Colors.amber, size: 18),
@@ -433,7 +438,13 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '{${NumberFormat('#,###').format(_hotel!.ratingCount)} đánh giá}',
+                  'hotel_detail.reviews_count'.tr(
+                    namedArgs: {
+                      'count': NumberFormat(
+                        '#,###',
+                      ).format(_hotel!.ratingCount),
+                    },
+                  ),
                   style: TextStyle(color: Colors.grey[600], fontSize: 14),
                 ),
               ],
@@ -441,17 +452,20 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
             if (_reviews.isNotEmpty)
               TextButton(
                 onPressed: _handleNavigateToAllReviews,
-                child: const Text(
-                  'Xem tất cả',
-                  style: TextStyle(fontSize: 14, color: AppColors.primary),
+                child: Text(
+                  'home.view_all'.tr(),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
           ],
         ),
         const SizedBox(height: 12),
         if (_reviews.isEmpty)
-          const Text(
-            'Chưa có đánh giá nào',
+          Text(
+            'hotel_detail.no_reviews'.tr(),
             style: TextStyle(color: Colors.grey),
           )
         else
@@ -493,8 +507,8 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Giá phòng',
+                  Text(
+                    'hotel_detail.price_label'.tr(),
                     style: TextStyle(fontSize: 16, color: AppColors.bodyTypo),
                   ),
 
@@ -510,7 +524,10 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
               ),
             ],
           ),
-          ActionButton(text: 'Đặt phòng', onTap: _handleBooking),
+          ActionButton(
+            text: 'booking_time.confirm_button'.tr(),
+            onTap: _handleBooking,
+          ),
         ],
       ),
     );

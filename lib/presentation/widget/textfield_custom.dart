@@ -31,16 +31,18 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
     return TextField(
       controller: widget.controller,
       obscureText: widget.isPassword ? _isObscured : false,
+      textAlignVertical: TextAlignVertical.bottom,
       decoration: InputDecoration(
         prefixIcon: Padding(
-          padding: const EdgeInsets.only(right: 16),
+          padding: const EdgeInsets.only(right: 16, top: 8),
           child: Icon(widget.prefixIcon, color: Colors.grey),
         ),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+        contentPadding: const EdgeInsets.only(top: 10, bottom: 8),
         hintText: widget.hintText,
         hintStyle: TextStyle(
           color: Colors.grey,
-          fontSize: 20,
+          fontSize: 16,
           fontFamily: 'CrimsonText',
         ),
         suffixIcon:
