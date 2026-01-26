@@ -9,6 +9,8 @@ import 'package:holla/repository/notification_repo.dart';
 import 'package:holla/repository/payment_repo.dart';
 import 'package:holla/services/payment_service.dart';
 import 'package:holla/repository/setting_repo.dart';
+import 'package:holla/repository/review_repo.dart';
+import 'package:holla/services/review_service.dart';
 import 'package:holla/services/auth_service.dart';
 import 'package:holla/services/booking_service.dart';
 import 'package:holla/services/favorite_service.dart';
@@ -32,4 +34,5 @@ final repositoryProviders = <RepositoryProvider>[
   RepositoryProvider<FavoriteRepository>(create: (_) => FavoriteService()),
   RepositoryProvider<BookingRepository>(create: (_) => BookingService()),
   RepositoryProvider<PaymentRepository>(create: (_) => PaymentService()),
+  RepositoryProvider<ReviewRepository>(create: (_) => ReviewService()),
 ];

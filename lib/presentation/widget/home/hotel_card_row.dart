@@ -17,6 +17,8 @@ class HotelCardRow extends StatelessWidget {
   final bool isCompleted;
   final VoidCallback? onRebook;
   final VoidCallback? onReview;
+  final bool? isReviewed;
+  final String? priceLabel;
 
   const HotelCardRow({
     super.key,
@@ -34,6 +36,8 @@ class HotelCardRow extends StatelessWidget {
     this.isCompleted = false,
     this.onRebook,
     this.onReview,
+    this.isReviewed,
+    this.priceLabel,
   });
 
   @override
@@ -211,7 +215,7 @@ class HotelCardRow extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${numberFormat.format(priceHour)}đ / 1 giờ',
+                          '${priceLabel ?? ''}${numberFormat.format(priceHour)}đ${priceLabel == null ? ' / 1 giờ' : ''}',
                           style: const TextStyle(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,
@@ -222,9 +226,12 @@ class HotelCardRow extends StatelessWidget {
                           children: [
                             if (isCompleted && onReview != null) ...[
                               ElevatedButton(
-                                onPressed: onReview,
+                                onPressed: isReviewed == true ? null : onReview,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.amber,
+                                  backgroundColor:
+                                      isReviewed == true
+                                          ? Colors.grey
+                                          : Colors.amber,
                                   foregroundColor: Colors.white,
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 16,

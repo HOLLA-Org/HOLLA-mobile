@@ -511,10 +511,8 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                   // Update button
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
+                    padding: const EdgeInsets.only(bottom: 60),
+                    child: Center(
                       child: ConfirmButton(
                         text: 'Cập nhật',
                         onPressed: () => _onUpdateProfile(context),
