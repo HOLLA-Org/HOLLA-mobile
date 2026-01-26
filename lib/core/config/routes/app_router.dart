@@ -20,7 +20,7 @@ import 'package:holla/presentation/screens/onboarding/location_permission_screen
 import 'package:holla/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:holla/presentation/screens/onboarding/select_location_screen.dart';
 import 'package:holla/presentation/screens/onboarding/splash_screen.dart';
-import 'package:holla/presentation/screens/setting/%20select_language_screen.dart';
+import 'package:holla/presentation/screens/setting/select_language_screen.dart';
 import 'package:holla/presentation/screens/setting/change_password_screen.dart';
 import 'package:holla/presentation/screens/setting/change_profile_screen.dart';
 import 'package:holla/presentation/screens/setting/setting_screen.dart';

@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../../core/config/themes/app_colors.dart';
 
 class BookingCalendar extends StatelessWidget {
@@ -41,7 +41,14 @@ class BookingCalendar extends StatelessWidget {
     final daysInMonth = DateTime(month.year, month.month + 1, 0).day;
     final firstDayOfMonth = DateTime(month.year, month.month, 1);
     final firstWeekday = firstDayOfMonth.weekday;
-    const weekdays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+
+    // Get localized weekdays
+    final locale = context.locale.toString();
+    final date = DateTime(2024, 1, 1); // A Monday
+    final weekdays = List.generate(7, (index) {
+      final d = date.add(Duration(days: index));
+      return DateFormat.E(locale).format(d).toUpperCase();
+    });
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -63,7 +70,7 @@ class BookingCalendar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                DateFormat("'Tháng' M, yyyy").format(month),
+                DateFormat.yMMMM(locale).format(month),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

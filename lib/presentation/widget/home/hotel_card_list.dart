@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/config/themes/app_colors.dart';
 
@@ -131,7 +132,7 @@ class HotelCardList extends StatelessWidget {
 
                     /// Price
                     Text(
-                      'Chỉ từ $priceHour / giờ',
+                      '${"home.from".tr()} ${NumberFormat('#,###').format(priceHour)}đ / ${"home.hour_unit".tr()}',
                       style: const TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/config/themes/app_colors.dart';
@@ -9,9 +10,9 @@ class EmptyList extends StatelessWidget {
 
   const EmptyList({
     super.key,
-    this.title = 'No Nurses Found for Your Search',
-    this.subtitle = 'Please try again later',
-    this.imagePath = 'assets/images/search/not_found_nurse.png',
+    this.title = 'home.no_hotels',
+    this.subtitle = 'home.no_hotels_message',
+    this.imagePath = 'assets/images/search/not_found_hotel.png',
   });
 
   @override
@@ -26,32 +27,32 @@ class EmptyList extends StatelessWidget {
             height: 160,
             child: Image.asset(imagePath, fit: BoxFit.contain),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Title
           Text(
-            title,
+            title.tr(),
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: AppColors.primary,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
 
           // Subtitle
           Text(
-            subtitle,
+            subtitle.tr(),
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
               color: AppColors.blackTypo,
             ),
           ),
 
-          SizedBox(height: 60),
+          const SizedBox(height: 60),
         ],
       ),
     );

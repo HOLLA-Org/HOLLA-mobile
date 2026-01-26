@@ -34,12 +34,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool _isDiscountApplied = false;
 
   final Map<String, Map<String, dynamic>> _paymentMethods = {
-    'CASH': {'name': 'Tiền mặt', 'icon': Icons.payments_outlined},
-    'CREDIT': {'name': 'Thẻ tín dụng', 'icon': Icons.credit_card},
-    'ATM': {'name': 'Thẻ ATM', 'icon': Icons.account_balance},
-    'MOMO': {'name': 'Ví MoMo', 'icon': Icons.account_balance_wallet},
+    'CASH': {
+      'name': 'checkout.cash'.tr(),
+      'icon': Icons.payments_outlined,
+    },
+    'CREDIT': {
+      'name': 'checkout.credit'.tr(),
+      'icon': Icons.credit_card,
+    },
+    'ATM': {
+      'name': 'checkout.atm'.tr(),
+      'icon': Icons.account_balance,
+    },
+    'MOMO': {
+      'name': 'checkout.momo'.tr(),
+      'icon': Icons.account_balance_wallet,
+    },
     'ZALOPAY': {
-      'name': 'ZaloPay',
+      'name': 'checkout.zalopay'.tr(),
       'icon': Icons.account_balance_wallet_outlined,
     },
   };
@@ -180,7 +192,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void _showSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Đặt phòng và thanh toán thành công!'),
+        content: Text('checkout.success_message'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
@@ -191,7 +203,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void _showError(String message) {
     notificationDialog(
       context: context,
-      title: 'Lỗi thanh toán',
+      title: 'checkout.failure_title'.tr(),
       message: message,
       isError: true,
     );
@@ -245,7 +257,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Expanded(
                         child: Text(
                           _paymentMethods[_paymentMethod]!['name'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: AppColors.blackTypo,
@@ -269,9 +281,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Tổng thanh toán',
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        Text(
+                          'checkout.total_payment'.tr(),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         if (_isDiscountApplied)
@@ -321,9 +336,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     strokeWidth: 2,
                                   ),
                                 )
-                                : const Text(
-                                  'Đặt phòng',
-                                  style: TextStyle(
+                                : Text(
+                                  'checkout.confirm_button'.tr(),
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -337,7 +352,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
         ),
         appBar: HeaderWithBack(
-          title: "Xác nhận và thanh toán",
+          title: "checkout.title".tr(),
           onBack: () => context.pop(),
         ),
         body: SingleChildScrollView(
@@ -436,7 +451,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Nhận phòng:',
+                                  'booking_time.checkin'.tr(),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey,
@@ -456,7 +471,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Trả phòng:',
+                                  'booking_time.checkout'.tr(),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey,
@@ -484,9 +499,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Người đặt phòng',
-                      style: TextStyle(
+                    Text(
+                      'checkout.booker_info'.tr(),
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -508,7 +523,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Số điện thoại',
+                                  'edit_profile.phone'.tr(),
                                   style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
@@ -528,7 +543,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Họ tên',
+                                  'edit_profile.username'.tr(),
                                   style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
@@ -562,7 +577,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       readOnly: true,
                       onTap: _showDiscountPicker,
                       decoration: InputDecoration(
-                        hintText: 'Chọn mã giảm giá',
+                        hintText: 'checkout.select_discount'.tr(),
                         prefixIcon: const Icon(
                           Icons.local_offer_outlined,
                           color: AppColors.primary,
@@ -599,7 +614,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Đã giảm: ${NumberFormat('#,###').format(_basePrice - _totalPrice)}đ',
+                              'checkout.discount_applied'.tr(
+                                namedArgs: {
+                                  'amount': NumberFormat(
+                                    '#,###',
+                                  ).format(_basePrice - _totalPrice),
+                                },
+                              ),
                               style: const TextStyle(
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.w500,
@@ -607,9 +628,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                             TextButton(
                               onPressed: _removeDiscount,
-                              child: const Text(
-                                'Gỡ mã',
-                                style: TextStyle(color: Colors.red),
+                              child: Text(
+                                'checkout.remove_discount'.tr(),
+                                style: const TextStyle(color: Colors.red),
                               ),
                             ),
                           ],

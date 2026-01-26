@@ -100,7 +100,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
     } else if (state is VerifyPasswordFailure) {
       notificationDialog(
         context: context,
-        title: 'Thất bại'.tr(),
+        title: 'verify.failure'.tr(),
         message: state.error,
         isError: true,
       );
@@ -108,7 +108,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Mã xác thực mới đã được gửi.'.tr(),
+            'verify.resend_success'.tr(),
             style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
           ),
           backgroundColor: Color(0xFF008080),
@@ -160,7 +160,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                 padding: const EdgeInsets.only(right: 16.0),
                               ),
                               Text(
-                                'Quên mật khẩu'.tr(),
+                                'forgot_password.title'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -170,7 +170,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                'Nhập mã của bạn để lấy lại mật khẩu'.tr(),
+                                'verify.subtitle_forgot'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -229,7 +229,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                   onPressed:
                                       _start == 0 ? _handleResendCode : null,
                                   child: Text(
-                                    'Gửi lại mã'.tr(),
+                                    'verify.resend'.tr(),
                                     style: TextStyle(
                                       color:
                                           _start == 0
@@ -293,7 +293,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                         state is VerifyPasswordLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Xác nhận".tr(),
+                              text: "verify.submit".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)

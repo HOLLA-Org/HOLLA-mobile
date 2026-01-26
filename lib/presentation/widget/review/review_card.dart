@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../../models/review_model.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -76,7 +76,7 @@ class ReviewCard extends StatelessWidget {
                     Text(
                       review.comment.isNotEmpty
                           ? review.comment
-                          : 'Đẹp tuyệt vời luôn',
+                          : 'review.default_comment'.tr(),
                       style: TextStyle(color: Colors.grey[600], fontSize: 12),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

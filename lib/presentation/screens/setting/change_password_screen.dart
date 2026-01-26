@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -61,19 +62,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   String? get _currentPasswordErrorText {
     final text = _currentPasswordController.text;
 
-    if (text.isEmpty) return 'Vui lòng nhập mật khẩu hiện tại';
+    if (text.isEmpty) return 'validation.current_password_required'.tr();
 
     if (text.length < 8) {
-      return 'Mật khẩu phải có ít nhất 8 ký tự';
+      return 'validation.password_min_length'.tr();
     }
     if (!RegExp(r'[a-z]').hasMatch(text)) {
-      return 'Mật khẩu phải chứa chữ thường';
+      return 'validation.password_lowercase'.tr();
     }
     if (!RegExp(r'[A-Z]').hasMatch(text)) {
-      return 'Mật khẩu phải chứa chữ hoa';
+      return 'validation.password_uppercase'.tr();
     }
     if (!RegExp(r'[!@#$%^&*]').hasMatch(text)) {
-      return 'Mật khẩu phải chứa ký tự đặc biệt';
+      return 'validation.password_special_char'.tr();
     }
     return null;
   }
@@ -81,19 +82,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   /// Get new password error text
   String? get _newPasswordErrorText {
     final text = _newPasswordController.text;
-    if (text.isEmpty) return 'Vui lòng nhập mật khẩu mới';
+    if (text.isEmpty) {
+      return 'validation.password_required'.tr();
+    }
 
     if (text.length < 8) {
-      return 'Mật khẩu phải có ít nhất 8 ký tự';
+      return 'validation.password_min_length'.tr();
     }
     if (!RegExp(r'[a-z]').hasMatch(text)) {
-      return 'Mật khẩu phải chứa chữ thường';
+      return 'validation.password_lowercase'.tr();
     }
     if (!RegExp(r'[A-Z]').hasMatch(text)) {
-      return 'Mật khẩu phải chứa chữ hoa';
+      return 'validation.password_uppercase'.tr();
     }
     if (!RegExp(r'[!@#$%^&*]').hasMatch(text)) {
-      return 'Mật khẩu phải chứa ký tự đặc biệt';
+      return 'validation.password_special_char'.tr();
     }
     return null;
   }
@@ -101,9 +104,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   /// Get confirm password error text
   String? get _confirmPasswordErrorText {
     final text = _confirmPasswordController.text;
-    if (text.isEmpty) return 'Vui lòng nhập lại mật khẩu mới';
+    if (text.isEmpty) return 'validation.confirm_password_required'.tr();
     if (text != _newPasswordController.text) {
-      return 'Mật khẩu xác nhận không khớp';
+      return 'validation.password_not_match'.tr();
     }
     return null;
   }
@@ -137,8 +140,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   /// Handle change password success
   void showChangePasswordSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Đổi mật khẩu thành công!'),
+      SnackBar(
+        content: Text('change_password.success_message'.tr()),
         backgroundColor: AppColors.primary,
       ),
     );
@@ -149,7 +152,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   void showChangePasswordFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Đổi mật khẩu thất bại',
+      title: 'change_password.failure_message'.tr(),
       message: error,
       isError: true,
     );
@@ -184,7 +187,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: HeaderWithBack(
-          title: 'Đổi mật khẩu',
+          title: 'change_password.title'.tr(),
           onBack: () => _onBack(context),
         ),
         body: SafeArea(
@@ -200,8 +203,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     const SizedBox(height: 12),
 
                     // Current password
-                    const Text(
-                      'Mật khẩu hiện tại',
+                    Text(
+                      'change_password.current'.tr(),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -219,8 +222,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     const SizedBox(height: 16),
 
                     // New password
-                    const Text(
-                      'Mật khẩu mới',
+                    Text(
+                      'change_password.new'.tr(),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -238,8 +241,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     const SizedBox(height: 16),
 
                     // Confirm password
-                    const Text(
-                      'Xác nhận mật khẩu mới',
+                    Text(
+                      'change_password.confirm'.tr(),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -264,7 +267,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ConfirmButton(
-                    text: 'Đổi mật khẩu',
+                    text: 'change_password.submit_button'.tr(),
                     onPressed:
                         (!_isLoading && _isValid)
                             ? () => _onSubmit(context)

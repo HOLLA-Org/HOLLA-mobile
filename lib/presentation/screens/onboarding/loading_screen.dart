@@ -93,7 +93,7 @@ class _LoadingScreenState extends State<LoadingScreen>
               FadeTransition(
                 opacity: _animation,
                 child: Text(
-                  'Đang tải {{dots}}'.tr(namedArgs: {'dots': dots}),
+                  'onboarding.loading_message'.tr(namedArgs: {'dots': dots}),
                   style: TextStyle(
                     fontSize: 36,
                     fontFamily: 'CrimsonText',

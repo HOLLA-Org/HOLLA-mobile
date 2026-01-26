@@ -54,7 +54,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
     if (state is SendMailSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Yêu cầu đã được gửi, vui lòng kiểm tra email!'.tr()),
+          content: Text('forgot_password.email_sent'.tr()),
           backgroundColor: Color(0xFF008080),
         ),
       );
@@ -62,7 +62,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
     } else if (state is SendMailFailure) {
       notificationDialog(
         context: context,
-        title: 'Yêu cầu thất bại'.tr(),
+        title: 'forgot_password.failure'.tr(),
         message: state.error,
         isError: true,
       );
@@ -112,7 +112,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                               ),
                               SizedBox(height: 4),
                               Text(
-                                'Quên mật khẩu'.tr(),
+                                'forgot_password.title'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -122,8 +122,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                'Nhập email liên kết với tài khoản để \nlấy lại mật khẩu'
-                                    .tr(),
+                                'forgot_password.subtitle'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -150,7 +149,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                           children: [
                             TextFieldCustom(
                               controller: _emailController,
-                              hintText: 'example@gmail.com',
+                              hintText: 'forgot_password.email_hint'.tr(),
                               prefixIcon: Icons.email,
                               hasError: invalidFields.contains('email'),
                             ),
@@ -184,7 +183,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                         state is SendMailLoading
                             ? const Center(child: CircularProgressIndicator())
                             : ConfirmButton(
-                              text: "Gửi mã".tr(),
+                              text: "forgot_password.submit".tr(),
                               color:
                                   isFormValid
                                       ? const Color(0xFF008080)

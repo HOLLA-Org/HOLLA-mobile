@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -105,7 +106,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
   void _showError(String message) {
     notificationDialog(
       context: context,
-      title: 'Lỗi',
+      title: 'history.failure'.tr(),
       message: message,
       isError: true,
     );
@@ -119,12 +120,12 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
             child: Text(
-              'Phòng của tôi',
+              'history.title'.tr(),
               style: TextStyle(
-                fontSize: 32,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'PlayfairDisplay',
                 color: Colors.black87,
@@ -132,27 +133,32 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
             ),
           ),
 
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                BookingTabItem(
-                  label: 'Hoạt động',
-                  isSelected: _selectedStatus == BookingStatus.active,
-                  onTap: () => _handleTabSelection(BookingStatus.active),
+                Expanded(
+                  child: BookingTabItem(
+                    label: 'history.active'.tr(),
+                    isSelected: _selectedStatus == BookingStatus.active,
+                    onTap: () => _handleTabSelection(BookingStatus.active),
+                  ),
                 ),
-                const SizedBox(width: 12),
-                BookingTabItem(
-                  label: 'Đã hoàn thành',
-                  isSelected: _selectedStatus == BookingStatus.completed,
-                  onTap: () => _handleTabSelection(BookingStatus.completed),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: BookingTabItem(
+                    label: 'history.complete'.tr(),
+                    isSelected: _selectedStatus == BookingStatus.completed,
+                    onTap: () => _handleTabSelection(BookingStatus.completed),
+                  ),
                 ),
-                const SizedBox(width: 12),
-                BookingTabItem(
-                  label: 'Đã hủy',
-                  isSelected: _selectedStatus == BookingStatus.cancelled,
-                  onTap: () => _handleTabSelection(BookingStatus.cancelled),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: BookingTabItem(
+                    label: 'history.cancelled'.tr(),
+                    isSelected: _selectedStatus == BookingStatus.cancelled,
+                    onTap: () => _handleTabSelection(BookingStatus.cancelled),
+                  ),
                 ),
               ],
             ),
@@ -180,10 +186,9 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 if (cachedBookings.isEmpty) {
                   return RefreshIndicator(
                     onRefresh: _handleRefresh,
-                    child: const EmptyList(
-                      title: 'Không có lịch sử',
-                      subtitle:
-                          'Bạn chưa có đặt phòng nào trong danh sách này.',
+                    child: EmptyList(
+                      title: 'history.empty_title'.tr(),
+                      subtitle: 'history.empty_subtitle'.tr(),
                     ),
                   );
                 }
@@ -210,7 +215,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                         rating: hotel.rating,
                         ratingCount: hotel.ratingCount,
                         priceHour: booking.totalPrice,
-                        priceLabel: 'Giá phòng: ',
+                        priceLabel: '${'hotel_detail.price_label'.tr()}: ',
                         address: hotel.address,
                         showFavorite: false,
                         isCancelled: isCancelled,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../core/config/themes/app_colors.dart';
 
@@ -19,9 +20,9 @@ class SectionTitle extends StatelessWidget {
         InkWell(
           borderRadius: BorderRadius.circular(24),
           onTap: onViewAll,
-          child: const Text(
-            'Xem tất cả',
-            style: TextStyle(color: AppColors.primary),
+          child: Text(
+            'home.view_all'.tr(),
+            style: const TextStyle(color: AppColors.primary),
           ),
         ),
       ],

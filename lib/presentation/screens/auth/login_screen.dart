@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void showLoginSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Đăng nhập thành công!'.tr()),
+        content: Text('login.success'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void showLoginFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Đăng nhập thất bại'.tr(),
+      title: 'login.failure'.tr(),
       message: error,
       isError: true,
     );
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Đăng nhập tài khoản'.tr(),
+                          'login.title'.tr(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 36,
@@ -128,8 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'Chào mừng bạn trở lại! Vui lòng đăng nhập\nđể tiếp tục hành trình cùng HoLLa'
-                              .tr(),
+                          'login.subtitle'.tr(),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -164,14 +163,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       TextFieldCustom(
                         controller: _emailOrUsernameController,
-                        hintText: 'Tên đăng nhập hoặc email'.tr(),
+                        hintText: 'login.username_label'.tr(),
                         prefixIcon: Icons.person,
                         hasError: invalidFields.contains('emailOrUsername'),
                       ),
                       const SizedBox(height: 10),
                       TextFieldCustom(
                         controller: _passwordController,
-                        hintText: 'Mật khẩu'.tr(),
+                        hintText: 'login.password_label'.tr(),
                         prefixIcon: Icons.lock,
                         isPassword: true,
                         hasError: invalidFields.contains('password'),
@@ -181,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: TextButton(
                           onPressed: _handleForgotPassWord,
                           child: Text(
-                            "Quên mật khẩu?".tr(),
+                            "login.forgot_password".tr(),
                             style: const TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
@@ -201,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: CircularProgressIndicator(),
                                 )
                                 : ConfirmButton(
-                                  text: "Đăng nhập".tr(),
+                                  text: "login.submit".tr(),
                                   color:
                                       isFormValid
                                           ? const Color(0xFF008080)
@@ -241,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Đăng ký'.tr(),
+                              'login.footer_action'.tr(),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,

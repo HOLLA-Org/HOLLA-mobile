@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
@@ -25,9 +26,9 @@ class LocationPermissionScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 36),
               // Title
-              const Text(
-                "Cho HoLLa biết bạn đang ở đâu nhé !",
-                style: TextStyle(
+              Text(
+                "location_permission.title".tr(),
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                   color: Colors.black,
@@ -37,9 +38,9 @@ class LocationPermissionScreen extends StatelessWidget {
               const SizedBox(height: 10),
 
               // Subtitle
-              const Text(
-                "Chỉ khi bạn cho phép truy cập vị trí, HoLLa mới có thể cung cấp những khách sạn phù hợp nhất và ưu đãi hấp dẫn trong khu vực cho bạn.",
-                style: TextStyle(
+              Text(
+                "location_permission.subtitle".tr(),
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black,
                   height: 1,
@@ -71,9 +72,9 @@ class LocationPermissionScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () => _onContinuePressed(context),
-                  child: const Text(
-                    "Tiếp tục",
-                    style: TextStyle(
+                  child: Text(
+                    "location_permission.continue_button".tr(),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -94,9 +95,9 @@ class LocationPermissionScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () => _onChooseLocationPressed(context),
-                  child: const Text(
-                    "Chọn địa điểm",
-                    style: TextStyle(
+                  child: Text(
+                    "location_permission.choose_location_button".tr(),
+                    style: const TextStyle(
                       color: Colors.black87,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

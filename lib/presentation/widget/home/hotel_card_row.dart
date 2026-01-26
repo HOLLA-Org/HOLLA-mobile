@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../../../core/config/themes/app_colors.dart';
 
 class HotelCardRow extends StatelessWidget {
@@ -215,7 +215,7 @@ class HotelCardRow extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${priceLabel ?? ''}${numberFormat.format(priceHour)}đ${priceLabel == null ? ' / 1 giờ' : ''}',
+                          '${priceLabel ?? ''}${numberFormat.format(priceHour)}đ${priceLabel == null ? ' / 1 ${"home.hour_unit".tr()}' : ''}',
                           style: const TextStyle(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,
@@ -244,9 +244,9 @@ class HotelCardRow extends StatelessWidget {
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
-                                child: const Text(
-                                  'Đánh giá',
-                                  style: TextStyle(
+                                child: Text(
+                                  'home.review'.tr(),
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -272,9 +272,9 @@ class HotelCardRow extends StatelessWidget {
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
-                                child: const Text(
-                                  'Đặt lại',
-                                  style: TextStyle(
+                                child: Text(
+                                  'home.rebook'.tr(),
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),

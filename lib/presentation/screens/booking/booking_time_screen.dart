@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import '../../widget/notification_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/hotel_detail_model.dart';
@@ -8,7 +9,6 @@ import '../../../core/config/routes/app_routes.dart';
 import '../payment/payment_args.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import '../../../core/config/themes/app_colors.dart';
 import '../../widget/header_with_back.dart';
 import '../../widget/booking/booking_calendar.dart';
@@ -203,7 +203,7 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
   void _showError(BuildContext context, String message) {
     notificationDialog(
       context: context,
-      title: 'Có lỗi xảy ra',
+      title: 'checkout.failure_title'.tr(),
       message: message,
       isError: true,
     );
@@ -252,7 +252,10 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
       },
       child: Scaffold(
         backgroundColor: AppColors.white,
-        appBar: HeaderWithBack(title: "Đặt lịch", onBack: _handleBack),
+        appBar: HeaderWithBack(
+          title: "booking_time.title".tr(),
+          onBack: _handleBack,
+        ),
         body: Column(
           children: [
             const SizedBox(height: 16),
@@ -265,7 +268,7 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "Theo giờ",
+                        "booking_time.by_hour".tr(),
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -289,7 +292,7 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "Theo ngày",
+                        "booking_time.by_day".tr(),
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -326,18 +329,19 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
                     ),
                     if (isHourly) ...[
                       BookingSelectionList<String>(
-                        title: "Giờ nhận phòng",
+                        title: "booking_time.checkin_time".tr(),
                         items: _times,
                         selectedItem: _selectedTime,
                         onSelected: _onTimeSelected,
                         labelBuilder: (item) => item,
                       ),
                       BookingSelectionList<int>(
-                        title: "Số giờ sử dụng",
+                        title: "booking_time.duration".tr(),
                         items: _durations,
                         selectedItem: _selectedDuration,
                         onSelected: _onDurationSelected,
-                        labelBuilder: (item) => "$item giờ",
+                        labelBuilder:
+                            (item) => "$item ${"booking_time.hours_unit".tr()}",
                       ),
                     ],
                     if (!isHourly) ...[
@@ -358,11 +362,11 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
               ),
             ),
             BookingSummaryBottomBar(
-              checkInLabel: "Nhận phòng",
+              checkInLabel: "booking_time.checkin".tr(),
               checkInValue: _checkInStr,
-              checkOutLabel: "Trả phòng",
+              checkOutLabel: "booking_time.checkout".tr(),
               checkOutValue: _checkOutStr,
-              buttonText: "Áp dụng",
+              buttonText: "booking_time.confirm_button".tr(),
               onButtonPressed: _onApply,
             ),
           ],

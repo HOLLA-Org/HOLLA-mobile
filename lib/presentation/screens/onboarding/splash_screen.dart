@@ -60,13 +60,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '${'từ'.tr()} ',
+                    'common.from'.tr(),
                     style: TextStyle(
                       fontFamily: 'Pacifico',
                       fontSize: 28,
                       color: Colors.grey[500],
                     ),
                   ),
+                  const SizedBox(width: 8),
                   Text(
                     'Ming',
                     style: TextStyle(

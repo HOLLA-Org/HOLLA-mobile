@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +75,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
               children: [
                 ListTile(
                   leading: const Icon(Icons.photo_library),
-                  title: const Text('Chọn từ thư viện'),
+                  title: Text('edit_profile.pick_gallery'.tr()),
                   onTap: () {
                     context.pop();
                     _pickFromGallery();
@@ -83,7 +83,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.camera_alt),
-                  title: const Text('Chụp ảnh'),
+                  title: Text('edit_profile.pick_camera'.tr()),
                   onTap: () {
                     context.pop();
                     _pickFromCamera();
@@ -200,26 +200,32 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
   }
 
   String mapGenderToApi(String value) {
-    switch (value) {
-      case 'Nam':
-        return 'male';
-      case 'Nữ':
-        return 'female';
-      case 'Khác':
-        return 'other';
-      default:
-        return '';
+    if (value == 'edit_profile.male'.tr() ||
+        value == 'Nam' ||
+        value == 'Male') {
+      return 'male';
     }
+    if (value == 'edit_profile.female'.tr() ||
+        value == 'Nữ' ||
+        value == 'Female') {
+      return 'female';
+    }
+    if (value == 'edit_profile.other'.tr() ||
+        value == 'Khác' ||
+        value == 'Other') {
+      return 'other';
+    }
+    return '';
   }
 
   String mapGenderToUI(String value) {
     switch (value) {
       case 'male':
-        return 'Nam';
+        return 'edit_profile.male'.tr();
       case 'female':
-        return 'Nữ';
+        return 'edit_profile.female'.tr();
       case 'other':
-        return 'Khác';
+        return 'edit_profile.other'.tr();
       default:
         return '';
     }
@@ -227,7 +233,11 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
   /// Pick gender
   Future<void> _pickGender() async {
-    final genders = ['Nam', 'Nữ', 'Khác'];
+    final genders = [
+      'edit_profile.male'.tr(),
+      'edit_profile.female'.tr(),
+      'edit_profile.other'.tr(),
+    ];
 
     final selected = await showModalBottomSheet<String>(
       context: context,
@@ -243,9 +253,9 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
               const SizedBox(height: 12),
 
               /// HEADER
-              const Text(
-                'Chọn giới tính',
-                style: TextStyle(
+              Text(
+                'edit_profile.select_gender'.tr(),
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'CrimsonText',
@@ -291,7 +301,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
   void showUpdateProfileSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Cập nhật thông tin thành công!'),
+        content: Text('edit_profile.update_success'.tr()),
         backgroundColor: AppColors.primary,
       ),
     );
@@ -302,7 +312,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
   void showUpdateProfileFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Cập nhật thông tin thất bại',
+      title: 'edit_profile.update_failure'.tr(),
       message: error,
       isError: true,
     );
@@ -312,7 +322,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
   void showUpdateAvatarSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Cập nhật ảnh đại diện thành công!'),
+        content: Text('edit_profile.update_avatar_success'.tr()),
         backgroundColor: AppColors.primary,
       ),
     );
@@ -323,7 +333,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
   void showUpdateAvatarFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
-      title: 'Cập nhật ảnh đại diện thất bại',
+      title: 'edit_profile.update_failure'.tr(),
       message: error,
       isError: true,
     );
@@ -388,7 +398,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
           return Scaffold(
             backgroundColor: AppColors.white,
             appBar: HeaderWithBack(
-              title: 'Hồ sơ',
+              title: 'edit_profile.title'.tr(),
               onBack: () => _onBack(context),
               showMore: false,
             ),
@@ -455,17 +465,20 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                   const SizedBox(height: 24),
 
                   // Name
-                  ProfileInfoRow(label: 'Tên', controller: _usernameController),
+                  ProfileInfoRow(
+                    label: 'edit_profile.username'.tr(),
+                    controller: _usernameController,
+                  ),
 
                   // Phone
                   ProfileInfoRow(
-                    label: 'Số điện thoại',
+                    label: 'edit_profile.phone'.tr(),
                     controller: _phoneController,
                   ),
 
                   // Email
                   ProfileInfoRow(
-                    label: 'Email',
+                    label: 'edit_profile.email'.tr(),
                     controller: _emailController,
                     readOnly: true,
                   ),
@@ -473,13 +486,16 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                   const SizedBox(height: 12),
 
                   // Section title
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Thông tin cá nhân',
-                        style: TextStyle(
+                        'edit_profile.personal_info'.tr(),
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'CrimsonText',
@@ -491,7 +507,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                   // Gender
                   ProfileInfoRow(
-                    label: 'Giới tính',
+                    label: 'edit_profile.gender'.tr(),
                     controller: _genderController,
                     readOnly: true,
                     suffixIcon: LucideIcons.chevronDown,
@@ -500,7 +516,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                   // Date of birth
                   ProfileInfoRow(
-                    label: 'Ngày sinh',
+                    label: 'edit_profile.dob'.tr(),
                     controller: _dobController,
                     readOnly: true,
                     suffixIcon: Icons.calendar_today,
@@ -514,7 +530,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                     padding: const EdgeInsets.only(bottom: 60),
                     child: Center(
                       child: ConfirmButton(
-                        text: 'Cập nhật',
+                        text: 'edit_profile.update_button'.tr(),
                         onPressed: () => _onUpdateProfile(context),
                       ),
                     ),
