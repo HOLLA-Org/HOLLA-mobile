@@ -78,7 +78,7 @@ class ReviewCard extends StatelessWidget {
                           ? review.comment
                           : 'Đẹp tuyệt vời luôn',
                       style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

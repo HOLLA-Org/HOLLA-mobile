@@ -11,7 +11,9 @@ import 'package:holla/presentation/bloc/location/location_bloc.dart';
 import 'package:holla/presentation/bloc/payment/payment_bloc.dart';
 import 'package:holla/presentation/bloc/search/search_bloc.dart';
 import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
+import 'package:holla/presentation/bloc/review/review_bloc.dart';
 import 'package:holla/repository/auth_repo.dart';
+import 'package:holla/repository/review_repo.dart';
 import 'package:holla/repository/booking_repo.dart';
 import 'package:holla/repository/favorite_repo.dart';
 import 'package:holla/repository/forgot_password_repo.dart';
@@ -108,5 +110,11 @@ final blocProviders = <BlocProvider>[
     create:
         (context) =>
             PaymentBloc(paymentRepository: context.read<PaymentRepository>()),
+  ),
+
+  BlocProvider<ReviewBloc>(
+    create:
+        (context) =>
+            ReviewBloc(reviewRepository: context.read<ReviewRepository>()),
   ),
 ];

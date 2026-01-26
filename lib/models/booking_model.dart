@@ -11,6 +11,7 @@ class BookingModel {
   final DateTime? checkOut;
   final int totalPrice;
   final int paidAmount;
+  final bool? isReviewed;
 
   BookingModel({
     required this.id,
@@ -21,6 +22,7 @@ class BookingModel {
     this.checkOut,
     required this.totalPrice,
     required this.paidAmount,
+    this.isReviewed,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class BookingModel {
               : null,
       totalPrice: json['price'] ?? json['total_price'] ?? 0,
       paidAmount: json['paid_amount'] ?? 0,
+      isReviewed: json['isReviewed'] ?? false,
     );
   }
 
