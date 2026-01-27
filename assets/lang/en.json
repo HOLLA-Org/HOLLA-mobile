@@ -33,7 +33,7 @@
   "login": {
     "title": "Login",
     "subtitle": "Welcome back! Please login\nto continue your journey with HoLLa",
-    "username_label": "Phone Number or Email",
+    "username_label": "Username",
     "password_label": "Password",
     "remember": "Remember me",
     "forgot_password": "Forgot Password",
@@ -145,7 +145,7 @@
     "policy_title": "Hotel Policy",
     "policy_description": "Please read the policy carefully before booking, these policies are set by the hotel.",
     "reviews": "Reviews",
-    "reviews_count": "{count} reviews",
+    "reviews_count": "{{count} reviews}",
     "no_reviews": "No reviews yet",
     "price_label": "Service Fee",
     "write_review_button": "Write a Review",
@@ -164,6 +164,7 @@
     "checkout": "Check-out",
     "duration": "Duration",
     "hours_unit": "hours",
+    "checkin_time": "Check-in Time",
     "apply": "Apply"
   },
   "checkout": {
@@ -221,6 +222,7 @@
     "app_version": "App Version",
     "contact": "Contact",
     "logout": "Logout",
+    "success": "Logout successful!",
     "logout_confirm_title": "Confirmation",
     "logout_confirm_content": "Are you sure you want to logout?",
     "logout_confirm_yes": "Yes",

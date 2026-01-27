@@ -48,6 +48,9 @@ class SettingService implements SettingRepository {
     String? email,
     String? phone,
     String? address,
+    String? locationName,
+    double? latitude,
+    double? longitude,
     String? gender,
     DateTime? dateOfBirth,
   }) async {
@@ -59,6 +62,9 @@ class SettingService implements SettingRepository {
       if (email != null) 'email': email,
       if (phone != null) 'phone': phone,
       if (address != null) 'address': address,
+      if (locationName != null) 'locationName': locationName,
+      if (latitude != null) 'latitude': latitude,
+      if (longitude != null) 'longitude': longitude,
       if (gender != null) 'gender': gender,
       if (dateOfBirth != null) 'date_of_birth': dateOfBirth.toIso8601String(),
     };

@@ -119,22 +119,17 @@ class AuthService implements AuthRepository {
     final accessToken = await _storage.read(key: 'accessToken');
 
     try {
-      final response = await http.post(
+      await http.post(
         uri,
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $accessToken',
         },
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return;
-      } else {
-        final responseBody = jsonDecode(response.body);
-        final errorMessage = responseBody['message'];
-        throw Exception(errorMessage);
-      }
-    } on SocketException {
-      throw Exception('Failed to connect to the server.');
+    } catch (_) {
+    } finally {
+      await _storage.delete(key: 'accessToken');
+      await _storage.delete(key: 'refreshToken');
     }
   }
 }

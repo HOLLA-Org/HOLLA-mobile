@@ -4,6 +4,9 @@ class UserModel {
   final String? email;
   final String? phone;
   final String? address;
+  final String? locationName;
+  final double? latitude;
+  final double? longitude;
   final String? avatarUrl;
   final String? gender;
   final DateTime? dateOfBirth;
@@ -14,6 +17,9 @@ class UserModel {
     this.email,
     this.phone,
     this.address,
+    this.locationName,
+    this.latitude,
+    this.longitude,
     this.avatarUrl,
     this.gender,
     this.dateOfBirth,
@@ -26,6 +32,9 @@ class UserModel {
       email: json['email']?.toString() ?? '',
       phone: json['phone']?.toString() ?? '',
       address: json['address']?.toString() ?? '',
+      locationName: json['locationName']?.toString() ?? '',
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
       avatarUrl: json['avatarUrl']?.toString() ?? '',
       gender: json['gender']?.toString() ?? '',
       dateOfBirth:

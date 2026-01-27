@@ -33,7 +33,7 @@
   "login": {
     "title": "Đăng nhập",
     "subtitle": "Chào mừng bạn trở lại! Vui lòng đăng nhập\nđể tiếp tục hành trình cùng HoLLa",
-    "username_label": "Số điện thoại hoặc Email",
+    "username_label": "Tên đăng nhập",
     "password_label": "Mật khẩu",
     "remember": "Ghi nhớ",
     "forgot_password": "Quên mật khẩu",
@@ -145,7 +145,7 @@
     "policy_title": "Chính sách khách sạn",
     "policy_description": "Vui lòng đọc kỹ chính sách trước khi đặt phòng, các chính sách này được quy định bởi khách sạn.",
     "reviews": "Đánh giá",
-    "reviews_count": "{count} đánh giá",
+    "reviews_count": "{{count} đánh giá}",
     "no_reviews": "Chưa có đánh giá nào",
     "price_label": "Phí dịch vụ",
     "write_review_button": "Viết đánh giá",
@@ -164,6 +164,7 @@
     "checkout": "Trả phòng",
     "duration": "Số giờ sử dụng",
     "hours_unit": "giờ",
+    "checkin_time": "Giờ nhận phòng",
     "apply": "Áp dụng"
   },
   "checkout": {
@@ -221,6 +222,7 @@
     "app_version": "Phiên bản ứng dụng",
     "contact": "Liên hệ",
     "logout": "Đăng xuất",
+    "success": "Đăng xuất thành công!",
     "logout_confirm_title": "Xác nhận",
     "logout_confirm_content": "Bạn có chắc chắn muốn đăng xuất?",
     "logout_confirm_yes": "Có",

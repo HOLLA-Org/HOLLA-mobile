@@ -53,10 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _handlePopularViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
-      extra: ViewAllArgs(
-        title: 'home.popular'.tr(),
-        hotels: _popularHotels,
-      ),
+      extra: ViewAllArgs(title: 'home.popular'.tr(), hotels: _popularHotels),
     );
   }
 
@@ -75,10 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _handleTopRatedViewAll(BuildContext context) {
     context.go(
       AppRoutes.viewall,
-      extra: ViewAllArgs(
-        title: 'home.top_rated'.tr(),
-        hotels: _topRatedHotels,
-      ),
+      extra: ViewAllArgs(title: 'home.top_rated'.tr(), hotels: _topRatedHotels),
     );
   }
 

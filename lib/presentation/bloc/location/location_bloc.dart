@@ -13,6 +13,20 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     on<LocationPredictionSelected>(_onPredictionSelected);
     on<LocationGetCurrent>(_onGetCurrentLocation);
     on<LocationMarkerConfirmed>(_onMarkerConfirmed);
+    on<LocationFetchAll>(_onFetchAll);
+  }
+
+  Future<void> _onFetchAll(
+    LocationFetchAll event,
+    Emitter<LocationState> emit,
+  ) async {
+    emit(state.copyWith(loading: true));
+    try {
+      final locations = await _locationRepository.getLocations();
+      emit(state.copyWith(loading: false, locations: locations));
+    } catch (e) {
+      emit(state.copyWith(loading: false, error: e.toString()));
+    }
   }
 
   Future<void> _onSearchChanged(

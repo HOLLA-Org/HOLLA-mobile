@@ -57,4 +57,9 @@ class ApiConstant {
   // Review
   static const String getHotelReviews = '${ApiBase.baseUrl}/review';
   static const String createReview = '${ApiBase.baseUrl}/review';
+
+  // Location
+  static const String getLocations = '${ApiBase.baseUrl}/location';
+  static const String getPopularLocations =
+      '${ApiBase.baseUrl}/location/popular';
 }

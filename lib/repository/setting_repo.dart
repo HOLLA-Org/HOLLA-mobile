@@ -7,6 +7,9 @@ abstract class SettingRepository {
     String? email,
     String? phone,
     String? address,
+    String? locationName,
+    double? latitude,
+    double? longitude,
     String? gender,
     DateTime? dateOfBirth,
   });

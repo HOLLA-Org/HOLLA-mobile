@@ -45,6 +45,10 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         phone: event.phone,
         gender: event.gender,
         dateOfBirth: event.dateOfBirth,
+        address: event.address,
+        locationName: event.locationName,
+        latitude: event.latitude,
+        longitude: event.longitude,
       );
 
       emit(UpdateProfileSuccess(updatedUser));
