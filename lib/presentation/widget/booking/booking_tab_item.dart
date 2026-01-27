@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../core/config/themes/app_colors.dart';
 
@@ -19,10 +20,10 @@ class BookingTabItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
         decoration: BoxDecoration(
           color: isSelected ? AppColors.primary : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         child: Text(
           label,
@@ -30,6 +31,7 @@ class BookingTabItem extends StatelessWidget {
             color: isSelected ? Colors.white : Colors.grey.shade600,
             fontWeight: FontWeight.bold,
             fontFamily: 'CrimsonText',
+            fontSize: 14.sp,
           ),
         ),
       ),

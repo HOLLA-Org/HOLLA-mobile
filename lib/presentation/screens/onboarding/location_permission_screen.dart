@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,29 +20,29 @@ class LocationPermissionScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 36),
+              SizedBox(height: 16.h),
               // Title
               Text(
                 "location_permission.title".tr(),
-                style: const TextStyle(
-                  fontSize: 20,
+                style: TextStyle(
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w700,
                   color: Colors.black,
                   fontFamily: 'PlayfairDisplay',
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 16.h),
 
               // Subtitle
               Text(
                 "location_permission.subtitle".tr(),
-                style: const TextStyle(
-                  fontSize: 16,
+                style: TextStyle(
+                  fontSize: 16.sp,
                   color: Colors.black,
                   height: 1,
                   fontWeight: FontWeight.w500,
@@ -58,48 +59,49 @@ class LocationPermissionScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 36.h),
 
               // Buttons
               SizedBox(
                 width: double.infinity,
-                height: 50,
+                height: 50.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF008080),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(30.r),
                     ),
                   ),
                   onPressed: () => _onContinuePressed(context),
                   child: Text(
                     "location_permission.continue_button".tr(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+
+              SizedBox(height: 8.h),
 
               SizedBox(
                 width: double.infinity,
-                height: 50,
+                height: 50.h,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey.shade300,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(30.r),
                     ),
                   ),
                   onPressed: () => _onChooseLocationPressed(context),
                   child: Text(
                     "location_permission.choose_location_button".tr(),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.black87,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

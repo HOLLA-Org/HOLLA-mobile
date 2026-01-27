@@ -14,6 +14,8 @@ import 'package:holla/presentation/widget/home/hotel_card_small.dart';
 import 'package:holla/presentation/widget/home/section_title.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/config/themes/app_colors.dart';
 import '../../bloc/home/home_bloc.dart';
 import '../../bloc/home/home_event.dart';
@@ -172,58 +174,64 @@ class _HomeScreenState extends State<HomeScreen> {
                     _topRatedHotels.isEmpty)
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 8),
-
                       // Subtitle
                       Text(
                         'home.find_great_place'.tr(),
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           color: Colors.grey,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
 
-                      const SizedBox(height: 6),
+                      SizedBox(height: 6.h),
 
                       // Title
                       Text(
                         'home.hotels_for_you'.tr(),
                         style: TextStyle(
-                          fontSize: 26,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w700,
-                          letterSpacing: 0.5,
+                          letterSpacing: 0.5.w,
                         ),
                       ),
 
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
 
                       // Search
                       Container(
-                        height: 48,
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        height: 40.h,
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
                         decoration: BoxDecoration(
                           color: AppColors.hover,
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(24.r),
                           border: Border.all(color: AppColors.primary),
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.search, color: AppColors.primary),
-                            const SizedBox(width: 8),
+                            Icon(
+                              Icons.search,
+                              color: AppColors.primary,
+                              size: 24.sp,
+                            ),
+                            SizedBox(width: 8.w),
 
                             Expanded(
                               child: TextField(
                                 controller: _searchController,
                                 textInputAction: TextInputAction.search,
+                                style: TextStyle(fontSize: 14.sp),
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'home.search_hint'.tr(),
-                                  hintStyle: TextStyle(color: Colors.grey),
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14.sp,
+                                  ),
                                   isDense: true,
                                   contentPadding: EdgeInsets.zero,
                                 ),
@@ -240,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 child: Icon(
                                   LucideIcons.xCircle,
-                                  size: 18,
+                                  size: 18.sp,
                                   color: AppColors.error.withOpacity(0.7),
                                 ),
                               ),
@@ -250,19 +258,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Popular Hotels
                       if (_popularHotels.isNotEmpty) ...[
-                        const SizedBox(height: 20),
+                        SizedBox(height: 8.h),
                         SectionTitle(
                           title: 'home.popular'.tr(),
                           onViewAll: () => _handlePopularViewAll(context),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         SizedBox(
-                          height: 265,
+                          height: 225.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemCount: _popularHotels.length * _loopMultiplier,
-                            separatorBuilder:
-                                (_, __) => const SizedBox(width: 12),
+                            separatorBuilder: (_, __) => SizedBox(width: 12.w),
                             itemBuilder: (_, i) {
                               final hotel =
                                   _popularHotels[i % _popularHotels.length];
@@ -288,22 +295,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Top Rated Hotels
                       if (_topRatedHotels.isNotEmpty) ...[
-                        const SizedBox(height: 20),
+                        SizedBox(height: 8.h),
                         SectionTitle(
                           title: 'home.top_rated'.tr(),
                           onViewAll: () => _handleTopRatedViewAll(context),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         SizedBox(
-                          height: 185,
+                          height: 165.h,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 2),
+                            padding: EdgeInsets.only(left: 2.w),
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount:
                                   _topRatedHotels.length * _loopMultiplier,
                               separatorBuilder:
-                                  (_, __) => const SizedBox(width: 12),
+                                  (_, __) => SizedBox(width: 12.w),
                               itemBuilder: (_, i) {
                                 final hotel =
                                     _topRatedHotels[i % _topRatedHotels.length];
@@ -331,21 +338,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Recommended Hotels
                       if (_recommendedHotels.isNotEmpty) ...[
-                        const SizedBox(height: 20),
+                        SizedBox(height: 8.h),
                         SectionTitle(
                           title: 'home.recommended'.tr(),
                           onViewAll: () => _handleRecommendedViewAll(context),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         SizedBox(
-                          height: 200,
+                          height: 195.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            padding: EdgeInsets.symmetric(horizontal: 2.w),
                             itemCount:
                                 _recommendedHotels.length * _loopMultiplier,
-                            separatorBuilder:
-                                (_, __) => const SizedBox(width: 12),
+                            separatorBuilder: (_, __) => SizedBox(width: 12.w),
                             itemBuilder: (_, i) {
                               final hotel =
                                   _recommendedHotels[i %
@@ -370,7 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
 
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.h),
                     ],
                   ),
                 ),

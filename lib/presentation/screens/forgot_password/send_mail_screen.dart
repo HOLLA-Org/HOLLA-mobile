@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +56,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('forgot_password.email_sent'.tr()),
-          backgroundColor: Color(0xFF008080),
+          backgroundColor: const Color(0xFF008080),
         ),
       );
       context.go(AppRoutes.verifypassword, extra: state.email);
@@ -86,13 +87,13 @@ class _SendMailScreenState extends State<SendMailScreen> {
                       Image(
                         image: const AssetImage('assets/images/main_elip.png'),
                         width: double.infinity,
-                        height: 320,
+                        height: 300.h,
                         fit: BoxFit.cover,
                       ),
                       Positioned.fill(
-                        top: -70,
+                        top: -70.h,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          padding: EdgeInsets.symmetric(horizontal: 24.w),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,31 +102,31 @@ class _SendMailScreenState extends State<SendMailScreen> {
                                 onPressed: () {
                                   context.go(AppRoutes.login);
                                 },
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.arrow_back,
-                                  size: 36,
+                                  size: 36.sp,
                                   color: Colors.white,
                                 ),
 
                                 alignment: Alignment.centerLeft,
-                                padding: const EdgeInsets.only(right: 16.0),
+                                padding: EdgeInsets.only(right: 16.w),
                               ),
-                              SizedBox(height: 4),
+                              SizedBox(height: 4.h),
                               Text(
                                 'forgot_password.title'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 36,
+                                  fontSize: 36.sp,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'PlayfairDisplay',
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              SizedBox(height: 16.h),
                               Text(
                                 'forgot_password.subtitle'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontFamily: 'CrimsonText',
                                 ),
                               ),
@@ -135,7 +136,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 50),
+                  SizedBox(height: 24.h),
                   BlocBuilder<SendMailBloc, SendMailState>(
                     builder: (context, state) {
                       Set<String> invalidFields = {};
@@ -144,7 +145,7 @@ class _SendMailScreenState extends State<SendMailScreen> {
                         invalidFields = state.invalidFields;
                       }
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
                         child: Column(
                           children: [
                             TextFieldCustom(
@@ -172,13 +173,13 @@ class _SendMailScreenState extends State<SendMailScreen> {
                   curve: Curves.easeInOut,
                   bottom:
                       getKeyboardHeight(context) > 0
-                          ? getKeyboardHeight(context) + 16
-                          : 40,
-                  left: 24,
-                  right: 24,
+                          ? getKeyboardHeight(context) + 16.h
+                          : 40.h,
+                  left: 24.w,
+                  right: 24.w,
                   child: SizedBox(
                     width: double.infinity,
-                    height: 50,
+                    height: 50.h,
                     child:
                         state is SendMailLoading
                             ? const Center(child: CircularProgressIndicator())

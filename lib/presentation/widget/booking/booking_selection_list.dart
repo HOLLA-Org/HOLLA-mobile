@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../core/config/themes/app_colors.dart';
 
@@ -23,17 +24,17 @@ class BookingSelectionList<T> extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
+          padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 8.h),
           child: Text(
             title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 32.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             itemCount: items.length,
             itemBuilder: (context, index) {
               final item = items[index];
@@ -41,15 +42,15 @@ class BookingSelectionList<T> extends StatelessWidget {
               return GestureDetector(
                 onTap: () => onSelected(item),
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: EdgeInsets.only(right: 8.w),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
                     decoration: BoxDecoration(
                       color:
                           isSelected
                               ? AppColors.primary.withOpacity(0.2)
                               : AppColors.hover,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: Center(
                       child: Text(
@@ -59,7 +60,7 @@ class BookingSelectionList<T> extends StatelessWidget {
                               isSelected ? AppColors.primary : Colors.black54,
                           fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
-                          fontSize: 13,
+                          fontSize: 13.sp,
                         ),
                       ),
                     ),

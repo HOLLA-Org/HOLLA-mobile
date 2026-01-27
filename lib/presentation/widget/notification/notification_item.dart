@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -24,31 +25,27 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 4),
+      margin: EdgeInsets.only(top: 2.h),
       color: AppColors.white,
       child: InkWell(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Icon
               Container(
-                width: 32,
-                height: 32,
+                width: 32.w,
+                height: 32.h,
                 decoration: const BoxDecoration(
                   color: Color(0xFFE6F4F3),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.mail,
-                  size: 16,
-                  color: AppColors.primary,
-                ),
+                child: Icon(Icons.mail, size: 16.sp, color: AppColors.primary),
               ),
 
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
 
               // Content
               Expanded(
@@ -65,7 +62,7 @@ class NotificationItem extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blackTypo,
                               height: 1.2,
@@ -78,22 +75,22 @@ class NotificationItem extends StatelessWidget {
                         Align(
                           alignment: Alignment.topCenter,
                           child: SizedBox(
-                            height: 20,
-                            width: 20,
+                            height: 20.h,
+                            width: 20.w,
                             child: PopupMenuButton(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
                               constraints: const BoxConstraints(),
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.more_vert,
-                                size: 16,
+                                size: 16.sp,
                                 color: AppColors.disableTypo,
                               ),
                               itemBuilder:
-                                  (_) => const [
+                                  (_) => [
                                     PopupMenuItem<String>(
-                                      height: 4,
+                                      height: 4.h,
                                       padding: EdgeInsets.symmetric(
-                                        horizontal: 24,
+                                        horizontal: 24.w,
                                       ),
                                       value: 'delete',
                                       child: Center(
@@ -101,6 +98,7 @@ class NotificationItem extends StatelessWidget {
                                           'Xoá',
                                           style: TextStyle(
                                             color: AppColors.error,
+                                            fontSize: 14.sp,
                                           ),
                                         ),
                                       ),
@@ -117,7 +115,7 @@ class NotificationItem extends StatelessWidget {
                       ],
                     ),
 
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
 
                     // Content
                     Text(
@@ -125,13 +123,13 @@ class NotificationItem extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         color: AppColors.disableTypo,
                         fontFamily: 'CrimsonText',
                       ),
                     ),
 
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
 
                     // Time
                     Align(
@@ -139,7 +137,7 @@ class NotificationItem extends StatelessWidget {
                       child: Text(
                         DateFormat('HH:mm dd/MM/yyyy').format(createdAt),
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: 11.sp,
                           color: AppColors.disableTypo,
                           fontFamily: 'CrimsonText',
                         ),

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -21,63 +22,65 @@ class SettingProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 20, 16, 24),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
       decoration: const BoxDecoration(color: AppColors.primary),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           /// AVATAR
           CircleAvatar(
-            radius: 28,
+            radius: 28.r,
             backgroundColor: const Color(0xFFD9D9D9),
             backgroundImage:
                 avatarUrl != null ? NetworkImage(avatarUrl!) : null,
             child:
                 avatarUrl == null
-                    ? const Icon(
+                    ? Icon(
                       LucideIcons.user,
-                      size: 28,
+                      size: 28.sp,
                       color: AppColors.white,
                     )
                     : null,
           ),
 
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
 
           /// NAME + EMAIL
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name!,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.white,
-                    fontFamily: 'CrimsonText',
+                if (name != null)
+                  Text(
+                    name!,
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white,
+                      fontFamily: 'CrimsonText',
+                    ),
                   ),
-                ),
 
                 Row(
                   children: [
-                    Expanded(
-                      child: Text(
-                        email!,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppColors.white.withOpacity(0.8),
+                    if (email != null)
+                      Expanded(
+                        child: Text(
+                          email!,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            color: AppColors.white.withOpacity(0.8),
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
 
                     InkWell(
                       onTap: onEditTap,
-                      child: const Icon(
+                      child: Icon(
                         LucideIcons.edit,
-                        size: 18,
-                        color: Color(0xFF68E1FD),
+                        size: 18.sp,
+                        color: const Color(0xFF68E1FD),
                       ),
                     ),
                   ],

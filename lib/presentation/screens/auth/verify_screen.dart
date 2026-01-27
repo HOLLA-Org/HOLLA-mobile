@@ -3,6 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:holla/presentation/bloc/auth/verify/verify_bloc.dart';
 import 'package:holla/presentation/bloc/auth/verify/verify_event.dart';
 import 'package:holla/presentation/bloc/auth/verify/verify_state.dart';
@@ -30,14 +32,14 @@ class _VerifyScreenState extends State<VerifyScreen> {
 
   // Default styling for the OTP input fields
   final _defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: const TextStyle(
-      fontSize: 22,
-      color: Color.fromRGBO(30, 60, 87, 1),
+    width: 56.w,
+    height: 56.h,
+    textStyle: TextStyle(
+      fontSize: 22.sp,
+      color: const Color.fromRGBO(30, 60, 87, 1),
     ),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.r),
       border: Border.all(color: Colors.grey.shade400),
     ),
   );
@@ -96,9 +98,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
         SnackBar(
           content: Text(
             'verify.success'.tr(),
-            style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
+            style: TextStyle(fontSize: 16.sp, fontFamily: 'CrimsonText'),
           ),
-          backgroundColor: Color(0xFF008080),
+          backgroundColor: const Color(0xFF008080),
         ),
       );
       context.go(AppRoutes.login);
@@ -114,9 +116,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
         SnackBar(
           content: Text(
             'verify.resend_success'.tr(),
-            style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
+            style: TextStyle(fontSize: 16.sp, fontFamily: 'CrimsonText'),
           ),
-          backgroundColor: Color(0xFF008080),
+          backgroundColor: const Color(0xFF008080),
         ),
       );
     }
@@ -140,13 +142,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                       Image(
                         image: const AssetImage('assets/images/main_elip.png'),
                         width: double.infinity,
-                        height: 300,
+                        height: 300.h,
                         fit: BoxFit.cover,
                       ),
                       Positioned.fill(
-                        top: -60,
+                        top: -60.h,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24.0),
+                          padding: EdgeInsets.symmetric(horizontal: 24.w),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,17 +157,17 @@ class _VerifyScreenState extends State<VerifyScreen> {
                                 'verify.title'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 36,
+                                  fontSize: 36.sp,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'PlayfairDisplay',
                                 ),
                               ),
-                              SizedBox(height: 16),
+                              SizedBox(height: 16.h),
                               Text(
                                 'verify.subtitle'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontFamily: 'CrimsonText',
                                 ),
                               ),
@@ -176,13 +178,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     ],
                   ),
 
-                  const SizedBox(height: 50),
+                  SizedBox(height: 50.h),
 
                   // --- OTP Input & Resend Section ---
                   BlocBuilder<VerifyBloc, VerifyState>(
                     builder: (context, state) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
                         child: Column(
                           children: [
                             // Pinput widget for OTP entry
@@ -211,7 +213,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                               keyboardType: TextInputType.number,
                             ),
 
-                            const SizedBox(height: 20),
+                            SizedBox(height: 20.h),
 
                             // "Resend Code" button and countdown timer
                             Row(
@@ -228,7 +230,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                                               ? const Color(0xFF008080)
                                               : Colors.grey,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontFamily: 'CrimsonText',
                                     ),
                                   ),
@@ -275,12 +277,12 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   bottom:
                       getKeyboardHeight(context) > 0
                           ? getKeyboardHeight(context)
-                          : 40,
-                  left: 24,
-                  right: 24,
+                          : 40.h,
+                  left: 24.w,
+                  right: 24.w,
                   child: SizedBox(
                     width: double.infinity,
-                    height: 50,
+                    height: 50.h,
                     child:
                         state is VerifyLoading
                             ? const Center(child: CircularProgressIndicator())

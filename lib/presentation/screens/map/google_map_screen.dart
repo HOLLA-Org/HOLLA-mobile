@@ -298,8 +298,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.08),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
+                        blurRadius: 8.r,
+                        offset: Offset(0, 2.h),
                       ),
                     ],
                   ),
@@ -308,7 +308,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     children: [
                       Icon(
                         LucideIcons.chevronLeft,
-                        size: 20.r,
+                        size: 20.sp,
                         color: Colors.black,
                       ),
                       SizedBox(width: 6.w),
@@ -348,7 +348,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                         prefixIcon: Icon(
                           LucideIcons.search,
                           color: AppColors.disableTypo,
-                          size: 24.r,
+                          size: 24.sp,
                         ),
                         suffixIcon:
                             _searchController.text.isNotEmpty
@@ -359,16 +359,16 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                     child: Icon(
                                       LucideIcons.xCircle,
                                       color: AppColors.error,
-                                      size: 20.r,
+                                      size: 20.sp,
                                     ),
                                   ),
                                 )
                                 : (state.loading
-                                    ? const UnconstrainedBox(
+                                    ? UnconstrainedBox(
                                       child: SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(
+                                        width: 20.w,
+                                        height: 20.h,
+                                        child: const CircularProgressIndicator(
                                           strokeWidth: 2,
                                         ),
                                       ),
@@ -404,7 +404,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       itemCount: state.predictions.length,
-                      separatorBuilder: (_, __) => const Divider(height: 1),
+                      separatorBuilder: (_, __) => Divider(height: 1.h),
                       itemBuilder: (context, index) {
                         final item = state.predictions[index];
 
@@ -451,7 +451,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       child: Icon(
                         LucideIcons.locateFixed,
                         color: Colors.black87,
-                        size: 20.r,
+                        size: 20.sp,
                       ),
                     ),
                   ),
@@ -475,7 +475,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       child: Icon(
                         LucideIcons.plus,
                         color: Colors.black87,
-                        size: 20.r,
+                        size: 20.sp,
                       ),
                     ),
                   ),
@@ -499,7 +499,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       child: Icon(
                         LucideIcons.minus,
                         color: Colors.black87,
-                        size: 20.r,
+                        size: 20.sp,
                       ),
                     ),
                   ),

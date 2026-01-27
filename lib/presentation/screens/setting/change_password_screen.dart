@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -195,23 +195,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             children: [
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
                   ),
                   children: [
-                    const SizedBox(height: 12),
-
                     // Current password
                     Text(
                       'change_password.current'.tr(),
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.bodyTypo,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6.h),
                     InputTextField(
                       controller: _currentPasswordController,
                       isPassword: true,
@@ -219,18 +217,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       errorText: _currentPasswordErrorText,
                     ),
 
-                    const SizedBox(height: 16),
+                    SizedBox(height: 12.h),
 
                     // New password
                     Text(
                       'change_password.new'.tr(),
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.bodyTypo,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6.h),
                     InputTextField(
                       controller: _newPasswordController,
                       isPassword: true,
@@ -238,18 +236,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       errorText: _newPasswordErrorText,
                     ),
 
-                    const SizedBox(height: 16),
+                    SizedBox(height: 12.h),
 
                     // Confirm password
                     Text(
                       'change_password.confirm'.tr(),
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColors.bodyTypo,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6.h),
                     InputTextField(
                       controller: _confirmPasswordController,
                       isPassword: true,
@@ -262,10 +260,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
               // Submit button
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 20.h),
                 child: SizedBox(
                   width: double.infinity,
-                  height: 50,
+                  height: 50.h,
                   child: ConfirmButton(
                     text: 'change_password.submit_button'.tr(),
                     onPressed:

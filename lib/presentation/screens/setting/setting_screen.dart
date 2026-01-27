@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
 import 'package:holla/presentation/bloc/setting/setting_event.dart';
 import 'package:holla/presentation/bloc/setting/setting_state.dart';
@@ -176,9 +178,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 12,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 12.h,
                       ),
                       child: ListView(
                         children: [
@@ -196,7 +198,10 @@ class _SettingScreenState extends State<SettingScreen> {
                           SettingTile(
                             icon: LucideIcons.languages,
                             title: 'setting.language'.tr(),
-                            trailing: Text(getLanguageName(context)),
+                            trailing: Text(
+                              getLanguageName(context),
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
                             onTap: () => _onLanguageTap(context),
                           ),
                           SettingTile(
@@ -207,8 +212,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                       user!.locationName!.isNotEmpty)
                                   ? user.locationName!
                                   : '',
+                              style: TextStyle(fontSize: 14.sp),
                             ),
                           ),
+
+                          SizedBox(height: 12.h),
+
                           SettingSectionTitle('setting.info_section'.tr()),
                           SettingTile(
                             icon: LucideIcons.helpCircle,
@@ -221,7 +230,10 @@ class _SettingScreenState extends State<SettingScreen> {
                           SettingTile(
                             icon: LucideIcons.info,
                             title: 'setting.app_version'.tr(),
-                            trailing: const Text('1.0'),
+                            trailing: Text(
+                              '1.0',
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
                           ),
                           SettingTile(
                             icon: LucideIcons.phone,

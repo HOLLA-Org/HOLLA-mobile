@@ -5,6 +5,8 @@ import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:holla/presentation/bloc/home/home_bloc.dart';
 import 'package:holla/presentation/bloc/home/home_event.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../models/hotel_model.dart';
 import '../../../../core/config/themes/app_colors.dart';
 import '../../../../presentation/widget/header_with_back.dart';
@@ -61,14 +63,14 @@ class _ViewAllScreenState extends State<ViewAllScreen> {
         onBack: () => context.go(AppRoutes.home),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: GridView.builder(
-          padding: const EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 12.h),
           itemCount: _hotels.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
+            mainAxisSpacing: 2.h,
+            crossAxisSpacing: 12.w,
             childAspectRatio: 0.88,
           ),
           itemBuilder: (context, index) {

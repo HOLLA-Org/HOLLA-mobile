@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
@@ -40,10 +41,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4.r)],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,19 +56,19 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
               context.go(routes[index]);
             },
             child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10.r),
               decoration:
                   isSelected
                       ? BoxDecoration(
                         // ignore: deprecated_member_use
                         color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12.r),
                       )
                       : null,
               child: Icon(
                 icons[index],
                 color: isSelected ? AppColors.white : Colors.grey[900],
-                size: 28,
+                size: 28.sp,
               ),
             ),
           );

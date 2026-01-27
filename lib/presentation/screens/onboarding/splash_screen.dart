@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,31 +32,29 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 180),
+              SizedBox(height: 180.h),
 
               // Logo
               Expanded(
                 flex: 9,
                 child: Center(
                   child: Image(
-                    image: AssetImage('assets/logos/splash.png'),
+                    image: const AssetImage('assets/logos/splash.png'),
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
-              const Spacer(),
 
               // Title
               Text(
                 'HoLLa',
                 style: TextStyle(
                   fontFamily: 'PlayfairDisplay',
-                  fontSize: 48,
+                  fontSize: 48.sp,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF008080),
+                  color: const Color(0xFF008080),
                 ),
               ),
-              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -63,23 +62,23 @@ class _SplashScreenState extends State<SplashScreen> {
                     'common.from'.tr(),
                     style: TextStyle(
                       fontFamily: 'Pacifico',
-                      fontSize: 28,
+                      fontSize: 28.sp,
                       color: Colors.grey[500],
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Text(
                     'Ming',
                     style: TextStyle(
                       fontFamily: 'Caveat',
-                      fontSize: 36,
+                      fontSize: 36.sp,
                       color: Colors.grey[500],
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 100),
+              SizedBox(height: 100.h),
             ],
           ),
         ),

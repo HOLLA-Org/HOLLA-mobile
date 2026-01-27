@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -77,17 +78,17 @@ class _LoadingScreenState extends State<LoadingScreen>
               const Spacer(),
 
               // Logo
-              const Expanded(
+              Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Image(
+                  padding: EdgeInsets.all(2.0.r),
+                  child: const Image(
                     image: AssetImage('assets/logos/loading.png'),
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
-              const SizedBox(height: 24.0),
+              SizedBox(height: 24.0.h),
 
               // Apply fade animation.
               FadeTransition(
@@ -95,7 +96,7 @@ class _LoadingScreenState extends State<LoadingScreen>
                 child: Text(
                   'onboarding.loading_message'.tr(namedArgs: {'dots': dots}),
                   style: TextStyle(
-                    fontSize: 36,
+                    fontSize: 36.sp,
                     fontFamily: 'CrimsonText',
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[600],

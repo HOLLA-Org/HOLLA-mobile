@@ -1,4 +1,5 @@
 // ignore_for_file: file_names, deprecated_member_use
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
@@ -39,11 +40,11 @@ class SelectLanguageScreen extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
               child: Text(
                 'select_language.select_label'.tr(),
-                style: const TextStyle(
-                  fontSize: 16,
+                style: TextStyle(
+                  fontSize: 16.sp,
                   fontFamily: 'CrimsonText',
                   color: Colors.black87,
                   fontWeight: FontWeight.bold,
@@ -53,14 +54,14 @@ class SelectLanguageScreen extends StatelessWidget {
 
             /// Language options
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
                 children:
                     supportedLocales.map((locale) {
                       final code = locale.languageCode;
 
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
+                        padding: EdgeInsets.only(bottom: 8.h),
                         child: SelectOptionItem(
                           label: languages[code] ?? code,
                           value: code,

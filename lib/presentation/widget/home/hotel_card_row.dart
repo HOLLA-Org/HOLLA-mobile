@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/config/themes/app_colors.dart';
 
 class HotelCardRow extends StatelessWidget {
@@ -45,20 +46,20 @@ class HotelCardRow extends StatelessWidget {
     final numberFormat = NumberFormat('#,###');
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: 6.h),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14.r),
         child: Container(
-          width: 375,
+          width: 340.w,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
-            boxShadow: const [
+            borderRadius: BorderRadius.circular(14.r),
+            boxShadow: [
               BoxShadow(
                 color: Colors.black12,
-                blurRadius: 3,
-                offset: Offset(0, 2),
+                blurRadius: 3.r,
+                offset: Offset(0, 2.h),
               ),
             ],
           ),
@@ -70,12 +71,12 @@ class HotelCardRow extends StatelessWidget {
               Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(14),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(14.r),
                     ),
                     child: Image.network(
                       imageUrl,
-                      height: 100,
+                      height: 100.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -84,19 +85,19 @@ class HotelCardRow extends StatelessWidget {
                   /// Favorite icon or Status Icon
                   if (showFavorite)
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 8.h,
+                      right: 8.w,
                       child: GestureDetector(
                         onTap: onFavoriteTap,
                         child: Container(
-                          padding: const EdgeInsets.all(6),
+                          padding: EdgeInsets.all(6.r),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.9),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             isFavorite ? Icons.favorite : Icons.favorite_border,
-                            size: 16,
+                            size: 16.sp,
                             color:
                                 isFavorite
                                     ? AppColors.error
@@ -107,34 +108,34 @@ class HotelCardRow extends StatelessWidget {
                     )
                   else if (isCancelled)
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 8.h,
+                      right: 8.w,
                       child: Container(
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4.r),
                         decoration: BoxDecoration(
                           color: AppColors.error,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.priority_high,
-                          size: 14,
+                          size: 14.sp,
                           color: Colors.white,
                         ),
                       ),
                     )
                   else if (isCompleted)
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 8.h,
+                      right: 8.w,
                       child: Container(
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4.r),
                         decoration: BoxDecoration(
                           color: AppColors.success,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.check,
-                          size: 14,
+                          size: 14.sp,
                           color: Colors.white,
                         ),
                       ),
@@ -144,7 +145,7 @@ class HotelCardRow extends StatelessWidget {
 
               /// Content
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.r),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,9 +159,9 @@ class HotelCardRow extends StatelessWidget {
                             name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ),
@@ -168,39 +169,35 @@ class HotelCardRow extends StatelessWidget {
                         /// Rating
                         Row(
                           children: [
-                            const Icon(
-                              Icons.star,
-                              size: 14,
-                              color: Colors.amber,
-                            ),
-                            const SizedBox(width: 4),
+                            Icon(Icons.star, size: 14.sp, color: Colors.amber),
+                            SizedBox(width: 4.w),
                             Text(
                               '$rating ($ratingCount)',
-                              style: const TextStyle(fontSize: 12),
+                              style: TextStyle(fontSize: 12.sp),
                             ),
                           ],
                         ),
                       ],
                     ),
 
-                    const SizedBox(height: 4),
+                    SizedBox(height: 2.h),
 
                     /// Address
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.location_on_outlined,
-                          size: 14,
+                          size: 14.sp,
                           color: AppColors.primary,
                         ),
-                        const SizedBox(width: 4),
+                        SizedBox(width: 2.w),
                         Expanded(
                           child: Text(
                             address,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 12,
+                            style: TextStyle(
+                              fontSize: 12.sp,
                               color: Colors.grey,
                             ),
                           ),
@@ -208,7 +205,7 @@ class HotelCardRow extends StatelessWidget {
                       ],
                     ),
 
-                    const SizedBox(height: 8),
+                    SizedBox(height: 4.h),
 
                     /// Price + Action Button
                     Row(
@@ -216,10 +213,10 @@ class HotelCardRow extends StatelessWidget {
                       children: [
                         Text(
                           '${priceLabel ?? ''}${numberFormat.format(priceHour)}đ${priceLabel == null ? ' /1 ${"home.hour_unit".tr()}' : ''}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,
-                            fontSize: 13,
+                            fontSize: 13.sp,
                           ),
                         ),
                         Row(
@@ -233,12 +230,12 @@ class HotelCardRow extends StatelessWidget {
                                           ? Colors.grey
                                           : Colors.amber,
                                   foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 6,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w,
+                                    vertical: 6.h,
                                   ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: BorderRadius.circular(8.r),
                                   ),
                                   minimumSize: Size.zero,
                                   tapTargetSize:
@@ -246,13 +243,13 @@ class HotelCardRow extends StatelessWidget {
                                 ),
                                 child: Text(
                                   'home.review'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                             ],
                             if ((isCancelled || isCompleted) &&
                                 onRebook != null)
@@ -261,12 +258,12 @@ class HotelCardRow extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF008080),
                                   foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 6,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w,
+                                    vertical: 6.h,
                                   ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: BorderRadius.circular(8.r),
                                   ),
                                   minimumSize: Size.zero,
                                   tapTargetSize:
@@ -274,8 +271,8 @@ class HotelCardRow extends StatelessWidget {
                                 ),
                                 child: Text(
                                   'home.rebook'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

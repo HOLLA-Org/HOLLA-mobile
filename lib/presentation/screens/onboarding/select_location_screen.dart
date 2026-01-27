@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -126,7 +128,12 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
             }
 
             if (state.error != null && allLocations.isEmpty) {
-              return Center(child: Text('Error: ${state.error}'));
+              return Center(
+                child: Text(
+                  'Error: ${state.error}',
+                  style: TextStyle(fontSize: 14.sp),
+                ),
+              );
             }
 
             final popularLocations =
@@ -138,56 +145,57 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(height: 8),
                       Text(
                         "location_selection.title".tr(),
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'PlayfairDisplay',
                         ),
                       ),
+                      SizedBox(height: 8.h),
                       Text(
                         "location_selection.subtitle".tr(),
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.grey,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontFamily: 'CrimsonText',
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       TextField(
                         controller: _searchController,
                         onChanged: _onSearchChanged,
+                        style: TextStyle(fontSize: 14.sp),
                         decoration: InputDecoration(
                           hintText: "location_selection.search_hint".tr(),
-                          prefixIcon: const Icon(
+                          hintStyle: TextStyle(fontSize: 14.sp),
+                          prefixIcon: Icon(
                             Icons.search,
                             color: AppColors.primary,
+                            size: 24.sp,
                           ),
                           filled: true,
                           fillColor: const Color(0xFFEDEDED),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 12.h,
                           ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(30.r),
                             borderSide: BorderSide.none,
                           ),
                           suffixIcon:
                               _searchController.text.isNotEmpty
                                   ? IconButton(
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.cancel,
                                       color: Colors.red,
+                                      size: 20.sp,
                                     ),
                                     onPressed: () {
                                       _searchController.clear();
@@ -201,6 +209,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                     ],
                   ),
                 ),
+                SizedBox(height: 8.h),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () async {
@@ -213,15 +222,15 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                         children: [
                           if (popularLocations.isNotEmpty) ...[
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.w,
+                                vertical: 8.h,
                               ),
                               child: Text(
                                 "location_selection.popular".tr(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontFamily: 'CrimsonText',
                                 ),
                               ),
@@ -231,6 +240,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                 title: Text(
                                   loc.name,
                                   style: TextStyle(
+                                    fontSize: 14.sp,
                                     color:
                                         selectedLocation?.id == loc.id
                                             ? AppColors.primary
@@ -243,9 +253,10 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                 ),
                                 trailing:
                                     selectedLocation?.id == loc.id
-                                        ? const Icon(
+                                        ? Icon(
                                           Icons.check_circle,
                                           color: AppColors.primary,
+                                          size: 24.sp,
                                         )
                                         : null,
                                 onTap:
@@ -256,15 +267,15 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                           ],
                           if (otherLocations.isNotEmpty) ...[
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.w,
+                                vertical: 8.h,
                               ),
                               child: Text(
                                 "location_selection.others".tr(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontFamily: 'CrimsonText',
                                 ),
                               ),
@@ -274,6 +285,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                 title: Text(
                                   loc.name,
                                   style: TextStyle(
+                                    fontSize: 14.sp,
                                     color:
                                         selectedLocation?.id == loc.id
                                             ? AppColors.primary
@@ -286,9 +298,10 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                 ),
                                 trailing:
                                     selectedLocation?.id == loc.id
-                                        ? const Icon(
+                                        ? Icon(
                                           Icons.check_circle,
                                           color: AppColors.primary,
+                                          size: 24.sp,
                                         )
                                         : null,
                                 onTap:
@@ -298,9 +311,14 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                             ),
                           ],
                           if (filteredLocations.isEmpty && !state.loading)
-                            const Padding(
-                              padding: EdgeInsets.all(32.0),
-                              child: Center(child: Text("No locations found")),
+                            Padding(
+                              padding: EdgeInsets.all(32.r),
+                              child: Center(
+                                child: Text(
+                                  "No locations found",
+                                  style: TextStyle(fontSize: 14.sp),
+                                ),
+                              ),
                             ),
                         ],
                       ),
@@ -308,12 +326,15 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                   ),
                 ),
                 Container(
-                  height: 100.0,
+                  height: 80.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border(
-                      top: BorderSide(color: Colors.grey.shade300, width: 1.0),
+                      top: BorderSide(
+                        color: Colors.grey.shade300,
+                        width: 1.0.w,
+                      ),
                     ),
                   ),
                   child: SafeArea(
@@ -323,7 +344,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                          padding: EdgeInsets.fromLTRB(8.w, 8.h, 8.w, 0),
                           child: BlocBuilder<SettingBloc, SettingState>(
                             builder: (context, settingState) {
                               final isUpdating = settingState is SettingLoading;
@@ -334,27 +355,31 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                         ? null
                                         : _handleConfirm,
                                 style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(double.infinity, 48),
+                                  minimumSize: Size(double.infinity, 48.h),
                                   backgroundColor:
                                       selectedLocation == null
                                           ? Colors.grey
                                           : AppColors.primary,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.r),
+                                  ),
                                 ),
                                 child:
                                     isUpdating
-                                        ? const SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                            strokeWidth: 2,
-                                          ),
+                                        ? SizedBox(
+                                          height: 20.h,
+                                          width: 20.w,
+                                          child:
+                                              const CircularProgressIndicator(
+                                                color: Colors.white,
+                                                strokeWidth: 2,
+                                              ),
                                         )
                                         : Text(
                                           "location_selection.confirm_button"
                                               .tr(),
-                                          style: const TextStyle(
-                                            fontSize: 16,
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
                                             fontFamily: 'CrimsonText',
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,

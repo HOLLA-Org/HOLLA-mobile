@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'action_button.dart';
 
@@ -22,14 +23,14 @@ class BookingSummaryBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
+            blurRadius: 10.r,
+            offset: Offset(0, -5.h),
           ),
         ],
       ),
@@ -40,15 +41,18 @@ class BookingSummaryBottomBar extends StatelessWidget {
               child: Row(
                 children: [
                   _buildSummaryItem(checkInLabel, checkInValue),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text("-", style: TextStyle(color: Colors.grey)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    child: Text(
+                      "-",
+                      style: TextStyle(color: Colors.grey, fontSize: 13.sp),
+                    ),
                   ),
                   _buildSummaryItem(checkOutLabel, checkOutValue),
                 ],
               ),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w),
             ActionButton(text: buttonText, onTap: onButtonPressed),
           ],
         ),
@@ -61,10 +65,10 @@ class BookingSummaryBottomBar extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+        Text(label, style: TextStyle(color: Colors.grey, fontSize: 12.sp)),
         Text(
           value,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),
         ),
       ],
     );

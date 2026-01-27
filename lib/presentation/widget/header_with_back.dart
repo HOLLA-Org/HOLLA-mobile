@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../core/config/themes/app_colors.dart';
 
@@ -28,10 +29,10 @@ class HeaderWithBack extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w600,
           color: AppColors.blackTypo,
-          // fontFamily: '',
+          fontFamily: 'PlayfairDisplay',
         ),
       ),
 
@@ -39,12 +40,12 @@ class HeaderWithBack extends StatelessWidget implements PreferredSizeWidget {
       leading:
           showBack
               ? InkWell(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(50.r),
                 onTap: onBack,
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_back,
                   color: AppColors.disableTypo,
-                  size: 22,
+                  size: 22.sp,
                 ),
               )
               : null,
@@ -54,14 +55,14 @@ class HeaderWithBack extends StatelessWidget implements PreferredSizeWidget {
           showMore
               ? [
                 InkWell(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(50.r),
                   onTap: onMore,
                   child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: const Icon(
+                    padding: EdgeInsets.all(10.r),
+                    child: Icon(
                       Icons.more_vert,
                       color: AppColors.disableTypo,
-                      size: 22,
+                      size: 22.sp,
                     ),
                   ),
                 ),
@@ -71,5 +72,5 @@ class HeaderWithBack extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight.h);
 }

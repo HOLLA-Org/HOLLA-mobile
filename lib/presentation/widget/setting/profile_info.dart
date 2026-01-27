@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/config/themes/app_colors.dart';
 
@@ -24,7 +25,12 @@ class ProfileInfoRow extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+          padding: EdgeInsets.only(
+            left: 16.w,
+            right: 16.w,
+            top: 16.h,
+            bottom: 8.h,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -32,8 +38,8 @@ class ProfileInfoRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: 14.sp,
                     fontFamily: 'CrimsonText',
                     color: AppColors.blackTypo,
                   ),
@@ -42,7 +48,7 @@ class ProfileInfoRow extends StatelessWidget {
 
               /// VALUE + BUTTON (RIGHT)
               SizedBox(
-                width: 200,
+                width: 200.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -58,7 +64,7 @@ class ProfileInfoRow extends StatelessWidget {
                           contentPadding: EdgeInsets.zero,
                         ),
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontFamily: 'CrimsonText',
                           color:
                               readOnly
@@ -70,14 +76,13 @@ class ProfileInfoRow extends StatelessWidget {
 
                     /// BUTTON / ICON
                     if (suffixIcon != null) ...[
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       InkWell(
                         onTap: onSuffixTap,
-                        borderRadius: BorderRadius.circular(20),
-
+                        borderRadius: BorderRadius.circular(20.r),
                         child: Icon(
                           suffixIcon,
-                          size: 20,
+                          size: 20.sp,
                           color: AppColors.primary,
                         ),
                       ),
@@ -91,10 +96,10 @@ class ProfileInfoRow extends StatelessWidget {
 
         if (showDivider)
           Divider(
-            height: 1,
-            thickness: 0.8,
-            indent: 16,
-            endIndent: 16,
+            height: 1.h,
+            thickness: 0.8.h,
+            indent: 16.w,
+            endIndent: 16.w,
             color: Colors.grey.shade300,
           ),
       ],

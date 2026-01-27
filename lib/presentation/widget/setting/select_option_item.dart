@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:holla/core/config/themes/app_colors.dart';
 
@@ -23,10 +24,10 @@ class SelectOptionItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => onChanged(actualValue),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         decoration: BoxDecoration(
           color: AppColors.blur.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +37,7 @@ class SelectOptionItem extends StatelessWidget {
               child: Text(
                 label,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.blackTypo,
                 ),
@@ -44,7 +45,7 @@ class SelectOptionItem extends StatelessWidget {
               ),
             ),
 
-            SizedBox(width: 12),
+            SizedBox(width: 12.w),
 
             // Check box
             Center(
@@ -56,7 +57,7 @@ class SelectOptionItem extends StatelessWidget {
                     isSelected
                         ? AppColors.primary.withOpacity(0.6)
                         : AppColors.disable,
-                size: 20,
+                size: 20.sp,
               ),
             ),
           ],

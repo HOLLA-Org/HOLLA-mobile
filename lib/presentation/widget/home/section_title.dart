@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/config/themes/app_colors.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -15,14 +16,17 @@ class SectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
         ),
         InkWell(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(24.r),
           onTap: onViewAll,
-          child: Text(
-            'home.view_all'.tr(),
-            style: const TextStyle(color: AppColors.primary),
+          child: Padding(
+            padding: EdgeInsets.all(4.w),
+            child: Text(
+              'home.view_all'.tr(),
+              style: TextStyle(color: AppColors.primary, fontSize: 14.sp),
+            ),
           ),
         ),
       ],

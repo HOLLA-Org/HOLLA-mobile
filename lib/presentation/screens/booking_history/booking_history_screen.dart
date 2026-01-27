@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -121,11 +122,11 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+            padding: EdgeInsets.only(left: 20.w, bottom: 16.h),
             child: Text(
               'history.title'.tr(),
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'PlayfairDisplay',
                 color: Colors.black87,
@@ -134,7 +135,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
           ),
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Row(
               children: [
                 Expanded(
@@ -144,7 +145,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     onTap: () => _handleTabSelection(BookingStatus.active),
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 Expanded(
                   child: BookingTabItem(
                     label: 'history.complete'.tr(),
@@ -152,7 +153,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                     onTap: () => _handleTabSelection(BookingStatus.completed),
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8.w),
                 Expanded(
                   child: BookingTabItem(
                     label: 'history.cancelled'.tr(),
@@ -164,7 +165,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
             ),
           ),
 
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
 
           Expanded(
             child: BlocConsumer<BookingBloc, BookingState>(
@@ -196,7 +197,7 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
                 return RefreshIndicator(
                   onRefresh: _handleRefresh,
                   child: ListView.builder(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
                     itemCount: cachedBookings.length,
                     itemBuilder: (context, index) {
                       final booking = cachedBookings[index];
