@@ -33,7 +33,7 @@ import 'package:holla/presentation/screens/payment/payment_args.dart';
 import 'package:holla/presentation/screens/review/review_screen.dart';
 import 'package:holla/models/review_model.dart';
 import '../../../presentation/screens/home/view_all_args.dart';
-import '../../../presentation/screens/notification/notification.dart';
+import '../../../presentation/screens/notification/notification_screen.dart';
 import '../../../presentation/screens/review/write_review_screen.dart';
 
 class AppRouter {

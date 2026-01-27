@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:holla/presentation/bloc/auth/register/register_bloc.dart';
 import 'package:holla/presentation/bloc/auth/register/register_event.dart';
 import 'package:holla/presentation/bloc/auth/register/register_state.dart';
@@ -121,17 +123,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 // Background Image
                 Image(
-                  image: AssetImage('assets/images/main_elip_big.png'),
+                  image: const AssetImage('assets/images/main_elip_big.png'),
                   width: double.infinity,
-                  height: 380,
+                  height: 340.h,
                   fit: BoxFit.cover,
                 ),
                 // Text Content
                 SizedBox(
                   width: double.infinity,
-                  height: 250,
+                  height: 250.h,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 110, left: 24.0, right: 24.0),
+                    padding: EdgeInsets.only(
+                      top: 110.h,
+                      left: 24.w,
+                      right: 24.w,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -139,17 +145,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           'register.title'.tr(),
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 40,
+                            fontSize: 40.sp,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'PlayfairDisplay',
                           ),
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         Text(
                           'register.subtitle'.tr(),
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontFamily: 'CrimsonText',
                           ),
                         ),
@@ -162,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             // --- Form ---
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
 
               child: BlocBuilder<RegisterBloc, RegisterState>(
                 builder: (context, state) {
@@ -182,14 +188,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         prefixIcon: Icons.person,
                         hasError: invalidFields.contains('username'),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       TextFieldCustom(
                         controller: _emailController,
                         hintText: 'register.email_label'.tr(),
                         prefixIcon: Icons.email,
                         hasError: invalidFields.contains('email'),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       TextFieldCustom(
                         controller: _passwordController,
                         hintText: 'register.password_label'.tr(),
@@ -199,7 +205,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             passwordsDontMatch ||
                             invalidFields.contains('password'),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       TextFieldCustom(
                         controller: _confirmPasswordController,
                         hintText: 'register.confirm_password_label'.tr(),
@@ -209,10 +215,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             passwordsDontMatch ||
                             invalidFields.contains('confirmPassword'),
                       ),
-                      const SizedBox(height: 40),
+                      SizedBox(height: 40.h),
                       SizedBox(
                         width: double.infinity,
-                        height: 50,
+                        height: 50.h,
 
                         child:
                             (state is RegisterLoading)
@@ -248,16 +254,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       'assets/images/main_elip_small.png',
                     ),
                     fit: BoxFit.cover,
-                    height: 120,
+                    height: 100.h,
                   ),
                 ),
                 SizedBox(
                   width: double.infinity,
-                  height: 120,
+                  height: 100.h,
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0, right: 16.0),
+                      padding: EdgeInsets.only(bottom: 20.h, right: 4.w),
                       child: TextButton(
                         onPressed: _handleNavigateToLogin,
                         child: Row(
@@ -267,13 +273,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               'register.footer_action'.tr(),
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'CrimsonText',
                               ),
                             ),
-                            SizedBox(width: 8),
-                            Image(
+                            SizedBox(width: 8.w),
+                            const Image(
                               image: AssetImage('assets/icons/arrow_left.png'),
                               fit: BoxFit.cover,
                             ),

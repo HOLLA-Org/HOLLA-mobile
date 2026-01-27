@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:holla/presentation/bloc/auth/login/login_bloc.dart';
 import 'package:holla/presentation/bloc/auth/login/login_event.dart';
 import 'package:holla/presentation/bloc/auth/login/login_state.dart';
@@ -122,39 +124,39 @@ class _LoginScreenState extends State<LoginScreen> {
             // --- Header ---
             Stack(
               children: [
-                const Image(
-                  image: AssetImage('assets/images/main_elip_big.png'),
+                Image(
+                  image: const AssetImage('assets/images/main_elip_big.png'),
                   width: double.infinity,
-                  height: 380,
+                  height: 340.h,
                   fit: BoxFit.cover,
                 ),
                 SizedBox(
                   width: double.infinity,
-                  height: 250,
+                  height: 250.h,
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 110,
-                      left: 24.0,
-                      right: 24.0,
+                    padding: EdgeInsets.only(
+                      top: 110.h,
+                      left: 24.w,
+                      right: 24.w,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'login.title'.tr(),
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
-                            fontSize: 36,
+                            fontSize: 36.sp,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'PlayfairDisplay',
                           ),
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
                         Text(
                           'login.subtitle'.tr(),
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontFamily: 'CrimsonText',
                           ),
                         ),
@@ -167,10 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             // --- Form ---
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 20.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
               child: BlocBuilder<LoginBloc, LoginState>(
                 builder: (context, state) {
                   bool isFormValid = false;
@@ -190,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         prefixIcon: Icons.person,
                         hasError: invalidFields.contains('emailOrUsername'),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: 10.h),
                       TextFieldCustom(
                         controller: _passwordController,
                         hintText: 'login.password_label'.tr(),
@@ -199,24 +198,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         hasError: invalidFields.contains('password'),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 24.0),
+                        padding: EdgeInsets.only(top: 24.h),
                         child: TextButton(
                           onPressed: _handleForgotPassWord,
                           child: Text(
                             "login.forgot_password".tr(),
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'CrimsonText',
-                              fontSize: 16,
+                              fontSize: 16.sp,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 100),
+                      SizedBox(height: 100.h),
                       SizedBox(
                         width: double.infinity,
-                        height: 50,
+                        height: 50.h,
                         child:
                             (state is LoginLoading)
                                 ? const Center(
@@ -242,21 +241,23 @@ class _LoginScreenState extends State<LoginScreen> {
             // --- Footer ---
             Stack(
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.bottomRight,
                   child: Image(
-                    image: AssetImage('assets/images/main_elip_small.png'),
+                    image: const AssetImage(
+                      'assets/images/main_elip_small.png',
+                    ),
                     fit: BoxFit.cover,
-                    height: 120,
+                    height: 100.h,
                   ),
                 ),
                 SizedBox(
                   width: double.infinity,
-                  height: 120,
+                  height: 100.h,
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20.0, right: 16.0),
+                      padding: EdgeInsets.only(bottom: 20.h, right: 16.w),
                       child: TextButton(
                         onPressed: _handleNavigateToRegister,
                         child: Row(
@@ -264,14 +265,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Text(
                               'login.footer_action'.tr(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'CrimsonText',
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(width: 8.w),
                             const Image(
                               image: AssetImage('assets/icons/arrow_left.png'),
                               fit: BoxFit.cover,

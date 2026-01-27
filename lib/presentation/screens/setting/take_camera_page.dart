@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -92,13 +93,13 @@ class _TakeCameraPageState extends State<TakeCameraPage> {
 
                   // Back
                   Positioned(
-                    top: 50,
-                    left: 20,
+                    top: 50.h,
+                    left: 20.w,
                     child: InkWell(
                       onTap: () => context.go(AppRoutes.changeprofile),
-                      child: const Icon(
+                      child: Icon(
                         Icons.arrow_back_ios_new_rounded,
-                        size: 24,
+                        size: 24.sp,
                         color: Colors.white,
                       ),
                     ),
@@ -106,20 +107,21 @@ class _TakeCameraPageState extends State<TakeCameraPage> {
 
                   // Switch camera
                   Positioned(
-                    top: 50,
-                    right: 20,
+                    top: 50.h,
+                    right: 20.w,
                     child: GestureDetector(
                       onTap: _switchCamera,
                       child: Container(
-                        width: 40,
-                        height: 40,
+                        width: 40.w,
+                        height: 40.h,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black.withOpacity(0.35),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.cameraswitch,
                           color: Colors.white,
+                          size: 24.sp,
                         ),
                       ),
                     ),
@@ -127,21 +129,21 @@ class _TakeCameraPageState extends State<TakeCameraPage> {
 
                   // Capture button
                   Positioned(
-                    bottom: 55,
+                    bottom: 55.h,
                     left: 0,
                     right: 0,
                     child: Center(
                       child: InkWell(
                         onTap: _takePicture,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                         child: Container(
-                          width: 60,
-                          height: 60,
+                          width: 60.w,
+                          height: 60.h,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: AppColors.blur.withOpacity(0.6),
-                              width: 4,
+                              width: 4.w,
                             ),
                           ),
                           child: Container(

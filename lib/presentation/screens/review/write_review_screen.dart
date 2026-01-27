@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,33 +84,32 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 20),
                 // Text title review
                 Text(
                   'review.question'.tr(),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style: TextStyle(
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Text(
                   'review.subtitle'.tr(),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  style: TextStyle(fontSize: 16.sp, color: Colors.grey),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 // Row rating
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (index) {
                     return IconButton(
-                      iconSize: 36,
+                      iconSize: 32.sp,
                       onPressed: () {
                         setState(() {
                           _rating = index + 1.0;
@@ -123,50 +123,48 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                     );
                   }),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Text(
                   '$_rating/5.0',
-                  style: const TextStyle(
-                    fontSize: 20,
+                  style: TextStyle(
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.amber,
                   ),
                 ),
-                const SizedBox(height: 36),
+                SizedBox(height: 36.h),
 
                 // Text title comment
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'review.comment_title'.tr(),
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 TextField(
                   controller: _commentController,
                   maxLines: 5,
                   keyboardType: TextInputType.multiline,
                   textCapitalization: TextCapitalization.sentences,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: AppColors.blackTypo,
-                  ),
+                  style: TextStyle(fontSize: 15.sp, color: AppColors.blackTypo),
                   decoration: InputDecoration(
                     hintText: 'review.comment_hint'.tr(),
                     hintStyle: TextStyle(
                       color: AppColors.bodyTypo.withOpacity(0.5),
+                      fontSize: 15.sp,
                     ),
                     filled: true,
                     fillColor: Colors.grey[100],
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                       borderSide: BorderSide.none,
                     ),
-                    contentPadding: const EdgeInsets.all(16),
+                    contentPadding: EdgeInsets.all(16.r),
                   ),
                 ),
 
@@ -174,7 +172,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
 
                 // Button submit review
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 60),
+                  padding: EdgeInsets.only(bottom: 60.h),
                   child: Center(
                     child: ConfirmButton(
                       text: 'review.submit_button'.tr(),

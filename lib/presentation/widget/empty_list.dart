@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -23,36 +24,36 @@ class EmptyList extends StatelessWidget {
         children: [
           // Image
           SizedBox(
-            width: 160,
-            height: 160,
+            width: 160.w,
+            height: 160.h,
             child: Image.asset(imagePath, fit: BoxFit.contain),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // Title
           Text(
             title.tr(),
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: 16.sp,
               fontWeight: FontWeight.w700,
               color: AppColors.primary,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
 
           // Subtitle
           Text(
             subtitle.tr(),
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
+            style: TextStyle(
+              fontSize: 14.sp,
               fontWeight: FontWeight.w400,
               color: AppColors.blackTypo,
             ),
           ),
 
-          const SizedBox(height: 60),
+          SizedBox(height: 60.h),
         ],
       ),
     );

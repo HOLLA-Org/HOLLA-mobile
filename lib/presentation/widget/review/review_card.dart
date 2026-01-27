@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../models/review_model.dart';
@@ -12,10 +13,10 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
         color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +26,7 @@ class ReviewCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
-                radius: 18,
+                radius: 18.r,
                 backgroundImage:
                     review.user.avatarUrl != null
                         ? NetworkImage(review.user.avatarUrl!)
@@ -33,10 +34,14 @@ class ReviewCard extends StatelessWidget {
                 backgroundColor: Colors.blue[100],
                 child:
                     review.user.avatarUrl == null
-                        ? Icon(Icons.person, color: Colors.blue[700], size: 20)
+                        ? Icon(
+                          Icons.person,
+                          color: Colors.blue[700],
+                          size: 20.sp,
+                        )
                         : null,
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,15 +52,15 @@ class ReviewCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             review.user.username,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        SizedBox(width: 4.w),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: List.generate(
@@ -66,18 +71,21 @@ class ReviewCard extends StatelessWidget {
                                   index < review.rating.round()
                                       ? Colors.amber
                                       : Colors.grey[300],
-                              size: 14,
+                              size: 14.sp,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     Text(
                       review.comment.isNotEmpty
                           ? review.comment
                           : 'review.default_comment'.tr(),
-                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 12.sp,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -86,12 +94,12 @@ class ReviewCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           Align(
             alignment: Alignment.centerRight,
             child: Text(
               DateFormat('dd / MM / yyyy').format(review.reviewDate),
-              style: TextStyle(color: Colors.grey[500], fontSize: 11),
+              style: TextStyle(color: Colors.grey[500], fontSize: 11.sp),
             ),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class SettingSectionTitle extends StatelessWidget {
@@ -8,11 +9,11 @@ class SettingSectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 20, 16, 8),
+      padding: EdgeInsets.only(left: 4.w, top: 12.h, right: 4.w),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
+        style: TextStyle(
+          fontSize: 16.sp,
           fontWeight: FontWeight.w600,
           color: Colors.black,
           fontFamily: 'CrimsonText',

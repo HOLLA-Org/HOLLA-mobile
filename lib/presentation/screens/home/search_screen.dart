@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/config/themes/app_colors.dart';
 import '../../../models/hotel_model.dart';
 import '../../bloc/home/home_bloc.dart';
@@ -88,32 +90,40 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           // Search bar
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
             child: Row(
               children: [
                 Expanded(
                   child: Container(
-                    height: 48,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    height: 40.h,
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
                     decoration: BoxDecoration(
                       color: AppColors.hover,
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(24.r),
                       border: Border.all(color: AppColors.primary),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.search, color: AppColors.primary),
-                        const SizedBox(width: 8),
+                        Icon(
+                          Icons.search,
+                          color: AppColors.primary,
+                          size: 24.sp,
+                        ),
+                        SizedBox(width: 8.w),
 
                         // Search input
                         Expanded(
                           child: TextField(
                             controller: _searchController,
                             textInputAction: TextInputAction.search,
+                            style: TextStyle(fontSize: 14.sp),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'search.hint'.tr(),
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14.sp,
+                              ),
                               isDense: true,
                               contentPadding: EdgeInsets.zero,
                             ),
@@ -135,7 +145,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             },
                             child: Icon(
                               LucideIcons.xCircle,
-                              size: 18,
+                              size: 18.sp,
                               color: AppColors.error.withOpacity(0.7),
                             ),
                           ),
@@ -144,7 +154,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
 
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
 
                 // Refresh
                 InkWell(
@@ -152,16 +162,16 @@ class _SearchScreenState extends State<SearchScreen> {
                     _onRefresh(context);
                   },
                   child: Container(
-                    width: 48,
-                    height: 48,
+                    width: 40.w,
+                    height: 40.h,
                     decoration: BoxDecoration(
                       color: AppColors.primary,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       LucideIcons.refreshCcw,
                       color: Colors.white,
-                      size: 22,
+                      size: 22.sp,
                     ),
                   ),
                 ),
@@ -189,17 +199,16 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
 
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: GridView.builder(
-                      padding: const EdgeInsets.only(top: 8),
+                      padding: EdgeInsets.only(top: 8.h),
                       itemCount: hotels.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 12,
-                            childAspectRatio: 0.88,
-                          ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 2.h,
+                        crossAxisSpacing: 12.w,
+                        childAspectRatio: 0.88,
+                      ),
                       itemBuilder: (context, index) {
                         final hotel = hotels[index];
                         return HotelCardList(

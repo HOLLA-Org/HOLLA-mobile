@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +45,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           }
 
           if (state is FavoriteFailure) {
-            return Center(child: Text(state.error));
+            return Center(
+              child: Text(state.error, style: TextStyle(fontSize: 14.sp)),
+            );
           }
 
           if (state is GetAllFavoriteSuccess) {
@@ -57,14 +60,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             }
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: GridView.builder(
-                padding: const EdgeInsets.only(top: 12),
+                padding: EdgeInsets.only(top: 12.h),
                 itemCount: state.hotels.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 2.h,
+                  crossAxisSpacing: 12.w,
                   childAspectRatio: 0.88,
                 ),
                 itemBuilder: (context, index) {

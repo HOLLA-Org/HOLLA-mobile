@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldCustom extends StatefulWidget {
@@ -32,17 +33,18 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
       controller: widget.controller,
       obscureText: widget.isPassword ? _isObscured : false,
       textAlignVertical: TextAlignVertical.bottom,
+      style: TextStyle(fontSize: 16.sp, fontFamily: 'CrimsonText'),
       decoration: InputDecoration(
         prefixIcon: Padding(
-          padding: const EdgeInsets.only(right: 16, top: 8),
-          child: Icon(widget.prefixIcon, color: Colors.grey),
+          padding: EdgeInsets.only(right: 16.w, top: 8.h),
+          child: Icon(widget.prefixIcon, color: Colors.grey, size: 24.sp),
         ),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-        contentPadding: const EdgeInsets.only(top: 10, bottom: 8),
+        contentPadding: EdgeInsets.only(top: 10.h, bottom: 8.h),
         hintText: widget.hintText,
         hintStyle: TextStyle(
           color: Colors.grey,
-          fontSize: 16,
+          fontSize: 16.sp,
           fontFamily: 'CrimsonText',
         ),
         suffixIcon:
@@ -51,6 +53,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                   icon: Icon(
                     _isObscured ? Icons.visibility_off : Icons.visibility,
                     color: Colors.grey,
+                    size: 24.sp,
                   ),
                   onPressed: () {
                     setState(() {
@@ -60,10 +63,10 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                 )
                 : null,
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: inactiveColor, width: 1.0),
+          borderSide: BorderSide(color: inactiveColor, width: 1.0.w),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: activeColor, width: 1.0),
+          borderSide: BorderSide(color: activeColor, width: 1.0.w),
         ),
       ),
     );

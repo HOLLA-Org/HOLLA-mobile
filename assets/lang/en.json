@@ -177,8 +177,12 @@
     "no_discounts": "No discounts available",
     "payment_method_title": "Select Payment Method",
     "booker_info": "Booker Information",
-    "confirm_button": "Continue to Payment",
+    "confirm_button": "Payment",
     "success_message": "Booking and payment successful!",
+
+
+
+    
     "failure_title": "Payment Failed",
     "cash": "Cash",
     "credit": "Credit Card",

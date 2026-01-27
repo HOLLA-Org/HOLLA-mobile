@@ -1,5 +1,4 @@
-// ignore_for_file: avoid_print
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,22 +29,22 @@ class OnboardingScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Logo
-              const Expanded(
+              Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                  child: Image(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  child: const Image(
                     image: AssetImage('assets/logos/onboarding.png'),
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
 
               // Title
               RichText(
@@ -54,17 +53,18 @@ class OnboardingScreen extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'CrimsonText',
                     color: Colors.grey[500],
-                    fontSize: 17,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
                     TextSpan(text: '${'onboarding.read'.tr()} '),
                     TextSpan(
                       text: 'onboarding.privacy_policy'.tr(),
-                      style: const TextStyle(
-                        color: Color(0xFF008080),
+                      style: TextStyle(
+                        color: const Color(0xFF008080),
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
+                        fontSize: 16.sp,
                       ),
                       recognizer:
                           TapGestureRecognizer()
@@ -76,10 +76,11 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                     TextSpan(
                       text: 'onboarding.terms_of_service'.tr(),
-                      style: const TextStyle(
-                        color: Color(0xFF008080),
+                      style: TextStyle(
+                        color: const Color(0xFF008080),
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
+                        fontSize: 16.sp,
                       ),
                       recognizer:
                           TapGestureRecognizer()
@@ -88,14 +89,14 @@ class OnboardingScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 24.h),
 
               // Confirm button
               ConfirmButton(
                 text: 'onboarding.agree'.tr(),
                 onPressed: () => _onAgreePressed(context),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
             ],
           ),
         ),

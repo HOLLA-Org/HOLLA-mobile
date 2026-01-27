@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../widget/notification_dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/hotel_detail_model.dart';
@@ -258,7 +260,7 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
         ),
         body: Column(
           children: [
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -270,22 +272,22 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
                       Text(
                         "booking_time.by_hour".tr(),
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color: isHourly ? AppColors.primary : Colors.grey,
                         ),
                       ),
                       if (isHourly)
                         Container(
-                          margin: const EdgeInsets.only(top: 4),
-                          height: 2,
-                          width: 60,
+                          margin: EdgeInsets.only(top: 4.h),
+                          height: 2.h,
+                          width: 60.w,
                           color: AppColors.primary,
                         ),
                     ],
                   ),
                 ),
-                const SizedBox(width: 60),
+                SizedBox(width: 60.w),
                 GestureDetector(
                   onTap: () => _onSwitchType(false),
                   child: Column(
@@ -294,16 +296,16 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
                       Text(
                         "booking_time.by_day".tr(),
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color: !isHourly ? AppColors.primary : Colors.grey,
                         ),
                       ),
                       if (!isHourly)
                         Container(
-                          margin: const EdgeInsets.only(top: 4),
-                          height: 2,
-                          width: 70,
+                          margin: EdgeInsets.only(top: 4.h),
+                          height: 2.h,
+                          width: 70.w,
                           color: AppColors.primary,
                         ),
                     ],

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -29,15 +30,15 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
   int _start = 60;
 
   // Default styling for the OTP input fields
-  final _defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: const TextStyle(
-      fontSize: 22,
-      color: Color.fromRGBO(30, 60, 87, 1),
+  PinTheme get _defaultPinTheme => PinTheme(
+    width: 56.w,
+    height: 56.h,
+    textStyle: TextStyle(
+      fontSize: 22.sp,
+      color: const Color.fromRGBO(30, 60, 87, 1),
     ),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.r),
       border: Border.all(color: Colors.grey.shade400),
     ),
   );
@@ -109,9 +110,9 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
         SnackBar(
           content: Text(
             'verify.resend_success'.tr(),
-            style: TextStyle(fontSize: 16, fontFamily: 'CrimsonText'),
+            style: TextStyle(fontSize: 16.sp, fontFamily: 'CrimsonText'),
           ),
-          backgroundColor: Color(0xFF008080),
+          backgroundColor: const Color(0xFF008080),
         ),
       );
     }
@@ -135,13 +136,13 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                       Image(
                         image: const AssetImage('assets/images/main_elip.png'),
                         width: double.infinity,
-                        height: 300,
+                        height: 300.h,
                         fit: BoxFit.cover,
                       ),
                       Positioned.fill(
-                        top: -60,
+                        top: -60.h,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          padding: EdgeInsets.symmetric(horizontal: 24.w),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,30 +151,30 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                 onPressed: () {
                                   context.go(AppRoutes.sendmail);
                                 },
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.arrow_back,
-                                  size: 36,
+                                  size: 36.sp,
                                   color: Colors.white,
                                 ),
 
                                 alignment: Alignment.centerLeft,
-                                padding: const EdgeInsets.only(right: 16.0),
+                                padding: EdgeInsets.only(right: 16.w),
                               ),
                               Text(
                                 'forgot_password.title'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 36,
+                                  fontSize: 36.sp,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'PlayfairDisplay',
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              SizedBox(height: 16.h),
                               Text(
                                 'verify.subtitle_forgot'.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontFamily: 'CrimsonText',
                                 ),
                               ),
@@ -184,13 +185,14 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                     ],
                   ),
 
-                  const SizedBox(height: 50),
+                  SizedBox(height: 50.h),
 
                   // --- OTP Input & Resend Section ---
                   BlocBuilder<VerifyPasswordBloc, VerifyPasswordState>(
                     builder: (context, state) {
+                      final defaultTheme = _defaultPinTheme;
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
                         child: Column(
                           children: [
                             // Pinput widget for OTP entry
@@ -199,27 +201,25 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                               controller: _pinController,
                               focusNode: _focusNode,
                               onChanged: _onCodeChanged,
-                              defaultPinTheme: _defaultPinTheme,
-                              focusedPinTheme: _defaultPinTheme.copyWith(
-                                decoration: _defaultPinTheme.decoration!
-                                    .copyWith(
-                                      border: Border.all(
-                                        color: const Color(0xFF008080),
-                                      ),
-                                    ),
+                              defaultPinTheme: defaultTheme,
+                              focusedPinTheme: defaultTheme.copyWith(
+                                decoration: defaultTheme.decoration!.copyWith(
+                                  border: Border.all(
+                                    color: const Color(0xFF008080),
+                                  ),
+                                ),
                               ),
-                              submittedPinTheme: _defaultPinTheme.copyWith(
-                                decoration: _defaultPinTheme.decoration!
-                                    .copyWith(
-                                      border: Border.all(
-                                        color: const Color(0xFF008080),
-                                      ),
-                                    ),
+                              submittedPinTheme: defaultTheme.copyWith(
+                                decoration: defaultTheme.decoration!.copyWith(
+                                  border: Border.all(
+                                    color: const Color(0xFF008080),
+                                  ),
+                                ),
                               ),
                               keyboardType: TextInputType.number,
                             ),
 
-                            const SizedBox(height: 20),
+                            SizedBox(height: 20.h),
 
                             // "Resend Code" button and countdown timer
                             Row(
@@ -236,7 +236,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                               ? const Color(0xFF008080)
                                               : Colors.grey,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontFamily: 'CrimsonText',
                                     ),
                                   ),
@@ -254,8 +254,9 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                           .padLeft(2, '0');
                                       return Text(
                                         '$minutes:$seconds',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: Colors.grey,
+                                          fontSize: 14.sp,
                                         ),
                                       );
                                     },
@@ -283,12 +284,12 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                   bottom:
                       getKeyboardHeight(context) > 0
                           ? getKeyboardHeight(context)
-                          : 40,
-                  left: 24,
-                  right: 24,
+                          : 40.h,
+                  left: 24.w,
+                  right: 24.w,
                   child: SizedBox(
                     width: double.infinity,
-                    height: 50,
+                    height: 50.h,
                     child:
                         state is VerifyPasswordLoading
                             ? const Center(child: CircularProgressIndicator())

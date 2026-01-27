@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -242,40 +244,44 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
     final selected = await showModalBottomSheet<String>(
       context: context,
       backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (context) {
         return SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
 
               /// HEADER
               Text(
                 'edit_profile.select_gender'.tr(),
-                style: const TextStyle(
-                  fontSize: 16,
+                style: TextStyle(
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'CrimsonText',
                 ),
               ),
 
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
 
               ...genders.map(
                 (gender) => ListTile(
                   title: Text(
                     gender,
-                    style: const TextStyle(
-                      fontSize: 15,
+                    style: TextStyle(
+                      fontSize: 15.sp,
                       fontFamily: 'CrimsonText',
                     ),
                   ),
                   trailing:
                       _genderController.text == gender
-                          ? const Icon(Icons.check, color: AppColors.primary)
+                          ? Icon(
+                            Icons.check,
+                            color: AppColors.primary,
+                            size: 24.sp,
+                          )
                           : null,
                   onTap: () {
                     context.pop(gender);
@@ -283,7 +289,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                 ),
               ),
 
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
             ],
           ),
         );
@@ -405,7 +411,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
             body: SafeArea(
               child: Column(
                 children: [
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
                   Center(
                     child: Stack(
@@ -413,7 +419,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                       children: [
                         // Avatar
                         CircleAvatar(
-                          radius: 42,
+                          radius: 42.r,
                           backgroundColor: Colors.teal.shade200,
                           backgroundImage:
                               (user != null &&
@@ -425,9 +431,9 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                               (user == null ||
                                       user.avatarUrl == null ||
                                       user.avatarUrl!.isEmpty)
-                                  ? const Icon(
+                                  ? Icon(
                                     Icons.pets,
-                                    size: 36,
+                                    size: 36.sp,
                                     color: Colors.white,
                                   )
                                   : null,
@@ -435,24 +441,24 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                         // Edit icon (bottom right)
                         Positioned(
-                          right: -2,
-                          bottom: -2,
+                          right: -2.w,
+                          bottom: -2.h,
                           child: GestureDetector(
                             onTap: () => _onEditAvatar(context),
                             child: Container(
-                              width: 28,
-                              height: 28,
+                              width: 28.w,
+                              height: 28.h,
                               decoration: BoxDecoration(
                                 color: AppColors.primary,
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                   color: Colors.white,
-                                  width: 2,
+                                  width: 2.w,
                                 ),
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.edit,
-                                size: 14,
+                                size: 14.sp,
                                 color: Colors.white,
                               ),
                             ),
@@ -462,7 +468,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   // Name
                   ProfileInfoRow(
@@ -483,20 +489,17 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                     readOnly: true,
                   ),
 
-                  const SizedBox(height: 12),
+                  SizedBox(height: 16.h),
 
                   // Section title
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
+                    padding: EdgeInsets.only(left: 16.w, top: 16.h),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'edit_profile.personal_info'.tr(),
-                        style: const TextStyle(
-                          fontSize: 15,
+                        style: TextStyle(
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'CrimsonText',
                           color: AppColors.blackTypo,
@@ -527,7 +530,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
                   // Update button
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 60),
+                    padding: EdgeInsets.only(bottom: 60.h),
                     child: Center(
                       child: ConfirmButton(
                         text: 'edit_profile.update_button'.tr(),

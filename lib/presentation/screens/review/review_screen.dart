@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -42,15 +43,15 @@ class ReviewScreen extends StatelessWidget {
         children: [
           // Rating summary section
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.only(left: 16.r, right: 16.r, bottom: 16.r),
             child: Row(
               children: [
                 Column(
                   children: [
                     Text(
                       rating.toStringAsFixed(1),
-                      style: const TextStyle(
-                        fontSize: 48,
+                      style: TextStyle(
+                        fontSize: 48.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColors.blackTypo,
                       ),
@@ -64,42 +65,45 @@ class ReviewScreen extends StatelessWidget {
                               index < rating.round()
                                   ? Colors.amber
                                   : Colors.grey[300],
-                          size: 20,
+                          size: 20.sp,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     Text(
                       'hotel_detail.reviews_count'.tr(
                         namedArgs: {
                           'count': NumberFormat('#,###').format(ratingCount),
                         },
                       ),
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14.sp,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(width: 32),
+                SizedBox(width: 32.w),
                 Expanded(
                   child: Column(
                     children: List.generate(5, (index) {
                       int star = 5 - index;
                       double percent = _getStarPercentage(star);
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        padding: EdgeInsets.symmetric(vertical: 2.h),
                         child: Row(
                           children: [
                             Text(
                               '$star',
-                              style: const TextStyle(
-                                fontSize: 12,
+                              style: TextStyle(
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(width: 8.w),
                             Expanded(
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(2),
+                                borderRadius: BorderRadius.circular(2.r),
                                 child: LinearProgressIndicator(
                                   value: percent,
                                   backgroundColor: Colors.grey[200],
@@ -107,7 +111,7 @@ class ReviewScreen extends StatelessWidget {
                                       const AlwaysStoppedAnimation<Color>(
                                         Colors.amber,
                                       ),
-                                  minHeight: 8,
+                                  minHeight: 8.h,
                                 ),
                               ),
                             ),
@@ -125,9 +129,9 @@ class ReviewScreen extends StatelessWidget {
           // Review list section
           Expanded(
             child: ListView.separated(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.r),
               itemCount: reviews.length,
-              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              separatorBuilder: (context, index) => SizedBox(height: 8.h),
               itemBuilder: (context, index) {
                 return ReviewCard(review: reviews[index]);
               },

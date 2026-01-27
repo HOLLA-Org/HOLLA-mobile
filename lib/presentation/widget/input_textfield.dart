@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/config/themes/app_colors.dart';
@@ -73,12 +74,12 @@ class _InputTextFieldState extends State<InputTextField> {
           Text(
             widget.label!,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w400,
               color: AppColors.blackTypo,
             ),
           ),
-          SizedBox(height: 6),
+          SizedBox(height: 6.h),
         ],
         TextField(
           controller: widget.controller,
@@ -86,28 +87,31 @@ class _InputTextFieldState extends State<InputTextField> {
           keyboardType: widget.keyboardType,
           readOnly: widget.readOnly,
           onTap: widget.onTap,
-          style: TextStyle(fontSize: 14, color: AppColors.headingTypo),
+          style: TextStyle(fontSize: 14.sp, color: AppColors.headingTypo),
           decoration: InputDecoration(
-            constraints: BoxConstraints(minHeight: 36),
+            constraints: BoxConstraints(minHeight: 36.h),
             hintText: widget.hint,
             hintStyle: TextStyle(
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w400,
               color: AppColors.bodyTypo.withOpacity(0.5),
             ),
             filled: true,
             fillColor: AppColors.hover,
-            contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 8.h,
+              horizontal: 12.w,
+            ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               borderSide: BorderSide(color: borderColor, width: 0.5),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               borderSide: BorderSide(color: borderColor, width: 0.5),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               borderSide: BorderSide(
                 color:
                     widget.hasError
@@ -119,7 +123,7 @@ class _InputTextFieldState extends State<InputTextField> {
               ),
             ),
             suffixIcon: Padding(
-              padding: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.only(right: 8.w),
               child:
                   widget.suffixIcon ??
                   (widget.isPassword && _showSuffixIcon
@@ -129,18 +133,18 @@ class _InputTextFieldState extends State<InputTextField> {
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
                           color: Colors.grey,
-                          size: 20,
+                          size: 20.sp,
                         ),
                         onPressed:
                             () => setState(() => _isObscured = !_isObscured),
                       )
                       : widget.suffixText != null
                       ? Padding(
-                        padding: EdgeInsets.only(top: 10, right: 10),
+                        padding: EdgeInsets.only(top: 10.h, right: 10.w),
                         child: Text(
                           widget.suffixText!,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
                             color: AppColors.headingTypo,
                           ),
@@ -151,11 +155,11 @@ class _InputTextFieldState extends State<InputTextField> {
           ),
         ),
         if (widget.hasError && widget.errorText != null) ...[
-          SizedBox(height: 6),
+          SizedBox(height: 6.h),
           Text(
             widget.errorText!,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 12.sp,
               color: AppColors.error,
               fontWeight: FontWeight.w400,
             ),

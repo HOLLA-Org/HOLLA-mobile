@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,20 +22,20 @@ class DiscountPicker extends StatelessWidget {
       builder: (context, scrollController) {
         return Column(
           children: [
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             Container(
-              width: 40,
-              height: 4,
+              width: 40.w,
+              height: 4.h,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
+                borderRadius: BorderRadius.circular(2.r),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: 20.h),
               child: Text(
                 'checkout.available_discounts'.tr(),
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
@@ -45,15 +46,18 @@ class DiscountPicker extends StatelessWidget {
                   } else if (state is GetDiscountsSuccess) {
                     if (state.discounts.isEmpty) {
                       return Center(
-                        child: Text('checkout.no_discounts'.tr()),
+                        child: Text(
+                          'checkout.no_discounts'.tr(),
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
                       );
                     }
                     return ListView.separated(
                       controller: scrollController,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       itemCount: state.discounts.length,
                       separatorBuilder:
-                          (context, index) => const SizedBox(height: 12),
+                          (context, index) => SizedBox(height: 12.h),
                       itemBuilder: (context, index) {
                         DiscountModel discount = state.discounts[index];
                         return InkWell(
@@ -62,25 +66,26 @@ class DiscountPicker extends StatelessWidget {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(16.r),
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey[200]!),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(12.r),
                             ),
                             child: Row(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.all(8),
+                                  padding: EdgeInsets.all(8.r),
                                   decoration: BoxDecoration(
                                     color: AppColors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(8),
+                                    borderRadius: BorderRadius.circular(8.r),
                                   ),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.local_offer_outlined,
                                     color: AppColors.primary,
+                                    size: 24.sp,
                                   ),
                                 ),
-                                const SizedBox(width: 16),
+                                SizedBox(width: 16.w),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -88,17 +93,17 @@ class DiscountPicker extends StatelessWidget {
                                     children: [
                                       Text(
                                         discount.code,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16,
+                                          fontSize: 16.sp,
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
+                                      SizedBox(height: 4.h),
                                       Text(
                                         discount.description,
                                         style: TextStyle(
                                           color: Colors.grey[600],
-                                          fontSize: 13,
+                                          fontSize: 13.sp,
                                         ),
                                       ),
                                     ],
@@ -106,10 +111,10 @@ class DiscountPicker extends StatelessWidget {
                                 ),
                                 Text(
                                   '-${discount.value}%',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.orange,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                   ),
                                 ),
                               ],
@@ -119,7 +124,12 @@ class DiscountPicker extends StatelessWidget {
                       },
                     );
                   } else if (state is GetDiscountsFailure) {
-                    return Center(child: Text(state.error));
+                    return Center(
+                      child: Text(
+                        state.error,
+                        style: TextStyle(fontSize: 14.sp),
+                      ),
+                    );
                   }
                   return const SizedBox();
                 },

@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/config/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,18 +36,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   bool _isDiscountApplied = false;
 
   final Map<String, Map<String, dynamic>> _paymentMethods = {
-    'CASH': {
-      'name': 'checkout.cash'.tr(),
-      'icon': Icons.payments_outlined,
-    },
-    'CREDIT': {
-      'name': 'checkout.credit'.tr(),
-      'icon': Icons.credit_card,
-    },
-    'ATM': {
-      'name': 'checkout.atm'.tr(),
-      'icon': Icons.account_balance,
-    },
+    'CASH': {'name': 'checkout.cash'.tr(), 'icon': Icons.payments_outlined},
+    'CREDIT': {'name': 'checkout.credit'.tr(), 'icon': Icons.credit_card},
+    'ATM': {'name': 'checkout.atm'.tr(), 'icon': Icons.account_balance},
     'MOMO': {
       'name': 'checkout.momo'.tr(),
       'icon': Icons.account_balance_wallet,
@@ -146,8 +139,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void _showPaymentPicker() {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
       builder: (context) {
         return PaymentMethodPicker(
@@ -167,8 +160,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
       builder: (context) {
         return DiscountPicker(onSelected: _applyDiscount);
@@ -229,16 +222,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.05),
-                blurRadius: 10,
-                offset: const Offset(0, -5),
+                blurRadius: 10.r,
+                offset: Offset(0, -5.h),
               ),
             ],
           ),
           padding: EdgeInsets.only(
-            left: 16,
-            right: 16,
-            bottom: MediaQuery.of(context).padding.bottom + 16,
-            top: 12,
+            left: 16.w,
+            right: 16.w,
+            bottom: MediaQuery.of(context).padding.bottom + 16.h,
+            top: 12.h,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -246,35 +239,36 @@ class _PaymentScreenState extends State<PaymentScreen> {
               InkWell(
                 onTap: _showPaymentPicker,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding: EdgeInsets.symmetric(vertical: 12.h),
                   child: Row(
                     children: [
                       Icon(
                         _paymentMethods[_paymentMethod]!['icon'],
                         color: AppColors.primary,
+                        size: 24.sp,
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12.w),
                       Expanded(
                         child: Text(
                           _paymentMethods[_paymentMethod]!['name'],
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style: TextStyle(
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.bold,
                             color: AppColors.blackTypo,
                           ),
                         ),
                       ),
-                      const Icon(
+                      Icon(
                         Icons.arrow_forward_ios,
-                        size: 16,
+                        size: 16.sp,
                         color: AppColors.primary,
                       ),
                     ],
                   ),
                 ),
               ),
-              Divider(height: 1, color: AppColors.primary.withOpacity(0.5)),
-              const SizedBox(height: 16),
+              Divider(height: 1.h, color: AppColors.primary.withOpacity(0.5)),
+              SizedBox(height: 16.h),
               Row(
                 children: [
                   Expanded(
@@ -283,25 +277,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       children: [
                         Text(
                           'checkout.total_payment'.tr(),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
+                          style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                         ),
-                        const SizedBox(height: 4),
+                        SizedBox(height: 4.h),
                         if (_isDiscountApplied)
                           Text(
                             "${NumberFormat('#,###').format(_basePrice)}đ",
-                            style: const TextStyle(
-                              fontSize: 16,
+                            style: TextStyle(
+                              fontSize: 16.sp,
                               decoration: TextDecoration.lineThrough,
                               color: Colors.grey,
                             ),
                           ),
                         Text(
                           "${NumberFormat('#,###').format(_totalPrice)}đ",
-                          style: const TextStyle(
-                            fontSize: 28,
+                          style: TextStyle(
+                            fontSize: 28.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
@@ -317,29 +308,29 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 40,
-                            vertical: 14,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.w,
+                            vertical: 14.h,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(16.r),
                           ),
                           elevation: 0,
                         ),
                         child:
                             isLoading
-                                ? const SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: CircularProgressIndicator(
+                                ? SizedBox(
+                                  width: 24.w,
+                                  height: 24.h,
+                                  child: const CircularProgressIndicator(
                                     color: Colors.white,
                                     strokeWidth: 2,
                                   ),
                                 )
                                 : Text(
                                   'checkout.confirm_button'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -356,12 +347,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
           onBack: () => context.pop(),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.symmetric(vertical: 16.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -369,34 +360,34 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                           child: Image.network(
                             widget.args.hotel.images.isNotEmpty
                                 ? widget.args.hotel.images.first
                                 : 'https://res.cloudinary.com/dasiiuipv/image/upload/v1768381679/793131782_shbpba.jpg',
-                            width: 100,
-                            height: 100,
+                            width: 100.w,
+                            height: 100.h,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12.w),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 widget.args.hotel.name,
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style: TextStyle(
+                                  fontSize: 18.sp,
                                   color: AppColors.blackTypo,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 4),
+                              SizedBox(height: 4.h),
                               Text(
                                 widget.args.hotel.address,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   color: Colors.grey[600],
                                 ),
                                 maxLines: 2,
@@ -410,39 +401,39 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               const Divider(thickness: 1, color: Colors.black12),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12.r),
                   decoration: BoxDecoration(
                     color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Row(
                     children: [
                       Container(
-                        width: 80,
-                        height: 80,
+                        width: 80.w,
+                        height: 80.h,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             colors: [Color(0xFF8E2DE2), Color(0xFF4A00E0)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
-                        child: const Center(
+                        child: Center(
                           child: Icon(
                             Icons.hotel_outlined,
                             color: Colors.white,
-                            size: 32,
+                            size: 32.sp,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -452,35 +443,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               children: [
                                 Text(
                                   'booking_time.checkin'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 12,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 Text(
                                   _checkInStr,
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
+                            SizedBox(height: 8.h),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'booking_time.checkout'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 12,
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 Text(
                                   _checkOutStr,
-                                  style: const TextStyle(
-                                    fontSize: 15,
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -493,20 +484,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'checkout.booker_info'.tr(),
-                      style: const TextStyle(
-                        fontSize: 18,
+                      style: TextStyle(
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
                     BlocBuilder<SettingBloc, SettingState>(
                       builder: (context, state) {
                         String phone = "+84 338978783";
@@ -524,35 +515,35 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               children: [
                                 Text(
                                   'edit_profile.phone'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 Text(
                                   phone,
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12),
+                            SizedBox(height: 12.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   'edit_profile.username'.tr(),
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
                                     color: Colors.grey,
                                   ),
                                 ),
                                 Text(
                                   name,
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -565,11 +556,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               const Divider(thickness: 1, color: Colors.black12),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Column(
                   children: [
                     TextField(
@@ -578,38 +569,39 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       onTap: _showDiscountPicker,
                       decoration: InputDecoration(
                         hintText: 'checkout.select_discount'.tr(),
-                        prefixIcon: const Icon(
+                        prefixIcon: Icon(
                           Icons.local_offer_outlined,
                           color: AppColors.primary,
+                          size: 24.sp,
                         ),
-                        suffixIcon: const Icon(
+                        suffixIcon: Icon(
                           Icons.arrow_drop_down,
                           color: AppColors.primary,
-                          size: 30,
+                          size: 30.sp,
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                           borderSide: BorderSide(color: Colors.grey[200]!),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                           borderSide: BorderSide(color: Colors.grey[200]!),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                           borderSide: const BorderSide(
                             color: AppColors.primary,
                           ),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 12.h,
                         ),
                       ),
                     ),
                     if (_isDiscountApplied)
                       Padding(
-                        padding: const EdgeInsets.only(top: 8, left: 4),
+                        padding: EdgeInsets.only(top: 8.h, left: 4.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -621,16 +613,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   ).format(_basePrice - _totalPrice),
                                 },
                               ),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
                               ),
                             ),
                             TextButton(
                               onPressed: _removeDiscount,
                               child: Text(
                                 'checkout.remove_discount'.tr(),
-                                style: const TextStyle(color: Colors.red),
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 14.sp,
+                                ),
                               ),
                             ),
                           ],
@@ -639,7 +635,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 120),
+              SizedBox(height: 120.h),
             ],
           ),
         ),

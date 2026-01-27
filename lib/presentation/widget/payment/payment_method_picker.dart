@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../core/config/themes/app_colors.dart';
@@ -17,22 +18,33 @@ class PaymentMethodPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'checkout.payment_method_title'.tr(),
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           ...paymentMethods.entries.map((entry) {
             return ListTile(
-              leading: Icon(entry.value['icon'], color: AppColors.primary),
-              title: Text(entry.value['name']),
+              leading: Icon(
+                entry.value['icon'],
+                color: AppColors.primary,
+                size: 24.sp,
+              ),
+              title: Text(
+                entry.value['name'],
+                style: TextStyle(fontSize: 14.sp),
+              ),
               trailing:
                   selectedMethod == entry.key
-                      ? const Icon(Icons.check_circle, color: AppColors.primary)
+                      ? Icon(
+                        Icons.check_circle,
+                        color: AppColors.primary,
+                        size: 20.sp,
+                      )
                       : null,
               onTap: () {
                 onSelected(entry.key);

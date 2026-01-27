@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../core/config/themes/app_colors.dart';
@@ -51,16 +52,16 @@ class BookingCalendar extends StatelessWidget {
     });
 
     return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.all(16.r),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: AppColors.hover,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: AppColors.blackTypo.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+            blurRadius: 10.r,
+            offset: Offset(0, 2.h),
           ),
         ],
       ),
@@ -78,8 +79,8 @@ class BookingCalendar extends StatelessWidget {
                           : formattedDate;
                   return Text(
                     capitalizedDate,
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: TextStyle(
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   );
@@ -89,18 +90,18 @@ class BookingCalendar extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.chevron_left),
+                      icon: Icon(Icons.chevron_left, size: 24.sp),
                       onPressed: onPreviousMonth,
                     ),
                     IconButton(
-                      icon: const Icon(Icons.chevron_right),
+                      icon: Icon(Icons.chevron_right, size: 24.sp),
                       onPressed: onNextMonth,
                     ),
                   ],
                 ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 4.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children:
@@ -108,22 +109,18 @@ class BookingCalendar extends StatelessWidget {
                     .map(
                       (d) => Text(
                         d,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: Colors.grey, fontSize: 12.sp),
                       ),
                     )
                     .toList(),
           ),
-          const SizedBox(height: 8),
+
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
+              crossAxisSpacing: 12.w,
             ),
             itemCount: daysInMonth + (firstWeekday - 1),
             itemBuilder: (context, index) {
@@ -142,16 +139,17 @@ class BookingCalendar extends StatelessWidget {
                   decoration: BoxDecoration(
                     color:
                         isSelected ? AppColors.primary.withOpacity(0.2) : null,
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(50.r),
                   ),
                   child: Center(
                     child: SizedBox(
-                      width: 36,
-                      height: 36,
+                      width: 36.w,
+                      height: 36.h,
                       child: Center(
                         child: Text(
                           day.toString(),
                           style: TextStyle(
+                            fontSize: 14.sp,
                             color:
                                 isSelected ? AppColors.primary : Colors.black,
                             fontWeight:
