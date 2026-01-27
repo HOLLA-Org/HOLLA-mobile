@@ -10,6 +10,7 @@ import 'package:holla/presentation/widget/notification_dialog.dart';
 import 'package:holla/presentation/widget/setting/setting_title.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import '../../../models/user_model.dart';
 import '../../widget/setting/setting_profile_header.dart';
 import '../../widget/setting/setting_section_title.dart';
 
@@ -91,7 +92,7 @@ class _SettingScreenState extends State<SettingScreen> {
   void showLogoutSuccess(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('login.success'.tr()),
+        content: Text('setting.success'.tr()),
         backgroundColor: const Color(0xFF008080),
       ),
     );
@@ -142,6 +143,9 @@ class _SettingScreenState extends State<SettingScreen> {
           showLogoutSuccess(context);
         } else if (state is LogoutFailure) {
           showLogoutFailure(context, state.error);
+          if (context.mounted) {
+            context.go(AppRoutes.login);
+          }
         } else if (state is UpdateProfileSuccess) {
           showUpdateProfileSuccess(context);
         } else if (state is UpdateProfileFailure) {
@@ -150,96 +154,92 @@ class _SettingScreenState extends State<SettingScreen> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BlocBuilder<SettingBloc, SettingState>(
-                builder: (context, state) {
-                  if (state is GetUserProfileSuccess) {
-                    final user = state.user;
+          child: BlocBuilder<SettingBloc, SettingState>(
+            builder: (context, state) {
+              UserModel? user;
+              if (state is GetUserProfileSuccess) {
+                user = state.user;
+              } else if (state is UpdateProfileSuccess) {
+                user = state.user;
+              } else if (state is UpdateAvatarSuccess) {
+                user = state.user;
+              }
 
-                    return SettingProfileHeader(
-                      name: user.username,
-                      email: user.email,
-                      avatarUrl: user.avatarUrl,
-                      onEditTap: () => _onProfileTap(context),
-                    );
-                  }
-
-                  return const SettingProfileHeader(name: '---', email: '---');
-                },
-              ),
-
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 12,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SettingProfileHeader(
+                    name: user?.username ?? 'Joy',
+                    email: user?.email ?? 'joy@holla.com',
+                    avatarUrl: user?.avatarUrl,
+                    onEditTap: () => _onProfileTap(context),
                   ),
-                  child: ListView(
-                    children: [
-                      SettingSectionTitle('setting.settings_section'.tr()),
-
-                      SettingTile(
-                        icon: LucideIcons.settings,
-                        title: 'setting.account_setup'.tr(),
-                        onTap: () => _onChangePasswordTap(context),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12,
                       ),
-
-                      SettingTile(
-                        icon: LucideIcons.bell,
-                        title: 'setting.notification'.tr(),
-                        onTap: () => _onNotificationTap(context),
+                      child: ListView(
+                        children: [
+                          SettingSectionTitle('setting.settings_section'.tr()),
+                          SettingTile(
+                            icon: LucideIcons.settings,
+                            title: 'setting.account_setup'.tr(),
+                            onTap: () => _onChangePasswordTap(context),
+                          ),
+                          SettingTile(
+                            icon: LucideIcons.bell,
+                            title: 'setting.notification'.tr(),
+                            onTap: () => _onNotificationTap(context),
+                          ),
+                          SettingTile(
+                            icon: LucideIcons.languages,
+                            title: 'setting.language'.tr(),
+                            trailing: Text(getLanguageName(context)),
+                            onTap: () => _onLanguageTap(context),
+                          ),
+                          SettingTile(
+                            icon: LucideIcons.mapPin,
+                            title: 'setting.location'.tr(),
+                            trailing: Text(
+                              (user?.locationName != null &&
+                                      user!.locationName!.isNotEmpty)
+                                  ? user.locationName!
+                                  : '',
+                            ),
+                          ),
+                          SettingSectionTitle('setting.info_section'.tr()),
+                          SettingTile(
+                            icon: LucideIcons.helpCircle,
+                            title: 'setting.faqs'.tr(),
+                          ),
+                          SettingTile(
+                            icon: LucideIcons.shieldCheck,
+                            title: 'setting.terms_policies'.tr(),
+                          ),
+                          SettingTile(
+                            icon: LucideIcons.info,
+                            title: 'setting.app_version'.tr(),
+                            trailing: const Text('1.0'),
+                          ),
+                          SettingTile(
+                            icon: LucideIcons.phone,
+                            title: 'setting.contact'.tr(),
+                          ),
+                          SettingTile(
+                            icon: LucideIcons.logOut,
+                            title: 'setting.logout'.tr(),
+                            showDivider: false,
+                            onTap: () => _onLogoutTap(context),
+                          ),
+                        ],
                       ),
-
-                      SettingTile(
-                        icon: LucideIcons.languages,
-                        title: 'setting.language'.tr(),
-                        trailing: Text(getLanguageName(context)),
-                        onTap: () => _onLanguageTap(context),
-                      ),
-
-                      SettingTile(
-                        icon: LucideIcons.mapPin,
-                        title: 'setting.location'.tr(),
-                        trailing: const Text('Hà Nội'),
-                      ),
-
-                      /// ===== THÔNG TIN =====
-                      SettingSectionTitle('setting.info_section'.tr()),
-
-                      SettingTile(
-                        icon: LucideIcons.helpCircle,
-                        title: 'setting.faqs'.tr(),
-                      ),
-
-                      SettingTile(
-                        icon: LucideIcons.shieldCheck,
-                        title: 'setting.terms_policies'.tr(),
-                      ),
-
-                      SettingTile(
-                        icon: LucideIcons.info,
-                        title: 'setting.app_version'.tr(),
-                        trailing: const Text('1.0'),
-                      ),
-
-                      SettingTile(
-                        icon: LucideIcons.phone,
-                        title: 'setting.contact'.tr(),
-                      ),
-
-                      SettingTile(
-                        icon: LucideIcons.logOut,
-                        title: 'setting.logout'.tr(),
-                        showDivider: false,
-                        onTap: () => _onLogoutTap(context),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         ),
       ),

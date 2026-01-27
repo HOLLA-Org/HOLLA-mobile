@@ -28,3 +28,5 @@ class LocationMarkerConfirmed extends LocationEvent {
   final LatLng position;
   LocationMarkerConfirmed(this.position);
 }
+
+class LocationFetchAll extends LocationEvent {}

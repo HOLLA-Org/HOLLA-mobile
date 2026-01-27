@@ -8,8 +8,43 @@ import 'package:http/http.dart' as http;
 
 import '../core/networks/base_api.dart';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:holla/core/networks/api_constants.dart';
+import 'package:holla/models/location_model.dart';
+import 'dart:io';
+
 class LocationService implements LocationRepository {
+  final _storage = const FlutterSecureStorage();
   LocationService();
+
+  @override
+  Future<List<LocationModel>> getLocations() async {
+    final uri = Uri.parse(ApiConstant.getLocations);
+    final token = await _storage.read(key: 'accessToken');
+
+    try {
+      final response = await http.get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final List list = body['data'] as List;
+        return list
+            .map((e) => LocationModel.fromJson(e as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw Exception(body['message']);
+      }
+    } on SocketException {
+      throw Exception('Failed to connect to the server.');
+    }
+  }
 
   @override
   Future<List<PlacePrediction>> fetchPredictions(String input) async {

@@ -215,7 +215,7 @@ class HotelCardRow extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${priceLabel ?? ''}${numberFormat.format(priceHour)}đ${priceLabel == null ? ' / 1 ${"home.hour_unit".tr()}' : ''}',
+                          '${priceLabel ?? ''}${numberFormat.format(priceHour)}đ${priceLabel == null ? ' /1 ${"home.hour_unit".tr()}' : ''}',
                           style: const TextStyle(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,

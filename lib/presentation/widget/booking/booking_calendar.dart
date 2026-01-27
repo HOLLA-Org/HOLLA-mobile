@@ -69,12 +69,21 @@ class BookingCalendar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                DateFormat.yMMMM(locale).format(month),
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              Builder(
+                builder: (context) {
+                  final formattedDate = DateFormat.yMMMM(locale).format(month);
+                  final capitalizedDate =
+                      formattedDate.isNotEmpty
+                          ? '${formattedDate[0].toUpperCase()}${formattedDate.substring(1)}'
+                          : formattedDate;
+                  return Text(
+                    capitalizedDate,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
               ),
               if (showChevron)
                 Row(

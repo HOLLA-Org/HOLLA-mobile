@@ -22,7 +22,7 @@ class OnboardingScreen extends StatelessWidget {
 
   // This will navigate to the loading screen.
   void _onAgreePressed(BuildContext context) {
-    context.go(AppRoutes.locationpermission);
+    context.go(AppRoutes.login);
     // context.go(AppRoutes.setting);
   }
 

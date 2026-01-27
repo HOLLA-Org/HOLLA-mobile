@@ -134,7 +134,7 @@ class HotelCardLarge extends StatelessWidget {
 
                     /// PRICE
                     Text(
-                      '${"home.from".tr()} ${NumberFormat('#,###').format(priceHour)}đ / ${"home.hour_unit".tr()}',
+                      '${"home.from".tr()} ${NumberFormat('#,###').format(priceHour)}đ /1 ${"home.hour_unit".tr()}',
                       style: const TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,

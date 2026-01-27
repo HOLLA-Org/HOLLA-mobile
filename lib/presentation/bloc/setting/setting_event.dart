@@ -14,16 +14,33 @@ class UpdateProfileSubmitted extends SettingEvent {
   final String? phone;
   final String? gender;
   final DateTime? dateOfBirth;
+  final String? address;
+  final String? locationName;
+  final double? latitude;
+  final double? longitude;
 
   const UpdateProfileSubmitted({
     this.username,
     this.phone,
     this.gender,
     this.dateOfBirth,
+    this.address,
+    this.locationName,
+    this.latitude,
+    this.longitude,
   });
 
   @override
-  List<Object?> get props => [username, phone, gender, dateOfBirth];
+  List<Object?> get props => [
+    username,
+    phone,
+    gender,
+    dateOfBirth,
+    address,
+    locationName,
+    latitude,
+    longitude,
+  ];
 }
 
 class UpdateAvatarSubmitted extends SettingEvent {

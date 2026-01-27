@@ -9,6 +9,9 @@ import 'package:holla/presentation/widget/confirm_button.dart';
 import 'package:holla/presentation/widget/notification_dialog.dart';
 import 'package:holla/presentation/widget/textfield_custom.dart';
 import 'package:holla/core/config/routes/app_routes.dart';
+import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
+import 'package:holla/presentation/bloc/setting/setting_event.dart';
+import 'package:holla/presentation/bloc/setting/setting_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -63,16 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void showLoginSuccess(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('login.success'.tr()),
-        backgroundColor: const Color(0xFF008080),
-      ),
-    );
-    context.go(AppRoutes.home);
-  }
-
   void showLoginFailure(BuildContext context, String error) {
     notificationDialog(
       context: context,
@@ -82,18 +75,48 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _onLoginStateChanged(BuildContext context, LoginState state) {
+    if (state is LoginSuccess) {
+      context.read<SettingBloc>().add(GetUserProfile());
+    } else if (state is LoginFailure) {
+      showLoginFailure(context, state.error);
+    }
+  }
+
+  void _onSettingStateChanged(BuildContext context, SettingState state) {
+    if (state is GetUserProfileSuccess) {
+      final user = state.user;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('login.success'.tr()),
+          backgroundColor: const Color(0xFF008080),
+        ),
+      );
+
+      if (user.address != null &&
+          user.address!.isNotEmpty &&
+          user.locationName != null &&
+          user.locationName!.isNotEmpty) {
+        context.go(AppRoutes.home);
+      } else {
+        context.go(AppRoutes.locationpermission);
+      }
+    } else if (state is GetUserProfileFailure) {
+      showLoginFailure(context, state.error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: BlocListener<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state is LoginSuccess) {
-            showLoginSuccess(context);
-          } else if (state is LoginFailure) {
-            showLoginFailure(context, state.error);
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<LoginBloc, LoginState>(listener: _onLoginStateChanged),
+          BlocListener<SettingBloc, SettingState>(
+            listener: _onSettingStateChanged,
+          ),
+        ],
         child: Column(
           children: [
             // --- Header ---
