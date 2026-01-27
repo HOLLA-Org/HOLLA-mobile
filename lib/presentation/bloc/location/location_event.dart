@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract class LocationEvent extends Equatable {
   @override
@@ -25,8 +24,28 @@ class LocationPredictionSelected extends LocationEvent {
 class LocationGetCurrent extends LocationEvent {}
 
 class LocationMarkerConfirmed extends LocationEvent {
-  final LatLng position;
-  LocationMarkerConfirmed(this.position);
+  final double lat;
+  final double lng;
+  final String address;
+
+  LocationMarkerConfirmed({
+    required this.lat,
+    required this.lng,
+    required this.address,
+  });
+
+  @override
+  List<Object?> get props => [lat, lng, address];
+}
+
+class LocationMarkerMoved extends LocationEvent {
+  final double lat;
+  final double lng;
+
+  LocationMarkerMoved(this.lat, this.lng);
+
+  @override
+  List<Object?> get props => [lat, lng];
 }
 
 class LocationFetchAll extends LocationEvent {}

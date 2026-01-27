@@ -7,8 +7,15 @@ abstract class LocationRepository {
   Future<List<LocationModel>> getLocations();
 
   Future<List<PlacePrediction>> fetchPredictions(String input);
+  Future<List<PlacePrediction>> fetchPredictionsByLocation(
+    String input,
+    double lat,
+    double lng,
+  );
 
   Future<PlaceDetail> fetchPlaceDetail(String placeId);
 
   Future<LatLng?> getCurrentLocation();
+
+  Future<String> reverseGeocode(double lat, double lng);
 }

@@ -13,7 +13,41 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     on<LocationPredictionSelected>(_onPredictionSelected);
     on<LocationGetCurrent>(_onGetCurrentLocation);
     on<LocationMarkerConfirmed>(_onMarkerConfirmed);
+    on<LocationMarkerMoved>(_onMarkerMoved);
     on<LocationFetchAll>(_onFetchAll);
+  }
+
+  Future<void> _onMarkerMoved(
+    LocationMarkerMoved event,
+    Emitter<LocationState> emit,
+  ) async {
+    try {
+      String address = "Vị trí đã chọn";
+      final suggestions = await _locationRepository.fetchPredictionsByLocation(
+        event.lng.toString(),
+        event.lat,
+        event.lng,
+      );
+
+      if (suggestions.isNotEmpty) {
+        address = suggestions.first.description;
+      } else {
+        address = await _locationRepository.reverseGeocode(
+          event.lat,
+          event.lng,
+        );
+      }
+
+      emit(
+        state.copyWith(
+          confirmedLat: event.lat,
+          confirmedLng: event.lng,
+          confirmedAddress: address,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }
   }
 
   Future<void> _onFetchAll(
@@ -38,27 +72,13 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       return;
     }
 
-    emit(
-      LocationState(
-        predictions: state.predictions,
-        selectedPlace: state.selectedPlace,
-        loading: true,
-      ),
-    );
+    emit(state.copyWith(loading: true));
 
     try {
       final results = await _locationRepository.fetchPredictions(event.query);
-      emit(
-        LocationState(predictions: results, selectedPlace: state.selectedPlace),
-      );
+      emit(state.copyWith(loading: false, predictions: results));
     } catch (e) {
-      emit(
-        LocationState(
-          predictions: state.predictions,
-          selectedPlace: state.selectedPlace,
-          error: e.toString(),
-        ),
-      );
+      emit(state.copyWith(loading: false, error: e.toString()));
     }
   }
 
@@ -66,27 +86,13 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     LocationPredictionSelected event,
     Emitter<LocationState> emit,
   ) async {
-    emit(
-      LocationState(
-        predictions: state.predictions,
-        selectedPlace: state.selectedPlace,
-        loading: true,
-      ),
-    );
+    emit(state.copyWith(loading: true));
 
     try {
       final detail = await _locationRepository.fetchPlaceDetail(event.placeId);
-      emit(
-        LocationState(predictions: state.predictions, selectedPlace: detail),
-      );
+      emit(state.copyWith(loading: false, selectedPlace: detail));
     } catch (e) {
-      emit(
-        LocationState(
-          predictions: state.predictions,
-          selectedPlace: state.selectedPlace,
-          error: e.toString(),
-        ),
-      );
+      emit(state.copyWith(loading: false, error: e.toString()));
     }
   }
 
@@ -97,9 +103,33 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     emit(state.copyWith(loading: true));
     try {
       final location = await _locationRepository.getCurrentLocation();
-      emit(state.copyWith(loading: false, currentLocation: location));
+      if (location != null) {
+        emit(
+          state.copyWith(
+            loading: false,
+            currentLat: location.latitude,
+            currentLng: location.longitude,
+          ),
+        );
+      } else {
+        // Fallback to Hanoi if cannot get current location
+        emit(
+          state.copyWith(
+            loading: false,
+            currentLat: 21.0285,
+            currentLng: 105.8542,
+          ),
+        );
+      }
     } catch (e) {
-      emit(state.copyWith(loading: false, error: e.toString()));
+      emit(
+        state.copyWith(
+          loading: false,
+          currentLat: 21.0285,
+          currentLng: 105.8542,
+          error: e.toString(),
+        ),
+      );
     }
   }
 
@@ -107,6 +137,12 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     LocationMarkerConfirmed event,
     Emitter<LocationState> emit,
   ) {
-    emit(state.copyWith(confirmedMarker: event.position));
+    emit(
+      state.copyWith(
+        confirmedLat: event.lat,
+        confirmedLng: event.lng,
+        confirmedAddress: event.address,
+      ),
+    );
   }
 }

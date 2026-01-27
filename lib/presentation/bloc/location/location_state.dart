@@ -1,4 +1,3 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:holla/models/location_model.dart';
 import 'package:holla/models/place_detail_model.dart';
 import 'package:holla/models/place_prediction_model.dart';
@@ -9,8 +8,11 @@ class LocationState {
   final List<PlacePrediction> predictions;
   final List<LocationModel> locations;
   final PlaceDetail? selectedPlace;
-  final LatLng? currentLocation;
-  final LatLng? confirmedMarker;
+  final double? currentLat;
+  final double? currentLng;
+  final double? confirmedLat;
+  final double? confirmedLng;
+  final String? confirmedAddress;
 
   LocationState({
     this.loading = false,
@@ -18,8 +20,11 @@ class LocationState {
     this.predictions = const [],
     this.locations = const [],
     this.selectedPlace,
-    this.currentLocation,
-    this.confirmedMarker,
+    this.currentLat,
+    this.currentLng,
+    this.confirmedLat,
+    this.confirmedLng,
+    this.confirmedAddress,
   });
 
   LocationState copyWith({
@@ -28,8 +33,11 @@ class LocationState {
     List<PlacePrediction>? predictions,
     List<LocationModel>? locations,
     PlaceDetail? selectedPlace,
-    LatLng? currentLocation,
-    LatLng? confirmedMarker,
+    double? currentLat,
+    double? currentLng,
+    double? confirmedLat,
+    double? confirmedLng,
+    String? confirmedAddress,
   }) {
     return LocationState(
       loading: loading ?? this.loading,
@@ -37,8 +45,11 @@ class LocationState {
       predictions: predictions ?? this.predictions,
       locations: locations ?? this.locations,
       selectedPlace: selectedPlace ?? this.selectedPlace,
-      currentLocation: currentLocation ?? this.currentLocation,
-      confirmedMarker: confirmedMarker ?? this.confirmedMarker,
+      currentLat: currentLat ?? this.currentLat,
+      currentLng: currentLng ?? this.currentLng,
+      confirmedLat: confirmedLat ?? this.confirmedLat,
+      confirmedLng: confirmedLng ?? this.confirmedLng,
+      confirmedAddress: confirmedAddress ?? this.confirmedAddress,
     );
   }
 }
