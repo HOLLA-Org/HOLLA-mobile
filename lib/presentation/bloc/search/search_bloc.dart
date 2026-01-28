@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'search_event.dart';
 import 'search_state.dart';
+import '../../../models/hotel_model.dart';
 import '../../../repository/home_repo.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
@@ -20,7 +21,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     emit(SearchLoading());
     try {
-      final hotels = await _homeRepository.getHotelByName(event.name);
+      final results = await Future.wait([
+        _homeRepository.getHotelByName(event.name),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final hotels = results[0] as List<HotelModel>;
       emit(SearchSuccess(hotels));
     } catch (e) {
       emit(SearchFailure(_translateError(e.toString())));

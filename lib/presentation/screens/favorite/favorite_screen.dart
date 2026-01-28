@@ -13,6 +13,7 @@ import 'package:holla/presentation/widget/empty_list.dart';
 import '../../../../core/config/themes/app_colors.dart';
 import '../../../../presentation/widget/header.dart';
 import '../../widget/home/hotel_card_list.dart';
+import '../../widget/shimmer/hotel_card_list_skeleton.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -41,7 +42,22 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       body: BlocBuilder<FavoriteBloc, FavoriteState>(
         builder: (context, state) {
           if (state is FavoriteLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: GridView.builder(
+                padding: EdgeInsets.only(top: 12.h),
+                itemCount: 6,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 2.h,
+                  crossAxisSpacing: 12.w,
+                  childAspectRatio: 0.88,
+                ),
+                itemBuilder: (context, index) {
+                  return const HotelCardListSkeleton();
+                },
+              ),
+            );
           }
 
           if (state is FavoriteFailure) {

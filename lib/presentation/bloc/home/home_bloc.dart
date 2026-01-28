@@ -26,7 +26,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(HomeLoading());
     try {
-      final hotels = await _homeRepository.getAllHotels();
+      final results = await Future.wait([
+        _homeRepository.getAllHotels(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final hotels = results[0] as List<HotelModel>;
       emit(GetAllHotelsSuccess(hotels));
     } catch (e) {
       emit(HomeFailure(_translateError(e.toString())));
@@ -39,7 +43,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(HomeLoading());
     try {
-      final hotels = await _homeRepository.getPopularHotels();
+      final results = await Future.wait([
+        _homeRepository.getPopularHotels(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final hotels = results[0] as List<HotelModel>;
       emit(GetPopularHotelsSuccess(hotels));
     } catch (e) {
       emit(HomeFailure(_translateError(e.toString())));
@@ -52,7 +60,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(HomeLoading());
     try {
-      final hotels = await _homeRepository.getRecommendedHotels();
+      final results = await Future.wait([
+        _homeRepository.getRecommendedHotels(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final hotels = results[0] as List<HotelModel>;
       emit(GetRecommendedHotelsSuccess(hotels));
     } catch (e) {
       emit(HomeFailure(_translateError(e.toString())));
@@ -65,7 +77,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(HomeLoading());
     try {
-      final hotels = await _homeRepository.getTopRatedHotels();
+      final results = await Future.wait([
+        _homeRepository.getTopRatedHotels(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final hotels = results[0] as List<HotelModel>;
       emit(GetTopRatedHotelsSuccess(hotels));
     } catch (e) {
       emit(HomeFailure(_translateError(e.toString())));

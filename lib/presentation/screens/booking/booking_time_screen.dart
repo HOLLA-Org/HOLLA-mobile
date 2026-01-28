@@ -16,6 +16,7 @@ import '../../widget/header_with_back.dart';
 import '../../widget/booking/booking_calendar.dart';
 import '../../widget/booking/booking_selection_list.dart';
 import '../../widget/booking/booking_summary_bottom_bar.dart';
+import '../../widget/shimmer/booking_time_skeleton.dart';
 
 class BookingTimeScreen extends StatefulWidget {
   final HotelDetailModel hotel;
@@ -258,120 +259,129 @@ class _BookingTimeScreenState extends State<BookingTimeScreen> {
           title: "booking_time.title".tr(),
           onBack: _handleBack,
         ),
-        body: Column(
-          children: [
-            SizedBox(height: 16.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        body: BlocBuilder<BookingBloc, BookingState>(
+          builder: (context, state) {
+            if (state is BookingLoading) {
+              return const BookingTimeSkeleton();
+            }
+            return Column(
               children: [
-                GestureDetector(
-                  onTap: () => _onSwitchType(true),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "booking_time.by_hour".tr(),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: isHourly ? AppColors.primary : Colors.grey,
-                        ),
-                      ),
-                      if (isHourly)
-                        Container(
-                          margin: EdgeInsets.only(top: 4.h),
-                          height: 2.h,
-                          width: 60.w,
-                          color: AppColors.primary,
-                        ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 60.w),
-                GestureDetector(
-                  onTap: () => _onSwitchType(false),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "booking_time.by_day".tr(),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: !isHourly ? AppColors.primary : Colors.grey,
-                        ),
-                      ),
-                      if (!isHourly)
-                        Container(
-                          margin: EdgeInsets.only(top: 4.h),
-                          height: 2.h,
-                          width: 70.w,
-                          color: AppColors.primary,
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: 16.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BookingCalendar(
-                      month: _focusedDay,
-                      isHourly: isHourly,
-                      selectedDay: _selectedDay,
-                      selectedRange: _selectedRange,
-                      showChevron: isHourly,
-                      onDaySelected: _onDaySelected,
-                      onPreviousMonth: _onPreviousMonth,
-                      onNextMonth: _onNextMonth,
+                    GestureDetector(
+                      onTap: () => _onSwitchType(true),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "booking_time.by_hour".tr(),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color: isHourly ? AppColors.primary : Colors.grey,
+                            ),
+                          ),
+                          if (isHourly)
+                            Container(
+                              margin: EdgeInsets.only(top: 4.h),
+                              height: 2.h,
+                              width: 60.w,
+                              color: AppColors.primary,
+                            ),
+                        ],
+                      ),
                     ),
-                    if (isHourly) ...[
-                      BookingSelectionList<String>(
-                        title: "booking_time.checkin_time".tr(),
-                        items: _times,
-                        selectedItem: _selectedTime,
-                        onSelected: _onTimeSelected,
-                        labelBuilder: (item) => item,
+                    SizedBox(width: 60.w),
+                    GestureDetector(
+                      onTap: () => _onSwitchType(false),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "booking_time.by_day".tr(),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  !isHourly ? AppColors.primary : Colors.grey,
+                            ),
+                          ),
+                          if (!isHourly)
+                            Container(
+                              margin: EdgeInsets.only(top: 4.h),
+                              height: 2.h,
+                              width: 70.w,
+                              color: AppColors.primary,
+                            ),
+                        ],
                       ),
-                      BookingSelectionList<int>(
-                        title: "booking_time.duration".tr(),
-                        items: _durations,
-                        selectedItem: _selectedDuration,
-                        onSelected: _onDurationSelected,
-                        labelBuilder:
-                            (item) => "$item ${"booking_time.hours_unit".tr()}",
-                      ),
-                    ],
-                    if (!isHourly) ...[
-                      BookingCalendar(
-                        month: DateTime(
-                          _focusedDay.year,
-                          _focusedDay.month + 1,
-                        ),
-                        isHourly: isHourly,
-                        selectedDay: _selectedDay,
-                        selectedRange: _selectedRange,
-                        showChevron: false,
-                        onDaySelected: _onDaySelected,
-                      ),
-                    ],
+                    ),
                   ],
                 ),
-              ),
-            ),
-            BookingSummaryBottomBar(
-              checkInLabel: "booking_time.checkin".tr(),
-              checkInValue: _checkInStr,
-              checkOutLabel: "booking_time.checkout".tr(),
-              checkOutValue: _checkOutStr,
-              buttonText: "booking_time.confirm_button".tr(),
-              onButtonPressed: _onApply,
-            ),
-          ],
+
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BookingCalendar(
+                          month: _focusedDay,
+                          isHourly: isHourly,
+                          selectedDay: _selectedDay,
+                          selectedRange: _selectedRange,
+                          showChevron: isHourly,
+                          onDaySelected: _onDaySelected,
+                          onPreviousMonth: _onPreviousMonth,
+                          onNextMonth: _onNextMonth,
+                        ),
+                        if (isHourly) ...[
+                          BookingSelectionList<String>(
+                            title: "booking_time.checkin_time".tr(),
+                            items: _times,
+                            selectedItem: _selectedTime,
+                            onSelected: _onTimeSelected,
+                            labelBuilder: (item) => item,
+                          ),
+                          BookingSelectionList<int>(
+                            title: "booking_time.duration".tr(),
+                            items: _durations,
+                            selectedItem: _selectedDuration,
+                            onSelected: _onDurationSelected,
+                            labelBuilder:
+                                (item) =>
+                                    "$item ${"booking_time.hours_unit".tr()}",
+                          ),
+                        ],
+                        if (!isHourly) ...[
+                          BookingCalendar(
+                            month: DateTime(
+                              _focusedDay.year,
+                              _focusedDay.month + 1,
+                            ),
+                            isHourly: isHourly,
+                            selectedDay: _selectedDay,
+                            selectedRange: _selectedRange,
+                            showChevron: false,
+                            onDaySelected: _onDaySelected,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+                BookingSummaryBottomBar(
+                  checkInLabel: "booking_time.checkin".tr(),
+                  checkInValue: _checkInStr,
+                  checkOutLabel: "booking_time.checkout".tr(),
+                  checkOutValue: _checkOutStr,
+                  buttonText: "booking_time.confirm_button".tr(),
+                  onButtonPressed: _onApply,
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

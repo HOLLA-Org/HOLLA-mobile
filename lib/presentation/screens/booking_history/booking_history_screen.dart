@@ -14,6 +14,7 @@ import '../../widget/header.dart';
 import '../../widget/home/hotel_card_row.dart';
 import '../../widget/notification_dialog.dart';
 import '../../widget/booking/booking_tab_item.dart';
+import '../../widget/shimmer/booking_history_skeleton.dart';
 
 class BookingHistoryScreen extends StatefulWidget {
   const BookingHistoryScreen({super.key});
@@ -118,120 +119,122 @@ class _BookingHistoryScreenState extends State<BookingHistoryScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const Header(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 20.w, bottom: 16.h),
-            child: Text(
-              'history.title'.tr(),
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'PlayfairDisplay',
-                color: Colors.black87,
+      body: BlocConsumer<BookingBloc, BookingState>(
+        listener: (context, state) {
+          if (state is BookingFailure) {
+            _showError(state.error);
+          } else if (state is GetBookingHistorySuccess) {
+            _updateCache(state.bookings);
+          }
+        },
+        builder: (context, state) {
+          // Get cached bookings
+          final cachedBookings = _getCachedBookings();
+
+          if (state is BookingLoading && cachedBookings.isEmpty) {
+            return const BookingHistorySkeleton();
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, bottom: 16.h),
+                child: Text(
+                  'history.title'.tr(),
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'PlayfairDisplay',
+                    color: Colors.black87,
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Row(
-              children: [
-                Expanded(
-                  child: BookingTabItem(
-                    label: 'history.active'.tr(),
-                    isSelected: _selectedStatus == BookingStatus.active,
-                    onTap: () => _handleTabSelection(BookingStatus.active),
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                Expanded(
-                  child: BookingTabItem(
-                    label: 'history.complete'.tr(),
-                    isSelected: _selectedStatus == BookingStatus.completed,
-                    onTap: () => _handleTabSelection(BookingStatus.completed),
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                Expanded(
-                  child: BookingTabItem(
-                    label: 'history.cancelled'.tr(),
-                    isSelected: _selectedStatus == BookingStatus.cancelled,
-                    onTap: () => _handleTabSelection(BookingStatus.cancelled),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          SizedBox(height: 8.h),
-
-          Expanded(
-            child: BlocConsumer<BookingBloc, BookingState>(
-              listener: (context, state) {
-                if (state is BookingFailure) {
-                  _showError(state.error);
-                } else if (state is GetBookingHistorySuccess) {
-                  _updateCache(state.bookings);
-                }
-              },
-              builder: (context, state) {
-                if (state is BookingLoading && _isFirstLoad) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                // Get cached bookings
-                final cachedBookings = _getCachedBookings();
-
-                if (cachedBookings.isEmpty) {
-                  return RefreshIndicator(
-                    onRefresh: _handleRefresh,
-                    child: EmptyList(
-                      title: 'history.empty_title'.tr(),
-                      subtitle: 'history.empty_subtitle'.tr(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: BookingTabItem(
+                        label: 'history.active'.tr(),
+                        isSelected: _selectedStatus == BookingStatus.active,
+                        onTap: () => _handleTabSelection(BookingStatus.active),
+                      ),
                     ),
-                  );
-                }
+                    SizedBox(width: 8.w),
+                    Expanded(
+                      child: BookingTabItem(
+                        label: 'history.complete'.tr(),
+                        isSelected: _selectedStatus == BookingStatus.completed,
+                        onTap:
+                            () => _handleTabSelection(BookingStatus.completed),
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    Expanded(
+                      child: BookingTabItem(
+                        label: 'history.cancelled'.tr(),
+                        isSelected: _selectedStatus == BookingStatus.cancelled,
+                        onTap:
+                            () => _handleTabSelection(BookingStatus.cancelled),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-                return RefreshIndicator(
-                  onRefresh: _handleRefresh,
-                  child: ListView.builder(
-                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
-                    itemCount: cachedBookings.length,
-                    itemBuilder: (context, index) {
-                      final booking = cachedBookings[index];
-                      final hotel = booking.hotel;
-                      final isCancelled =
-                          booking.status == BookingStatus.cancelled;
-                      final isCompleted =
-                          booking.status == BookingStatus.completed;
+              SizedBox(height: 8.h),
 
-                      return HotelCardRow(
-                        name: hotel.name,
-                        imageUrl:
-                            hotel.images.isNotEmpty
-                                ? hotel.images.first
-                                : 'https://via.placeholder.com/150',
-                        rating: hotel.rating,
-                        ratingCount: hotel.ratingCount,
-                        priceHour: booking.totalPrice,
-                        priceLabel: '${'hotel_detail.price_label'.tr()}: ',
-                        address: hotel.address,
-                        showFavorite: false,
-                        isCancelled: isCancelled,
-                        isCompleted: isCompleted,
-                        onRebook: () => _handleRebook(hotel.id),
-                        onReview: () => _handleReview(booking.id),
-                        isReviewed: booking.isReviewed,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+              Expanded(
+                child:
+                    cachedBookings.isEmpty
+                        ? RefreshIndicator(
+                          onRefresh: _handleRefresh,
+                          child: EmptyList(
+                            title: 'history.empty_title'.tr(),
+                            subtitle: 'history.empty_subtitle'.tr(),
+                          ),
+                        )
+                        : RefreshIndicator(
+                          onRefresh: _handleRefresh,
+                          child: ListView.builder(
+                            padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 20.h),
+                            itemCount: cachedBookings.length,
+                            itemBuilder: (context, index) {
+                              final booking = cachedBookings[index];
+                              final hotel = booking.hotel;
+                              final isCancelled =
+                                  booking.status == BookingStatus.cancelled;
+                              final isCompleted =
+                                  booking.status == BookingStatus.completed;
+
+                              return HotelCardRow(
+                                name: hotel.name,
+                                imageUrl:
+                                    hotel.images.isNotEmpty
+                                        ? hotel.images.first
+                                        : 'https://via.placeholder.com/150',
+                                rating: hotel.rating,
+                                ratingCount: hotel.ratingCount,
+                                priceHour: booking.totalPrice,
+                                priceLabel:
+                                    '${'hotel_detail.price_label'.tr()}: ',
+                                address: hotel.address,
+                                showFavorite: false,
+                                isCancelled: isCancelled,
+                                isCompleted: isCompleted,
+                                onRebook: () => _handleRebook(hotel.id),
+                                onReview: () => _handleReview(booking.id),
+                                isReviewed: booking.isReviewed,
+                              );
+                            },
+                          ),
+                        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

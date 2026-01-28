@@ -27,7 +27,11 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   ) async {
     emit(SettingLoading());
     try {
-      final user = await _settingRepository.getUserProfile();
+      final results = await Future.wait([
+        _settingRepository.getUserProfile(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final user = results[0];
       emit(GetUserProfileSuccess(user));
     } catch (e) {
       final error = _translateError(e.toString());
@@ -94,7 +98,10 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   ) async {
     emit(SettingLoading());
     try {
-      await _authRepository.logout();
+      await Future.wait([
+        _authRepository.logout(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
       emit(LogoutSuccess());
     } catch (e) {
       final error = _translateError(e.toString());

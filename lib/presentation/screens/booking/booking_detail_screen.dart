@@ -13,6 +13,8 @@ import '../../bloc/booking/booking_state.dart';
 import '../../../models/hotel_detail_model.dart';
 import '../../../models/review_model.dart';
 import '../../widget/review/review_card.dart';
+import '../../widget/shimmer/hotel_detail_skeleton.dart';
+import '../../widget/shimmer/skeleton_box.dart';
 
 class BookingDetailScreen extends StatefulWidget {
   final String hotelId;
@@ -162,7 +164,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
         child: BlocBuilder<BookingBloc, BookingState>(
           builder: (context, state) {
             if (state is BookingLoading && _hotel == null) {
-              return const Center(child: CircularProgressIndicator());
+              return const HotelDetailSkeleton();
             }
 
             if (_hotel == null) {
@@ -477,7 +479,24 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                               ],
                             ),
                             SizedBox(height: 8.h),
-                            if (_reviews.isEmpty)
+                            if (state is BookingLoading && _reviews.isEmpty)
+                              SizedBox(
+                                height: 100.h,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder:
+                                      (context, index) => SizedBox(width: 16.w),
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) {
+                                    return SkeletonBox(
+                                      width: 240.w,
+                                      height: 100,
+                                      borderRadius: 12.r,
+                                    );
+                                  },
+                                ),
+                              )
+                            else if (_reviews.isEmpty)
                               Text(
                                 'hotel_detail.no_reviews'.tr(),
                                 style: const TextStyle(color: Colors.grey),

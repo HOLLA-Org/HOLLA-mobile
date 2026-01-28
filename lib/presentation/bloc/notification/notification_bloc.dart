@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'notification_event.dart';
 import 'notification_state.dart';
+import '../../../models/notification_model.dart';
 import '../../../repository/notification_repo.dart';
 
 class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
@@ -21,7 +22,11 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
   ) async {
     emit(NotificationLoading());
     try {
-      final notifications = await _notificationRepository.getNotifications();
+      final results = await Future.wait([
+        _notificationRepository.getNotifications(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final notifications = results[0] as List<NotificationModel>;
       emit(GetNotificationsSuccess(notifications));
     } catch (e) {
       emit(NotificationFailure(_translateError(e.toString())));

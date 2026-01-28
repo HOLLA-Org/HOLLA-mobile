@@ -13,6 +13,7 @@ import '../../bloc/notification/notification_state.dart';
 import '../../widget/header_with_back.dart';
 import '../../widget/empty_list.dart';
 import '../../widget/notification/notification_item.dart';
+import '../../widget/shimmer/notification_skeleton.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -128,7 +129,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           builder: (context, state) {
             /// LOADING
             if (state is NotificationLoading || state is NotificationInitial) {
-              return const Center(child: CircularProgressIndicator());
+              return const NotificationSkeleton();
             }
 
             /// SUCCESS

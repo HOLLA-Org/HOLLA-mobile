@@ -17,6 +17,7 @@ import '../../bloc/search/search_state.dart';
 import '../../widget/header_with_back.dart';
 import '../../widget/home/hotel_card_list.dart';
 import '../../widget/empty_list.dart';
+import '../../widget/shimmer/hotel_card_list_skeleton.dart';
 
 class SearchScreen extends StatefulWidget {
   final String name;
@@ -184,7 +185,22 @@ class _SearchScreenState extends State<SearchScreen> {
             child: BlocBuilder<SearchBloc, SearchState>(
               builder: (context, state) {
                 if (state is SearchLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: GridView.builder(
+                      padding: EdgeInsets.only(top: 8.h),
+                      itemCount: 6,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 2.h,
+                        crossAxisSpacing: 12.w,
+                        childAspectRatio: 0.88,
+                      ),
+                      itemBuilder: (context, index) {
+                        return const HotelCardListSkeleton();
+                      },
+                    ),
+                  );
                 }
 
                 if (state is SearchSuccess) {
