@@ -123,7 +123,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 // Background Image
                 Image(
-                  image: const AssetImage('assets/images/main_elip_big.png'),
+                  image: const AssetImage(
+                    'assets/images/main/main_elip_big.png',
+                  ),
                   width: double.infinity,
                   height: 340.h,
                   fit: BoxFit.cover,
@@ -251,7 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   alignment: Alignment.bottomRight,
                   child: Image(
                     image: const AssetImage(
-                      'assets/images/main_elip_small.png',
+                      'assets/images/main/main_elip_small.png',
                     ),
                     fit: BoxFit.cover,
                     height: 100.h,

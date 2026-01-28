@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holla/models/hotel_model.dart';
 import 'package:holla/repository/favorite_repo.dart';
 
 import 'favorite_event.dart';
@@ -20,7 +21,11 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   ) async {
     emit(FavoriteLoading());
     try {
-      final favorites = await _favoriteRepository.getAllFavorite();
+      final results = await Future.wait([
+        _favoriteRepository.getAllFavorite(),
+        Future.delayed(const Duration(milliseconds: 800)),
+      ]);
+      final favorites = results[0] as List<HotelModel>;
       emit(GetAllFavoriteSuccess(favorites));
     } catch (e) {
       emit(FavoriteFailure(_translateError(e.toString())));

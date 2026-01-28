@@ -19,6 +19,7 @@ import '../../bloc/setting/setting_state.dart';
 import '../../widget/header_with_back.dart';
 import '../../widget/notification_dialog.dart';
 import '../../widget/setting/profile_info.dart';
+import '../../widget/shimmer/profile_skeleton.dart';
 
 class ChangeProfileScreen extends StatefulWidget {
   const ChangeProfileScreen({super.key});
@@ -383,9 +384,7 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
 
         builder: (context, state) {
           if (state is SettingLoading || state is SettingInitial) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
+            return const Scaffold(body: ProfileSkeleton());
           }
 
           final user = () {
@@ -426,17 +425,9 @@ class _ChangeProfileScreenState extends State<ChangeProfileScreen> {
                                       user.avatarUrl != null &&
                                       user.avatarUrl!.isNotEmpty)
                                   ? NetworkImage(user.avatarUrl!)
-                                  : null,
-                          child:
-                              (user == null ||
-                                      user.avatarUrl == null ||
-                                      user.avatarUrl!.isEmpty)
-                                  ? Icon(
-                                    Icons.pets,
-                                    size: 36.sp,
-                                    color: Colors.white,
-                                  )
-                                  : null,
+                                  : const AssetImage(
+                                    'assets/images/avatar/avatar.jpg',
+                                  ),
                         ),
 
                         // Edit icon (bottom right)

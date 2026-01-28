@@ -85,7 +85,9 @@ class _SendMailScreenState extends State<SendMailScreen> {
                     clipBehavior: Clip.none,
                     children: [
                       Image(
-                        image: const AssetImage('assets/images/main_elip.png'),
+                        image: const AssetImage(
+                          'assets/images/main/main_elip.png',
+                        ),
                         width: double.infinity,
                         height: 300.h,
                         fit: BoxFit.cover,

@@ -15,6 +15,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../../../models/user_model.dart';
 import '../../widget/setting/setting_profile_header.dart';
 import '../../widget/setting/setting_section_title.dart';
+import '../../widget/shimmer/setting_main_skeleton.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -158,6 +159,10 @@ class _SettingScreenState extends State<SettingScreen> {
         body: SafeArea(
           child: BlocBuilder<SettingBloc, SettingState>(
             builder: (context, state) {
+              if (state is SettingLoading || state is SettingInitial) {
+                return const SettingMainSkeleton();
+              }
+
               UserModel? user;
               if (state is GetUserProfileSuccess) {
                 user = state.user;

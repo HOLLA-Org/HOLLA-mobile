@@ -15,6 +15,10 @@ import 'package:holla/presentation/bloc/setting/setting_bloc.dart';
 import 'package:holla/presentation/bloc/setting/setting_event.dart';
 import 'package:holla/presentation/bloc/setting/setting_state.dart';
 import 'package:holla/presentation/widget/header_with_back.dart';
+import 'package:holla/presentation/widget/shimmer/shimmer_loading.dart';
+import 'package:holla/presentation/widget/shimmer/skeleton_line.dart';
+import 'package:holla/presentation/widget/shimmer/skeleton_box.dart';
+import 'package:holla/presentation/widget/shimmer/skeleton_circle.dart';
 
 String removeDiacritics(String str) {
   const vietnameseMap = {
@@ -124,7 +128,25 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
           },
           builder: (context, state) {
             if (state.loading && allLocations.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
+              return ShimmerLoading(
+                child: ListView.separated(
+                  padding: EdgeInsets.all(16.r),
+                  itemCount: 10,
+                  separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                  itemBuilder:
+                      (context, index) => Row(
+                        children: [
+                          const SkeletonBox(
+                            width: 24,
+                            height: 24,
+                            borderRadius: 12,
+                          ),
+                          SizedBox(width: 12.w),
+                          SkeletonLine(width: 200.w, height: 16.h),
+                        ],
+                      ),
+                ),
+              );
             }
 
             if (state.error != null && allLocations.isEmpty) {
@@ -366,14 +388,8 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
                                 ),
                                 child:
                                     isUpdating
-                                        ? SizedBox(
-                                          height: 20.h,
-                                          width: 20.w,
-                                          child:
-                                              const CircularProgressIndicator(
-                                                color: Colors.white,
-                                                strokeWidth: 2,
-                                              ),
+                                        ? const UnconstrainedBox(
+                                          child: SkeletonCircle(size: 20),
                                         )
                                         : Text(
                                           "location_selection.confirm_button"

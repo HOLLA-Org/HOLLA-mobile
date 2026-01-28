@@ -32,15 +32,9 @@ class SettingProfileHeader extends StatelessWidget {
             radius: 28.r,
             backgroundColor: const Color(0xFFD9D9D9),
             backgroundImage:
-                avatarUrl != null ? NetworkImage(avatarUrl!) : null,
-            child:
-                avatarUrl == null
-                    ? Icon(
-                      LucideIcons.user,
-                      size: 28.sp,
-                      color: AppColors.white,
-                    )
-                    : null,
+                avatarUrl != null && avatarUrl!.isNotEmpty
+                    ? NetworkImage(avatarUrl!)
+                    : const AssetImage('assets/images/avatar/avatar.jpg'),
           ),
 
           SizedBox(width: 12.w),

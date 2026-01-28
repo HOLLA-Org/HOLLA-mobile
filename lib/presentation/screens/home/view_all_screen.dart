@@ -11,6 +11,8 @@ import '../../../models/hotel_model.dart';
 import '../../../../core/config/themes/app_colors.dart';
 import '../../../../presentation/widget/header_with_back.dart';
 import '../../widget/home/hotel_card_list.dart';
+import '../../widget/shimmer/hotel_card_list_skeleton.dart';
+import '../../bloc/home/home_state.dart';
 
 class ViewAllScreen extends StatefulWidget {
   final String title;
@@ -62,36 +64,57 @@ class _ViewAllScreenState extends State<ViewAllScreen> {
         title: widget.title,
         onBack: () => context.go(AppRoutes.home),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: GridView.builder(
-          padding: EdgeInsets.only(top: 12.h),
-          itemCount: _hotels.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 2.h,
-            crossAxisSpacing: 12.w,
-            childAspectRatio: 0.88,
-          ),
-          itemBuilder: (context, index) {
-            final hotel = _hotels[index];
-
-            return HotelCardList(
-              name: hotel.name,
-              imageUrl:
-                  hotel.images.isNotEmpty
-                      ? hotel.images.first
-                      : 'https://res.cloudinary.com/dasiiuipv/image/upload/v1768381679/793131782_shbpba.jpg',
-              rating: hotel.rating,
-              ratingCount: hotel.ratingCount,
-              priceHour: hotel.priceHour,
-              address: hotel.address,
-              isFavorite: hotel.isFavorite,
-              onFavoriteTap: () => _handleFavoriteTap(hotel),
-              onTap: () => _handleHotelTap(hotel),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if (state is HomeLoading) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: GridView.builder(
+                padding: EdgeInsets.only(top: 12.h),
+                itemCount: 6,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 2.h,
+                  crossAxisSpacing: 12.w,
+                  childAspectRatio: 0.88,
+                ),
+                itemBuilder: (context, index) => const HotelCardListSkeleton(),
+              ),
             );
-          },
-        ),
+          }
+
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: GridView.builder(
+              padding: EdgeInsets.only(top: 12.h),
+              itemCount: _hotels.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 2.h,
+                crossAxisSpacing: 12.w,
+                childAspectRatio: 0.88,
+              ),
+              itemBuilder: (context, index) {
+                final hotel = _hotels[index];
+
+                return HotelCardList(
+                  name: hotel.name,
+                  imageUrl:
+                      hotel.images.isNotEmpty
+                          ? hotel.images.first
+                          : 'https://res.cloudinary.com/dasiiuipv/image/upload/v1768381679/793131782_shbpba.jpg',
+                  rating: hotel.rating,
+                  ratingCount: hotel.ratingCount,
+                  priceHour: hotel.priceHour,
+                  address: hotel.address,
+                  isFavorite: hotel.isFavorite,
+                  onFavoriteTap: () => _handleFavoriteTap(hotel),
+                  onTap: () => _handleHotelTap(hotel),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

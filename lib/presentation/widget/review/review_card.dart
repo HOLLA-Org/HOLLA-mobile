@@ -28,18 +28,11 @@ class ReviewCard extends StatelessWidget {
               CircleAvatar(
                 radius: 18.r,
                 backgroundImage:
-                    review.user.avatarUrl != null
+                    review.user.avatarUrl != null &&
+                            review.user.avatarUrl!.isNotEmpty
                         ? NetworkImage(review.user.avatarUrl!)
-                        : null,
+                        : const AssetImage('assets/images/avatar/avatar.jpg'),
                 backgroundColor: Colors.blue[100],
-                child:
-                    review.user.avatarUrl == null
-                        ? Icon(
-                          Icons.person,
-                          color: Colors.blue[700],
-                          size: 20.sp,
-                        )
-                        : null,
               ),
               SizedBox(width: 8.w),
               Expanded(

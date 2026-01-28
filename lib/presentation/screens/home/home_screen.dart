@@ -22,6 +22,7 @@ import '../../bloc/home/home_event.dart';
 import '../../bloc/home/home_state.dart';
 import '../../widget/header.dart';
 import '../../widget/notification_dialog.dart';
+import '../../widget/shimmer/home_skeleton.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -172,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
             (_popularHotels.isEmpty &&
                     _recommendedHotels.isEmpty &&
                     _topRatedHotels.isEmpty)
-                ? const Center(child: CircularProgressIndicator())
+                ? const HomeSkeleton()
                 : SingleChildScrollView(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   child: Column(
