@@ -84,6 +84,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
         VerifyPasswordSubmitted(email: widget.email, code: _pinController.text),
       );
     }
+    context.push(AppRoutes.resetpassword);
   }
 
   // Dispatches an event to request a new verification code
@@ -97,7 +98,7 @@ class _VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
   // Handles state changes from the [VerifyPasswordBloc] to show UI feedback
   void _handleStateChanges(BuildContext context, VerifyPasswordState state) {
     if (state is VerifyPasswordSuccess) {
-      context.go(AppRoutes.resetpassword, extra: state.token);
+      context.push(AppRoutes.resetpassword, extra: state.token);
     } else if (state is VerifyPasswordFailure) {
       notificationDialog(
         context: context,

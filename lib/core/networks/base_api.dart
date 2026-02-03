@@ -1,7 +1,8 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiBase {
-  static const String baseUrl = "http://10.0.3.2:8080/api/v1";
+  static String get baseUrl =>
+      dotenv.env['BASE_URL'] ?? "http://10.0.3.2:8080/api/v1";
 }
 
 class ApiKey {
