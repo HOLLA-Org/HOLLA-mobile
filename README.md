@@ -64,55 +64,56 @@ flutter run
 
 ## Demo Project
 🎨 UI Screenshots
-
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-45-36.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-01.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-45-48.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-09.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-51-35.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-02-14.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-02-51.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-03-26.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-04-10.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-09-29.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-09-44.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-19.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-46.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-47-53.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-52-37.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-52-46.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-04.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-16.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-21.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-29.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2015-13-52.png" width="200" />
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-04.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-46.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-18.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-29.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-36.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-48.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-20.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-27.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-42.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-47.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-52.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-59.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-08.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-30.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-36.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-43.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-48.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-57-17.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-57-34.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-00.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-10.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-19.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-23.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-30.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-42.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-53.png" width="200" /> 
-<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-59-05.png" width="200" />
+<p align="center">
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-45-36.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-01.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-45-48.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-09.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-51-35.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-02-14.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-02-51.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-03-26.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-04-10.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-09-29.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2014-09-44.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-19.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-46-46.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-47-53.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-52-37.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-52-46.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-04.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-16.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-21.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-29.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2015-13-52.png" width="360" />
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-04.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-53-46.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-18.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-29.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-36.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-54-48.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-20.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-27.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-42.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-47.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-52.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-55-59.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-08.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-30.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-36.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-43.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-56-48.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-57-17.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-57-34.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-00.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-10.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-19.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-23.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-30.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-42.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-58-53.png" width="360" /> 
+<img src="assets/screenshots/Screenshot%20from%202026-02-03%2013-59-05.png" width="360" />
+</p>
 
 ## 🧱 Technologies Used & Plugins
 
